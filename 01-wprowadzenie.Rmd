@@ -1,0 +1,99 @@
+
+# Wprowadzenie {#intro}
+## Cel książki
+Prezentowana książka przeznaczona jest dla wszystkich początkujących, nie znających środowiska R, a chcących poznać podstawowe możliwości obliczeniowe i graficzne oprogramowania R w zakresie zastosowań statystyki. Celem książki jest zapoznanie czytelnika z podstawami składni języka R oraz zastosowaniem R w podstawowych obliczeniach statystycznych. Książka zawiera przykłady wraz z programami (kodami, skryptami) napisanymi w R. Przykłady dotyczą zagadnień przyrodniczych i pochodzą z podręczników, w których znajduje się teoria statystyczna \citep{elandt1964, gren1975, kala2005, hanusz2006, dobek2007}. Po wykonaniu przedstawionych przykładów czytelnik powinien samodzielnie rozwiązywać problemy statystyczne związane z  m.in. testowaniem, regresją, badaniem zależności cech oraz wykonywać wykresy lub prezentacje graficzne.
+
+## Co to jest R
+R \citep{R} jest narzędziem (programem, środowiskiem) przeznaczonym m.in. do wykonywania zarówno prostych, jak i tych bardziej złożonych obliczeń i analiz statystycznych, a także do tworzenia wysokiej jakości grafiki. Oznacza to, że w R możemy wykonywać podstawowe obliczenia takie jak np.: na kalkulatorze oraz możemy stosować go do zaawansowanych metod statystycznych, obliczeń symulacyjnych oraz optymalizacyjnych. Ponadto, przy jego pomocy możliwe jest tworzenie różnego rodzaju wykresów. 
+
+## Zalety R
+- R jest darmowy (licencja GPL GNU)
+- Pozwala na korzystanie z 11791 pakietów (listopad 2017)
+- Umożliwia tworzenie wykresów oraz rysunków
+- Umożliwia wykonywanie funkcji z bibliotek napisanych w różnych językach programowania (Fortran, C, C++, S)
+- Pozwala na tworzenie i używanie własnych programów 
+- Działa w różnych systemach operacyjnych (np. Windows, Linux, Mac)
+- R jest elastyczny, nie jest "czarną skrzynką" tzn. na każdym etapie dostępny jest kod wykonywanych poleceń
+- R jest wykorzystywany w uczelniach, instytutach badawczych, bankach, małych i dużych firmach analizujących różne typy danych oraz wykonujących wszelkie analizy statystyczne.
+
+## Instalacja R i RStudio
+**Instalacja R** 
+
+W pierwszej kolejności należy skopiować na swój komputer plik instalacyjny R, np. plik "R-3.3.3-win.exe" ze strony internetowej
+\begin{center}
+{\bf www.r-project.org }
+\end{center}
+
+czyli: 
+
+1. uruchamiamy stronę internetową "www.r-project.org" 
+2. wybieramy "download R"
+3. wybieramy np. "https://cloud.r-project.org/"
+4. wybieramy "Download R for Windows" (działamy pod windows'em)
+5. wybieramy "install R for the first time"
+6. wybieramy "Download R 3.3.3 for Windows"
+7. zapisujemy plik instalacyjny "R-3.3.3-win.exe" na swoim komputerze.
+
+Następnie należy uruchomić skopiowany plik instalacyjny i postępować zgodnie ze wskazówkami.
+
+
+**Instalacja RStudio** 
+
+Po instalacji R proponujemy zainstalować edytor (interfejs) RStudio \citep{RStudio} dla łatwiejszego korzystania z R. W niniejszej książce ograniczymy się do programu RStudio z kilku ważnych powodów. Jednym z nich jest darmowość i ogólnodostępność tego edytora oraz możliwość instalacji zarówno w systemie Windows, Mac, Linux, jak i jego bezpośrednie użycie ze strony internetowej korzystając z serwera RStudio. Kolejnymi ułatwieniami dla użytkownika jest między innymi: podświetlanie tekstu w celu podpowiedzi składni funkcji, uzupełnianie kodu, nazw zmiennych, łatwe zarządzanie wieloma katalogami za pomocą projektów, szybkie instalowanie pakietów, ukazywanie podpowiedzi dotyczących funkcji i ich argumentów oraz zmiennych otrzymanych po jej zastosowaniu, podgląd danych oraz wykresów w oddzielnym oknie. Aby zainstalować RStudio należy skopiować na swój komputer darmową wersję programu instalacyjnego RStudio ze strony internetowej:
+\begin{center}
+{\bf www.rstudio.com }
+\end{center}
+czyli np. plik "RStudio-1.0.136.exe". Uruchamiając ten plik dokonujemy instalacji edytora RStudio. Po zainstalowaniu uruchamiamy RStudio i ukazuje się nam ekran komputera np. tak jak na Rysunku 1.1.
+
+```{r eval=TRUE, echo=FALSE, out.width = '99%',highlight=FALSE, fig.align='center',fig.pos='H',fig.cap='Przykładowy ekran RStudio'}
+knitr::include_graphics("images/RStudio.png")
+```
+
+Interfejs RStudio składa się z czterech okien. Lewe dolne okno jest konsolą. Po znaku zachęty ">" możemy napisać polecenie (komendę, skrypt) i po naciśnięciu klawisza "enter" polecenie to zostanie wykonane, a wynik zostanie wyświetlony poniżej. Okno lewe górne (okno edycji) służy do edycji skryptów, które można tworzyć, zmieniać, zapisywać oraz wykonywać klikając na polecenie "run". Wyniki realizacji poleceń wyświetlane są w lewym dolnym oknie, czyli oknie konsoli. Okno prawe górne jest oknem zawierającym historię działania w RStudio oraz przedstawiającym informacje o wprowadzonych danych. Natomiast w prawym dolnym oknie znajdują się informacje o pakietach, plikach, wyświetlane są rysunki oraz pomoc. 
+
+\vspace{0.8cm}
+
+**Przydatne skróty klawiszowe w RStudio**
+
+* uzupełnianie nazw funkcji i obiektów - 'tab'
+
+* wyświetlanie kodu funkcji - klawisz F2 
+
+* wyświetlanie pomocy na temat funkcji - klawisz F1 
+
+* zamknięcie programu - ctrl+q
+
+* zamknięcie skryptu - ctrl+w
+
+**Uwaga**
+
+Należy najpierw zainstalować R, a następnie RStudio. Uruchamiamy tylko RStudio.
+
+## Pakiety
+Podczas instalacji R, instalowane są także systemowe pakiety obliczeniowe ('system library'). W każdym momencie możemy zainstalować dowolny pakiet korzystając z prawego dolnego okna RStudio. Należy w zakładce "Packages" uruchomić polecenie "Install" i wpisać nazwę pakietu. Natomiast informacje dotyczące pakietów można uzyskać na dwa sposoby. Po pierwsze, w RStudio w prawym dolnym oknie wybierając "Packages" mamy spis wszystkich zainstalowanych pakietów. Drugi sposób, to kolejno uruchamiamy:
+
+1. www.r-project.org 
+2. CRAN
+3. np. "https://cloud.r-project.org/"
+4. "Packages".
+
+Po zainstalowaniu pakietu, można z niego korzystać (czyli stosować polecenia w nim zawarte) dopiero po aktywowaniu pakietu poleceniem library(), gdzie w nawiasach wpisana jest nazwa pakietu.
+
+## Dokumentacja i szukanie pomocy
+
+Materiały dla początkujących, a także zaawansowanych użytkowników R dotyczące jego wykorzystania w podstawowej oraz zaawansowanej statystyce, a także zastosowanie R w tworzeniu wykresów znajdują się na różnych stronach internetowych, szczególnie na stronie "www.r-project.org". Są to artykuły, raporty oraz książki - także w języku polskim. Natomiast pomoc najłatwiej można uzyskać wpisując w oknie konsoli poszukiwane hasło poprzedzone znakiem zapytania lub wpisując polecenie help(), gdzie w nawiasach wpisana jest nazwa hasła. Treść pomocy wyświetlona zostanie w prawym dolnym oknie. 
+
+## Zadania do wykonania
+
+Zad. 1 
+
+Zainstaluj pakiet ‘agricolae’ i przedstaw własności funkcji ‘correlation’.
+
+Zad. 2 
+
+Zainstaluj pakiet 'agridat' i opisz dane 'yates.oats'.
+
+Zad. 3 
+
+Zainstaluj pakiet 'openxlsx' i przedstaw informacje o funkcji 'read.xlsx'.
+

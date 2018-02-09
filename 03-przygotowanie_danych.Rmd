@@ -1,0 +1,194 @@
+
+# Przygotowanie danych
+W R dane można przygotować na wiele sposobów. W niniejszym opracowaniu przygotowanie danych oznacza: wczytanie, otwarcie i wyświetlenie danych na ekranie. Najprostszą metodą "tworzenia danych", omówioną w poprzednim rozdziale, jest zastosowanie polecenia "c()", czyli utworzenie wektora elementów wskazanych w nawiasach "()". Jeśli np. mamy liczby 3, 5, 2 oraz 8 i wykonamy polecenie x=c(3, 5, 2, 8), to zmienna x będzie wektorem powyższych liczb. Natomiast, jeśli mamy dane zapisane na dysku w formie pliku tekstowego lub pliku utworzonego w excelu, to  należy zastosować odpowiednie polecenia do wczytania takiego pliku.
+
+\vspace{0.8cm}
+**Przykład 3.1** (Greń 1975, s. 161)
+
+Wylosowano po 12 pędów żyta trzech różnych gatunków i otrzymano dla nich następujące długości kłosów żyta (w cm) - patrz Tablica \@ref(gren161).
+
+
+\begin{table}[!ht]
+\centering
+\caption{Dane - Greń (1975, s. 161)}
+\label{gren161}
+\begin{tabular}{lll}
+\multicolumn{3}{c}{Gatunek} \\ \hline
+A       & B    & C    \\ \hline
+6.7     & 7.5  & 5.9  \\
+7.3     & 7.7  & 6.9  \\
+8.0     & 7.7  & 7.0  \\
+8.0     & 8.2  & 7.0  \\
+7.9     & 8.9  & 9.5  \\
+9.2     & 8.9  & 9.6  \\
+10.1    & 10.6 & 9.6  \\
+9.2     & 10.2 & 10.3 \\
+8.3     & 9.4  & 8.1  \\
+8.4     & 9.4  & 8.5  \\
+8.0     & 8.2  & 8.6  \\
+7.9     & 7.8  & 8.8 \\ \hline
+\end{tabular}
+\end{table}
+
+Wykonać poniższe polecenia:
+
+1. Przedstawić dane w formie ramki danych.
+2. Zapisać dane na pulpicie "Pulpit://abc" w postaci pliku tekstowego o nazwie 'kwiaty.txt'. Następnie wczytać i wyświetlić zawartość tego pliku. 
+3. Zapisać dane na pulpicie "Pulpit://abc" w postaci pliku excelowskiego o nazwie 'kwiaty.xlsx'. Następnie wczytać i wyświetlić zawartość tego pliku. 
+
+\vspace{0.8cm}
+
+## Wczytanie ramki danych 
+
+
+**Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 3.1 (Greń 1975, s. 161)
+# ramka danych
+A = c(6.7,7.3,8.0,8.0,7.9,9.2,10.1,9.2,8.3,8.4,8.0,7.9)
+B = c(7.5,7.7,7.7,8.2,8.9,8.9,10.6,10.2,9.4,9.4,8.2,7.8)
+C = c(5.9,6.9,7.0,7.0,9.5,9.6,9.6,10.3,8.1,8.5,8.6,8.8)
+dane=data.frame(A,B,C)  # tworzenie ramki danych o nazwie "dane"
+dane
+```
+\newpage
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 3.1 (Greń 1975, s. 161)
+# ramka danych
+A = c(6.7,7.3,8.0,8.0,7.9,9.2,10.1,9.2,8.3,8.4,8.0,7.9)
+B = c(7.5,7.7,7.7,8.2,8.9,8.9,10.6,10.2,9.4,9.4,8.2,7.8)
+C = c(5.9,6.9,7.0,7.0,9.5,9.6,9.6,10.3,8.1,8.5,8.6,8.8)
+dane=data.frame(A,B,C)  # tworzenie ramki danych o nazwie "dane"
+dane
+```
+
+\newpage
+
+## Wczytanie danych tekstowych
+
+
+Na pulpicie "Pulpit://abc" pod nazwą "kwiaty.txt" zapisujemy plik tekstowy postaci: 
+\begin{table}[H]
+\centering
+\label{dane1}
+\begin{tabular}{l}
+A    B    C    \\
+6.7  7.5  5.9  \\
+7.3  7.7  6.9  \\
+8.0  7.7  7.0  \\
+8.0  8.2  7.0  \\
+7.9  8.9  9.5  \\
+9.2  8.9  9.6  \\
+10.1 10.6  9.6 \\
+9.2 10.2 10.3  \\
+8.3  9.4  8.1  \\
+8.4  9.4  8.5  \\
+8.0  8.2  8.6  \\
+7.9  7.8  8.8 
+\end{tabular}
+\end{table}
+
+Następnie wykonujemy polecenia wczytania pliku tekstowego przy pomocy funkcji \texttt{read.table} i podstawienia wczytanych wartości pod nazwę "dane1" (trzecia linia poniższego kodu) oraz wyświetlenie zawartości  zmiennej "dane1" (czwarta linia kodu). Używając funkcji \texttt{read.table()} stosujemy argument \texttt{header=TRUE}, co oznacza, że dane będą wczytane traktując pierwszy wiersz jako nagłówek.
+
+\vspace{0.8cm}
+
+
+**Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 3.1 (Greń 1975, s. 161)
+# wczytanie pliku tekstowego
+dane1 = read.table("~/Desktop/kwiaty.txt", header=TRUE)
+dane1
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 3.1 - Greń (1975, s. 161)
+# wczytanie pliku tekstowego
+dane1 = read.table("~/Desktop/kwiaty.txt", header=TRUE)
+dane1
+```
+
+
+## Wczytanie danych z Excela
+
+
+W folderze "D://abc" pod nazwą "kwiaty.xlsx" w arkuszu 'dane' zapisujemy plik z treścią taką jak w pliku tekstowym "kwiaty.txt". Do wczytywania danych w formacie \texttt{xlsx} stosujemy funkcję \texttt{read.xlsx()} z pakietu \texttt{openxlsx}. Używamy argumentu \texttt{sheet=dane} wskazując, że dane do wczytania znajdują się w arkuszu o nazwie 'dane'.
+\vspace{0.8cm}
+
+
+**Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 3.1 (Greń 1975, s. 161)
+# czytanie pliku typu xlsx 
+library(openxlsx)  # otwarcie pakietu "openxlsx"
+dane2 <- read.xlsx("~/Desktop/kwiaty.xlsx", sheet = "dane"")
+dane2
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,warning=FALSE,comment=NA,prompt=TRUE}
+# Przykład 3.1 - Greń (1975, s. 161)
+# czytanie pliku typu xlsx 
+library(openxlsx)  # otwarcie pakietu "openxlsx"
+dane2 <- read.xlsx("~/Desktop/kwiaty.xlsx", sheet = "dane")
+dane2
+```
+
+**Uwaga**
+
+Jeśli mamy zapisany plik w excelu w formacie ".xls", to należy plik ten zapisać w formacie ".xlsx" i następnie zastosować funkcję \texttt{read.xlsx()} z pakietu \texttt{openxlsx}.
+
+\vspace{0.8cm}
+**Przydatne funkcje**
+
+\texttt{rm(list=ls())} - usuwanie wszystkich obiektów z pamięci
+
+\texttt{setwd("D://abc")} - ustanowienie aktualnej ścieżki dostępu do folderu "abc" znajdującego się na dysku D. Oznacza to, że zamiast np. funkcji 
+
+\begin{center}
+\texttt{read.table("D://abc/kwiaty.txt", header=TRUE)}
+\end{center}
+
+możemy wykorzystać funkcję postaci
+
+\begin{center}
+\texttt{read.table("kwiaty.txt", header=TRUE)}
+\end{center}
+
+\vspace{0.8cm}
+
+## Zadania do wykonania
+
+Zad. 1
+
+Pobierz ze strony www.up.poznan.pl/kmmis/R plik "rodziny.txt" i wczytaj go do R. Następnie odpowiedz na następujące pytania:
+
+a) Ile rodzin żyje w mieście, a ile na wsi?
+    
+b) Ile dużych rodzin mieszka w mieście, a ile na wsi?
+    
+c) Ile rodzin ze wsi jedzie na wakacje?
+    
+d) Jaki jest maksymalny dochód dużych rodzin żyjących w mieście?
+
+\vspace{0.8cm}
+Zad. 2
+
+Pobierz ze strony www.up.poznan.pl/R plik "studenci.xlsx" i wczytaj go do R. Następnie odpowiedz na następujące pytania:
+
+a) Ile studentów i studentek studiuje leśnictwo?
+    
+b) Jakie jest średnie  stypendium dla studentów, a jakie dla studentek?
+    
+c) Ile studentek studiuje agroturystykę?
+    
+d) Ile studentów leśnictwa nie ma stypendium?
+
+
+
+
+
+

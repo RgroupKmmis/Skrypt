@@ -1,0 +1,387 @@
+
+
+# Regresja liniowa i wielokrotna
+
+## Regresja liniowa
+
+Mamy dane dwie zmienne (cechy) $x$ i $y$. Chcemy określić zależność liniową pomiędzy tymi zmiennymi, tzn. wyznaczyć liniowy wpływ zmiennej $x$ na zmienną $y$.  W tym celu wyznaczymy linię prostą zwaną regresją liniową postaci
+\begin{equation}
+y = a+bx
+\end{equation}
+gdzie
+
+$y$ - zmienna zależna, objaśniana (the response variable)
+
+$x$ - zmienna niezależna, objaśniająca (the predyctor variable)
+
+$a$  - wyraz wolny (intercept)
+
+$b$ - współczynnik regresji.
+
+\vspace{0.8cm}
+Miarą dopasowania regresji liniowej do danych jest współczynnik determinacji $R^2$.
+
+
+W R wyznaczenie regresji liniowej oraz testowanie istotności wyrazu wolnego $a$ i współczynnika regresji $b$ można wykonać przy pomocy funkcji postaci \texttt{$lm(y \sim  x)$} lub \texttt{$lm(y \sim x, dane)$}.
+
+\newpage
+
+**Przykład 7.1** (Greń 1975,  s. 176) 
+
+Badając zależność między wielkością produkcji X pewnego wyrobu, a zużyciem Y pewnego surowca zużywanego w produkcji tego wyrobu otrzymano dla losowej próby 7 obserwacji następujące wyniki ($x_i$ w tys. sztuk, $y_i$ w tonach):
+
+\begin{table}[H]
+\centering
+\caption{Dane - Greń (1975, s. 176)}
+\label{gren}
+\begin{tabular}{lllllllll}
+sztuki (x) & 1 & 2  & 3  & 4  & 5  & 6  & 7  \\ \hline
+surowiec (y) & 8 & 13 & 14 & 17 & 18 & 20 & 22
+\end{tabular}
+\end{table}
+
+Wyznaczyć równanie regresji liniowej.
+
+\vspace{0.4cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 7.1 (Greń 1975,  s. 176)
+# usuwanie wszystkich zmiennych z przestrzeni roboczej
+rm(list=ls()) 
+# tworzenie danych
+sztuki = c(1, 2, 3, 4, 5, 6, 7)
+sztuki
+surowiec=c(8, 13, 14, 17, 18, 20, 22)
+surowiec
+# wykres danych
+plot(sztuki, surowiec, main="Dane - Greń (1975, s. 176)")   # Rys. 7.1
+# model: y = a + bx
+# model: surowiec=a+b*sztuki
+# a = (Intercept), czyli wyraz wolny, b = współczynnik regresji
+# wyznaczanie równania regresji liniowej
+model1=lm(surowiec~sztuki)
+summary(model1)
+# na wykresie danych wyznaczana jest prosta regresji
+abline(model1)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,fig.align='center',comment=NA,fig.cap='Zależność między wielkością produkcji pewnego wyrobu, a zużyciem pewnego surowca',warning=FALSE,prompt=TRUE,fig.align='center',fig.pos='H',out.width='70%',dev.args=list(encoding='CP1250')}
+# Przykład 7.1 (Greń 1975,  s. 176)
+# usuwanie wszystkich zmiennych z przestrzeni roboczej
+rm(list=ls()) 
+# tworzenie danych
+sztuki = c(1, 2, 3, 4, 5, 6, 7)
+sztuki
+surowiec=c(8, 13, 14, 17, 18, 20, 22)
+surowiec
+# wykres danych
+plot(sztuki, surowiec, main="Dane - Greń (1975, s. 176)")   # Rys. 7.1
+# model: y = a + bx
+# model: surowiec=a+b*sztuki
+# a = (Intercept), czyli wyraz wolny, b = współczynnik regresji
+# wyznaczanie równania regresji liniowej
+model1=lm(surowiec~sztuki)
+summary(model1)
+```
+
+```{r  eval=FALSE,fig.cap='Prosta regresji liniowej dla zależności między wielkością produkcji pewnego wyrobu, a zużyciem pewnego surowca', fig.align='center',fig.pos='H',out.width='70%', dev.args=list(encoding='CP1250')}
+abline(model1)  # Rys. 7.2
+```
+
+```{r  echo=FALSE, fig.cap='Prosta regresji liniowej dla zależności między wielkością produkcji pewnego wyrobu, a zużyciem pewnego surowca', fig.align='center',out.width='70%', dev.args=list(encoding='CP1250'),warning=FALSE,}
+plot(sztuki, surowiec, main="Dane - Greń (1975, s. 176)")  
+abline(model1)
+```
+
+\vspace{0.8cm}
+**Interpretacja**
+
+Ponieważ $p$-wartości dla wyrazu wolnego a (Intercept) oraz dla współczynnika kierunkowego b są mniejsze od 0,05, więc odrzucamy hipotezy zerowe i przyjmujemy hipotezy alternatywne.
+Wyraz wolny $a$ (Intercept) oraz współczynnik kierunkowy $b$ są istotne statystycznie ($p$-wartość = 0.000384 oraz $p$-wartość = 0.000114, odpowiednio) dla równania regresji liniowej $y =a+bx$. Wartość $R^2=0.9595$ oznacza, że stopień dopasowania prostej regresji do danych wynosi 96 \%. Oszacowanie równania regresji liniowej jest postaci:
+$\widehat{surowiec} = 7.4286 + 2.1429 * \textrm{sztuki}$.
+
+\vspace{0.8cm}
+**Przykład 7.2** (Kala 2005, s. 94) 
+
+W badaniach nad szybkością oddawania wody przez blaszki liściowe pewnego gatunku trawy poszukiwano w szczególności związku pomiędzy masą początkową blaszek liściowych bezpośrednio po zerwaniu oraz ich masą po trzech godzinach przechowywania bez dostępu wody. Dla 10 blaszek uzyskano obserwacje (w g):
+
+0h: 0.25, 0.33, 0.39, 0.23, 0.19, 0.51, 0.31, 0.24, 0.33, 0.41
+
+3h: 0.09, 0.15, 0.23, 0.10, 0.08, 0.28, 0.17, 0.11, 0.19, 0.24
+
+Wyznaczyć regresję liniową masy blaszki liściowej po trzech godzinach przechowywania w zależności od masy początkowej.
+
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE,tidy=TRUE}
+# Przykład 7.2 (Kala 2005, s. 94) 
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+h0=c(0.25, 0.33, 0.39, 0.23, 0.19, 0.51, 0.31, 0.24, 0.33, 0.41)
+h3=c(0.09, 0.15, 0.23, 0.10, 0.08, 0.28, 0.17, 0.11, 0.19, 0.24)
+# wykres danych
+plot(h0,h3, main="Dane - Kala (2005, s. 94)",xlab='masa początkowa blaszek 
+     liściowych', ylab='masa po 3 h blaszek liściowych')  # Rys. 7.3
+# wyznaczanie równania regresji liniowej
+model2=lm(h3~h0)
+summary(model2)
+# na wykresie danych wyznaczana jest prosta regresji
+abline(model2)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=47),highlight=FALSE,fig.align='center',comment=NA,fig.cap='Masa blaszki liściowej po trzech godzinach przechowywania w zależności od masy początkowej',warning=FALSE,prompt=TRUE,fig.pos='H',out.width='70%', dev.args=list(encoding='CP1250'),tidy=TRUE}
+# Przykład 7.2 (Kala 2005, s. 94) 
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+h0=c(0.25, 0.33, 0.39, 0.23, 0.19, 0.51, 0.31, 0.24, 0.33, 0.41)
+h3=c(0.09, 0.15, 0.23, 0.10, 0.08, 0.28, 0.17, 0.11, 0.19, 0.24)
+```
+
+```{r eval=TRUE, highlight=FALSE,tidy.opts=list(width.cutoff=47),fig.align='center',comment=NA,fig.cap='Masa blaszki liściowej po trzech godzinach przechowywania w zależności od masy początkowej',warning=FALSE,prompt=TRUE,fig.pos='H',out.width='70%', dev.args=list(encoding='CP1250'),tidy=TRUE}
+# wykres danych
+plot(h0,h3, main="Dane - Kala (2005, s. 94)",xlab='masa początkowa blaszek liściowych', 
+     ylab='masa po 3 h blaszek liściowych')   # Rys. 7.3
+# wyznaczanie równania regresji liniowej
+model2=lm(h3~h0)
+summary(model2)
+```
+
+```{r eval=FALSE, fig.align='center',highlight=FALSE,comment=NA,fig.cap='Masa blaszki liściowej po trzech godzinach przechowywania w zależności od masy początkowej',warning=FALSE,prompt=TRUE,fig.pos='H',out.width='70%', dev.args=list(encoding='CP1250')}
+# na wykresie danych wyznaczana jest prosta regresji
+abline(model2)
+```
+
+
+```{r echo=FALSE, tidy.opts=list(width.cutoff=47),highlight=FALSE,fig.align='center',comment=NA,fig.cap='Masa blaszki liściowej po trzech godzinach przechowywania w zależności od masy początkowej',warning=FALSE,prompt=TRUE,fig.pos='H',out.width='70%', dev.args=list(encoding='CP1250'),tidy=TRUE}
+plot(h0,h3, main="Dane - Kala (2005, s. 94)",xlab='masa początkowa blaszek liściowych', 
+     ylab='masa po 3 h blaszek liściowych')   # Rys. 7.3
+abline(model2)
+```
+
+\vspace{0.8cm}
+
+**Interpretacja** 
+
+Ponieważ $p$-wartości dla wyrazu wolnego a (Intercept) oraz dla współczynnika kierunkowego b są mniejsze od 0,05, więc odrzucamy hipotezy zerowe i przyjmujemy hipotezy alternatywne.
+Wyraz wolny $a$ (Intercept) oraz współczynnik kierunkowy $b$ są istotne statystycznie dla równania regresji liniowej $y =a+bx$ oraz stopień dopasowania prostej regresji do danych wynosi 94 \%.
+
+Oszacowanie prostej regresji jest postaci:
+$\hat{y}= -0.058 + 0.697x$.
+
+
+## Regresja wielokrotna
+
+Mamy dane zmienne niezależne (cechy) $x_1, x_2, ..., x_n$ i zmienną zależną $y$. Chcemy określić zależność liniową pomiędzy zmienną y a zmiennymi $x_1, x_2, ..., x_n$, tzn. wyznaczyć liniowy wpływ zmiennych $x_1, x_2, ..., x_n$ na zmienną $y$.  W tym celu wyznaczymy regresję wielokrotną postaci
+$y = b_0 + b_1*x_1 + b_2*x_2 + b_3*x_3 + ... + b_n*x_n$
+gdzie:
+
+$y$ - zmienna zależna, objaśniana (the response variable),
+$x_1, x_2, ..., x_n$ - zmienne niezależne, objaśniające (the predyctor variables),
+$b_0$  - wyraz wolny (Intercept),
+$b_1, ..., b_n$ - współczynniki regresji.
+
+\vspace{0.8cm}
+Miarą dopasowania regresji wielokrotnej do danych jest współczynnik determinacji $R^2$.
+
+
+W R wyznaczenie regresji wielokrotnej, tak jak regresji liniowej, można wykonać za pomocą funkcji postaci \texttt{$lm(y \sim x_1+x_2+...+x_n)$} lub \texttt{$lm(y \sim x_1+x_2+...+x_n, dane)$}.
+
+
+\vspace{0.8cm}
+**Przykład 7.3** (Elandt 1964, s. 441)
+
+Badano cztery cechy słomy konopi: ciężar włókna  (g), długość łodygi (cm), grubość łodygi (mm) oraz ciężar łodygi  (g) (Tablica \@ref(elandt)). Znaleźć równanie regresji wielokrotnej liniowej określającej zależność ciężaru włókna  od długości, grubości oraz ciężaru łodygi.
+
+
+\begin{table}[H]
+\centering
+\caption{Ciężar włókna  (g), długość łodygi (cm), grubość łodygi (mm) oraz ciężar łodygi  (g) konopi}
+\label{elandt}
+\begin{tabular}{ccccc|ccccc}
+\hline
+\multirow{2}{*}{Lp.} & \begin{tabular}[c]{@{}c@{}}ciężar \\ włókna\end{tabular} & \begin{tabular}[c]{@{}c@{}}długość \\ łodygi\end{tabular} & \begin{tabular}[c]{@{}c@{}}grubość\\  łodygi\end{tabular} & \begin{tabular}[c]{@{}c@{}}ciężar\\  łodygi\end{tabular} & \multirow{2}{*}{Lp.} & \begin{tabular}[c]{@{}c@{}}ciężar \\ włókna\end{tabular} & \begin{tabular}[c]{@{}c@{}}długość\\  łodygi\end{tabular} & \begin{tabular}[c]{@{}c@{}}grubość\\  łodygi\end{tabular} & \begin{tabular}[c]{@{}c@{}}ciężar\\  łodygi\end{tabular} \\ \hline
+ & y    & x1    & x2  & x3  &                      & y                                                        & x1                                                        & x2                                                        & x3                                                       \\ \hline
+1                    & 7.4                                                      & 251                                                       & 9.25                                                      & 47.5                                                     & 26                   & 8.3                                                      & 248                                                       & 8.75                                                      & 51.2                                                     \\
+2                    & 9.2                                                      & 255                                                       & 10.50                                                     & 57.7                                                     & 27                   & 8.5                                                      & 248                                                       & 9.50                                                      & 46.1                                                     \\
+3                    & 9.6                                                      & 253                                                       & 9.50                                                      & 47.1                                                     & 28                   & 8.9                                                      & 256                                                       & 9.50                                                      & 46.1                                                     \\
+4                    & 6.7                                                      & 242                                                       & 8.50                                                      & 38.8                                                     & 29                   & 6.7                                                      & 246                                                       & 9.00                                                      & 40.1                                                     \\
+5                    & 7.8                                                      & 246                                                       & 9.50                                                      & 45.2                                                     & 30                   & 7.6                                                      & 247                                                       & 9.00                                                      & 42.9                                                     \\
+6                    & 7.8                                                      & 246                                                       & 10.25                                                     & 49.8                                                     & 31                   & 4.6                                                      & 242                                                       & 8.25                                                      & 34.1                                                     \\
+7                    & 6.3                                                      & 243                                                       & 8.75                                                      & 43.4                                                     & 32                   & 6.2                                                      & 247                                                       & 9.00                                                      & 38.8                                                     \\
+8                    & 7.6                                                      & 246                                                       & 9.00                                                      & 50.8                                                     & 33                   & 7.0                                                      & 250                                                       & 9.25                                                      & 41.5                                                     \\
+9                    & 6.4                                                      & 249                                                       & 9.00                                                      & 41.5                                                     & 34                   & 8.9                                                      & 280                                                       & 10.25                                                     & 69.2                                                     \\
+10                   & 7.0                                                      & 247                                                       & 9.50                                                      & 38.8                                                     & 35                   & 6.9                                                      & 240                                                       & 9.25                                                      & 43.8                                                     \\
+11                   & 6.6                                                      & 237                                                       & 9.75                                                      & 47.1                                                     & 36                   & 8.7                                                      & 243                                                       & 9.25                                                      & 48.9                                                     \\
+12                   & 8.2                                                      & 246                                                       & 9.50                                                      & 51.2                                                     & 37                   & 8.5                                                      & 229                                                       & 9.00                                                      & 44.3                                                     \\
+13                   & 8.2                                                      & 257                                                       & 9.50                                                      & 52.6                                                     & 38                   & 10.4                                                     & 271                                                       & 9.50                                                      & 52.6                                                     \\
+14                   & 7.0                                                      & 250                                                       & 8.75                                                      & 46.1                                                     & 39                   & 8.5                                                      & 266                                                       & 10.50                                                     & 54.5                                                     \\
+15                   & 6.8                                                      & 235                                                       & 8.00                                                      & 36.0                                                     & 40                   & 9.8                                                      & 267                                                       & 9.25                                                      & 52.6                                                     \\
+16                   & 6.8                                                      & 247                                                       & 10.00                                                     & 44.8                                                     & 41                   & 7.8                                                      & 260                                                       & 8.75                                                      & 51.7                                                     \\
+17                   & 9.7                                                      & 234                                                       & 9.50                                                      & 47.1                                                     & 42                   & 7.3                                                      & 247                                                       & 8.75                                                      & 41.5                                                     \\
+18                   & 9.3                                                      & 259                                                       & 10.50                                                     & 68.3                                                     & 43                   & 7.0                                                      & 242                                                       & 8.50                                                      & 49.4                                                     \\
+19                   & 12.0                                                     & 255                                                       & 10.25                                                     & 62.8                                                     & 44                   & 9.8                                                      & 254                                                       & 10.50                                                     & 59.1                                                     \\
+20                   & 8.4                                                      & 264                                                       & 8.50                                                      & 45.7                                                     & 45                   & 8.9                                                      & 262                                                       & 9.50                                                      & 51.7                                                     \\
+21                   & 9.5                                                      & 261                                                       & 10.75                                                     & 60.9                                                     & 46                   & 10.2                                                     & 260                                                       & 10.50                                                     & 63.2                                                     \\
+22                   & 9.0                                                      & 242                                                       & 9.50                                                      & 45.2                                                     & 47                   & 8.7                                                      & 254                                                       & 8.50                                                      & 51.2                                                     \\
+23                   & 6.8                                                      & 240                                                       & 8.25                                                      & 37.8                                                     & 48                   & 6.8                                                      & 249                                                       & 8.75                                                      & 39.7                                                     \\
+24                   & 7.3                                                      & 235                                                       & 10.25                                                     & 48.0                                                     & 49                   & 7.5                                                      & 244                                                       & 9.00                                                      & 44.3                                                     \\
+25                   & 7.0                                                      & 245                                                       & 8.75                                                      & 44.3                                                     &                      &                                                          &                                                           &                                                           &   \\ \hline                                                      
+\end{tabular}
+\end{table}
+
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 7.3 (Elandt 1964, s. 441)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+sloma=read.table("~/Desktop/Elandt-441-regresja-wielokrotna.txt", header=T)
+head(sloma)
+# korelacje
+round(cor(sloma),2)
+# regresja liniowa wielokrotna
+regresja=lm(ciezwlokna~dluglodygi+grublodygi+ciezlodygi, data=sloma)
+summary(regresja)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 7.3 (Elandt 1964, s. 441)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+sloma=read.table("~/Desktop/Elandt-441-regresja-wielokrotna.txt", header=T)
+head(sloma)
+# korelacje
+round(cor(sloma),2)
+```
+\vspace{0.8cm}
+
+**Interpretacja**
+
+Powyżej przedstawione są współczynniki korelacji pomiędzy analizowanymi zmiennymi tzn. ciężarem włókna, długością łodygi, grubością łodygi i ciężarem łodygi.
+
+\vspace{0.8cm}
+```{r tidy.opts=list(width.cutoff=37),comment=NA,prompt=TRUE}
+# regresja liniowa wielokrotna
+regresja=lm(ciezwlokna~dluglodygi+grublodygi+ciezlodygi, data=sloma)
+summary(regresja)
+```
+\vspace{0.4cm}
+
+**Interpretacja**
+
+Oszacowanie równania regresji liniowej wielokrotnej jest postaci:
+
+$\widehat{ciezar wlokna} = -0.856+0.008*\textrm{dlugosc lodygi} + 0.16*\textrm{grubosc lodygi}+0.113*\textrm{ciezar lodygi}$
+
+Współczynnik determinacji wynosi $R^2=0,569$.
+
+
+## Selekcja zmiennych
+
+Analizując przykład 7.3, po wyznaczeniu równania regresji liniowej wielokrotnej i otrzymaniu charakterystyk współczynników regresji należy zauważyć, że p-wartości dla wyrazu wolnego, długości i grubości łodygi są większe od 0,05 (0.8465882, 0.664498 oraz 0.577321, odpowiednio). Oznacza to, że długość i grubość łodygi nie mają istotnego wpływu na ciężar włókna. Skoro tak, to zmienne te (zmienne nieistotne) można nie uwzględniać w wyznaczaniu równania regresji liniowej wielokrotnej. Obecnie wyznaczymy równania regresji uwzględniającej tylko ciężar łodygi jako zmienną niezależną, czyli wyznaczymy równania regresji liniowej. Takie postępowanie jest jedną z metod selekcji zmiennych. Drugą metodą jest automatyczna selekcja zmiennych przy pomocy funkcji \texttt{step}. 
+Program sam dokona selekcji zmiennych. Jest to tzw. selekcja zstępująca.
+
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# cd. przykładu 7.3
+regresja1=lm(ciezwlokna~ciezlodygi, data=sloma)
+summary(regresja1)
+# step()
+modelstep=step(regresja)
+summary(modelstep)
+```
+
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# cd. przykładu 7.3
+regresja1=lm(ciezwlokna~ciezlodygi, data=sloma)
+summary(regresja1)
+```
+\vspace{0.8cm}
+**Interpretacja**
+
+Równanie regresji liniowej wielokrotnej jest postaci:
+
+$\textrm{ciężar włókna} = 1.74744 + 0.12994*\textrm{ciężar łodygi}$.
+
+Współczynnik determinacji jest równy $R^2=0.5647$.
+
+\vspace{0.8cm}
+**Realizacja w R (c.d.)**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# step()
+modelstep=step(regresja)
+summary(modelstep)
+```
+
+\vspace{0.8cm}
+**Interpretacja**
+
+Najlepiej dopasowanym równaniem regresji do analizowanych danych jest równanie z najmniejszą wartością współczynnika Akaike (AIC). Z powyższych danych wynika, że jest to ostatnie równanie, czyli równanie regresji liniowej postaci:
+
+$\textrm{ciężar włókna} = 1.74744 + 0.12994*\textrm{ciężar łodygi}$
+
+Ponadto, dla tego równania wyraz wolny oraz współczynnik kierunkowy są istotne statystycznie. Współczynnik determinacji jest równy $R^2=0.5647$.
+
+
+\newpage
+
+## Zadania do wykonania
+
+**Regresja liniowa**
+
+Zad. 1 (Greń 1975, s. 179) 
+
+Dokonano w pewnej miejscowości 6 pomiarów temperatury dla różnych głębokości pod powierzchnią ziemi. Otrzymano następujące wyniki ($x_i$ głębokość w m, $y_i$ temperatura w stopniach C):
+
+$x_i$: 200, 400, 600, 800, 1000, 1200
+
+$y_i$: 10, 15, 23, 26, 33, 37
+
+Znaleźć równanie regresji liniowej określającej zależność temperatury od głębokości.
+
+\vspace{0.8cm}
+**Regresja wielokrotna**
+
+Zad. 1 (Greń 1975, s. 210) 
+
+W pewnym eksperymencie rolniczym zastosowano różne dawki dwu nawozów na poletkach doświadczalnych i otrzymano następujące dane dotyczące wysokości uzyskanych plonów (w q/ha) pewnej rośliny uprawnej ($X_1$ dawki nawozu A, $X_2$ dawki nawozu B, $Y$ wielkość plonu):
+\begin{table}[H]
+\centering
+\caption{Dane - Greń (1975, s. 210)}
+\label{gren210}
+\begin{tabular}{ccc}
+X1 & X2 & Y  \\
+1  & 0  & 3  \\
+0  & 1  & 7  \\
+1  & 1  & 8  \\
+2  & 1  & 11 \\
+1  & 2  & 14 \\
+2  & 2  & 16
+\end{tabular}
+\end{table}
+
+Oszacować współczynniki regresji wielokrotnej oraz współczynnik korelacji wielorakiej.
+
+\vspace{0.8cm}
+**Selekcja zmiennych**
+
+Zad. 1  (Kala 2005, s. 113)
+
+Badając pewien ród pszenżyta jarego, zmierzono u 10 roślin następujące cechy: długość kłosa głównego (w cm), liczbę ziarniaków w kłosie głównym (w szt.), masę ziarniaków z całej rośliny (w g). Uzyskano pomiary: 
+
+długość: 10.8, 11.7, 10.3, 11.2, 10, 10.8, 10.6, 10.7, 9.8, 11.5
+
+ziarniaki: 39, 56, 46, 48, 36, 36, 40, 42, 38, 42
+
+masa: 6.7, 7.3, 6, 6.6, 5.4, 6, 5.8, 6.4, 6.1, 6.9
+
+Wyznaczyć równanie regresji wielokrotnej dla masy w zależności od długości i liczby ziarniaków kłosa głównego oraz wykonać selekcję zmiennych. 

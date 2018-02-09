@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statystyka dla przyrodników w R</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statystyka dla przyrodników w R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/cover.png" />
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="zjanna/Skrypt" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statystyka dla przyrodników w R" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:image" content="images/cover.png" />
+
+<meta name="author" content="Idzi Siatkowski">
+<meta name="author" content="Joanna Zyprych-Walczak">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="intro.html">
+<link rel="next" href="przygotowanie-danych.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Placeholder</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Wprowadzenie</a></li>
+<li class="chapter" data-level="3" data-path="obliczenia-w-r.html"><a href="obliczenia-w-r.html"><i class="fa fa-check"></i><b>3</b> Obliczenia w R</a><ul>
+<li class="chapter" data-level="3.1" data-path="obliczenia-w-r.html"><a href="obliczenia-w-r.html#proste-obliczenia-matematyczne"><i class="fa fa-check"></i><b>3.1</b> Proste obliczenia matematyczne</a></li>
+<li class="chapter" data-level="3.2" data-path="obliczenia-w-r.html"><a href="obliczenia-w-r.html#zmienne"><i class="fa fa-check"></i><b>3.2</b> Zmienne</a></li>
+<li class="chapter" data-level="3.3" data-path="obliczenia-w-r.html"><a href="obliczenia-w-r.html#wektory-macierze-oraz-ramki-danych"><i class="fa fa-check"></i><b>3.3</b> Wektory, macierze oraz ramki danych</a></li>
+<li class="chapter" data-level="3.4" data-path="obliczenia-w-r.html"><a href="obliczenia-w-r.html#zadania-do-wykonania"><i class="fa fa-check"></i><b>3.4</b> Zadania do wykonania</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html"><i class="fa fa-check"></i><b>4</b> Przygotowanie danych</a></li>
+<li class="chapter" data-level="5" data-path="wizualizacje.html"><a href="wizualizacje.html"><i class="fa fa-check"></i><b>5</b> Wizualizacje</a></li>
+<li class="chapter" data-level="6" data-path="testowanie.html"><a href="testowanie.html"><i class="fa fa-check"></i><b>6</b> Testowanie</a></li>
+<li class="chapter" data-level="7" data-path="badanie-zaleznosci-cech.html"><a href="badanie-zaleznosci-cech.html"><i class="fa fa-check"></i><b>7</b> Badanie zależności cech</a></li>
+<li class="chapter" data-level="8" data-path="regresja-liniowa-i-wielokrotna.html"><a href="regresja-liniowa-i-wielokrotna.html"><i class="fa fa-check"></i><b>8</b> Regresja liniowa i wielokrotna</a></li>
+<li class="chapter" data-level="9" data-path="odpowiedzi-do-zadan.html"><a href="odpowiedzi-do-zadan.html"><i class="fa fa-check"></i><b>9</b> Odpowiedzi do zadań</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statystyka dla przyrodników w R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="obliczenia-w-r" class="section level1">
+<h1><span class="header-section-number">Rozdział 3</span> Obliczenia w R</h1>
+<p>W programie R mamy nie tylko możliwość wykonywania zaawansowanych obliczeń statystycznych, ale także możemy używać R do zwykłych działań jako kalkulatora.</p>
+<p>Polecenia w R można realizować na kilka sposobów. Dwa najprostsze są następujące:</p>
+<ol style="list-style-type: decimal">
+<li>W lewym górnym oknie RStudio (okno edycji) piszemy polecenie (kod, skrypt) i następnie wykonujemy polecenie “Run” (kursor wskazuje, który wiersz poleceń będzie wykonany, natomiast zaznaczony obszar wskazuje, które polecenia będą wykonane).</li>
+<li>W lewym dolnym oknie RStudio (okno konsoli) po znaku zachęty “&gt;” piszemy polecenie (kod, skrypt) i wykonujemy to polecenie naciskając klawisz “enter”.</li>
+</ol>
+<p><strong>Uwagi</strong></p>
+<ol style="list-style-type: decimal">
+<li>Realizacja wykonanych poleceń przedstawiana jest w lewym dolnym oknie RStudio (okno konsoli).</li>
+<li>Po znaku “#” występuje komentarz, który nie jest wykonywany.</li>
+<li>Liczba rzeczywista przedstawiana jest za pomocą kropki, a nie przecinka.</li>
+<li>Nazwy obiektów mogą zawierać duże i małe litery, przy czym wielkość znaków jest rozróżnialna.</li>
+<li>Nazwy nie mogą się zaczynać od liczby oraz znaku ‘_’.</li>
+</ol>
+<div id="proste-obliczenia-matematyczne" class="section level2">
+<h2><span class="header-section-number">3.1</span> Proste obliczenia matematyczne</h2>
+<p><strong>Przykład 2.1</strong></p>
+<p>W lewym górnym oknie RStudio (okno edycji) piszemy:</p>
+<pre class="text"><code>6+8 </code></pre>
+<p>i wykonujemy polecenie “Run”. Wówczas w lewym dolnym oknie RStudio (okno konsoli) pojawi się:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="dv">6+8</span> </code></pre></div>
+<pre><code>[1] 14</code></pre>
+<p>gdzie znak “&gt;” jest znakiem zachęty, “6+8” jest wykonanym poleceniem, “[1]” jest liczbą elementów wyjściowych, natomiast “14” jest wynikiem realizacji polecenia wejściowego.</p>
+<p><strong>Uwaga</strong></p>
+<p>W prezentowanym manuskrypcie wszystkie polecenia, kody oraz skrypty oznaczane są czcionką koloru czarnego i nazwane “Kod w R”. Najlepiej polecenia takie umieścić w lewym górnym oknie RStudio (okno edycji). Natomiast wynik wykonania skryptu (po uruchomieniu poleceniem “Run”), przedstawiony jest w lewym dolnym oknie RStudio (okno konsoli) i oznaczony w manuskrypcie kolorową czcionką na szarym tle oraz nazwany “Realizacja w R”.</p>
+
+
+<p><strong>Przykład 2.2</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.2 - proste obliczenia matematyczne
+3+5 # dodawanie
+4-6 # odejmowanie
+8*7 # mnożenie
+21/5 # dzielenie
+5^3 # 5 do potęgi 3
+sqrt(49) # pierwiastek kwadratowy z 49
+49^(1/2) # pierwiastek kwadratowy z 49
+(-8)^(1/3) # pierwiastek trzeciego stopnia z -8
+log(7) # logarytm naturalny z 7
+log10(6) # logarytm o podstawie 10 z 6
+log2(5) # logarytm o podstawie 2 z 5
+log(4,5) # logarytm o podstawie 5 z 4
+exp(3) # e do potęgi 3
+sin(6.28) # sinus kąta 6.28 (w radianach), czyli kąta 360 stopni
+cos(pi/2) # cosinus kąta pi/2 (w radianach), czyli kąta 90 stopni</code></pre>
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.2 - proste obliczenia matematyczne</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="dv">3+5</span> <span class="co"># dodawanie</span></code></pre></div>
+<pre><code>[1] 8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="dv">4-6</span> <span class="co"># odejmowanie</span></code></pre></div>
+<pre><code>[1] -2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="dv">8</span>*<span class="dv">7</span> <span class="co"># mnożenie</span></code></pre></div>
+<pre><code>[1] 56</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="dv">21</span>/<span class="dv">5</span> <span class="co"># dzielenie</span></code></pre></div>
+<pre><code>[1] 4.2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="dv">5</span>^<span class="dv">3</span> <span class="co"># 5 do potęgi 3</span></code></pre></div>
+<pre><code>[1] 125</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">49</span>) <span class="co"># pierwiastek kwadratowy z 49</span></code></pre></div>
+<pre><code>[1] 7</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="dv">49</span>^(<span class="dv">1</span>/<span class="dv">2</span>) <span class="co"># pierwiastek kwadratowy z 49</span></code></pre></div>
+<pre><code>[1] 7</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>(-<span class="dv">8</span>)^(<span class="dv">1</span>/<span class="dv">3</span>) <span class="co"># pierwiastek trzeciego stopnia z -8</span></code></pre></div>
+<pre><code>[1] NaN</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">log</span>(<span class="dv">7</span>) <span class="co"># logarytm naturalny z 7</span></code></pre></div>
+<pre><code>[1] 1.94591</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">log10</span>(<span class="dv">6</span>) <span class="co"># logarytm o podstawie 10 z 6</span></code></pre></div>
+<pre><code>[1] 0.7781513</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">log2</span>(<span class="dv">5</span>) <span class="co"># logarytm o podstawie 2 z 5</span></code></pre></div>
+<pre><code>[1] 2.321928</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">log</span>(<span class="dv">4</span>,<span class="dv">5</span>) <span class="co"># logarytm o podstawie 5 z 4</span></code></pre></div>
+<pre><code>[1] 0.8613531</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">exp</span>(<span class="dv">3</span>) <span class="co"># e do potęgi 3</span></code></pre></div>
+<pre><code>[1] 20.08554</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sin</span>(<span class="fl">6.28</span>) <span class="co"># sinus kąta 6.28 (w radianach), czyli kąta 360 stopni</span></code></pre></div>
+<pre><code>[1] -0.003185302</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">cos</span>(pi/<span class="dv">2</span>) <span class="co"># cosinus kąta pi/2 (w radianach), czyli kąta 90 stopni</span></code></pre></div>
+<pre><code>[1] 6.123234e-17</code></pre>
+
+<p><strong>Uwaga</strong></p>
+<p>Należy pamiętać, że w R można zapisać osobne działania w tej samej linii, ale oddzielone średnikami.</p>
+
+<p><strong>Przykład 2.3</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.3 - obliczenia matematyczne
+2+3; 1-2; 4/2; 4*3</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.3 - obliczenia matematyczne</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="dv">2+3</span>; <span class="dv">1-2</span>; <span class="dv">4</span>/<span class="dv">2</span>; <span class="dv">4</span>*<span class="dv">3</span></code></pre></div>
+<pre><code>[1] 5</code></pre>
+<pre><code>[1] -1</code></pre>
+<pre><code>[1] 2</code></pre>
+<pre><code>[1] 12</code></pre>
+</div>
+<div id="zmienne" class="section level2">
+<h2><span class="header-section-number">3.2</span> Zmienne</h2>
+<p>W R operatorem przypisania jest znak “=” lub “&lt;-”. W manuskrypcie stosujemy znak “=”.</p>
+
+<p><strong>Przykład 2.4</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.4 - operacje przypisania
+x=4  # przypisanie zmiennej x wartości 4
+x  # wyświetlenie wartości zmiennej x, czyli 4
+imię = &quot;Jan&quot;
+imię
+nazwisko=&quot;Nowak&quot;
+nazwisko</code></pre>
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.4 - operacje przypisania</span>
+<span class="er">&gt;</span><span class="st"> </span>x=<span class="dv">4</span>  <span class="co"># przypisanie zmiennej x wartości 4</span>
+&gt;<span class="st"> </span>x  <span class="co"># wyświetlenie wartości zmiennej x, czyli 4</span></code></pre></div>
+<pre><code>[1] 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>imie =<span class="st"> &quot;Jan&quot;</span>
+&gt;<span class="st"> </span>imie</code></pre></div>
+<pre><code>[1] &quot;Jan&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>nazwisko=<span class="st">&quot;Nowak&quot;</span>
+&gt;<span class="st"> </span>nazwisko</code></pre></div>
+<pre><code>[1] &quot;Nowak&quot;</code></pre>
+</div>
+<div id="wektory-macierze-oraz-ramki-danych" class="section level2">
+<h2><span class="header-section-number">3.3</span> Wektory, macierze oraz ramki danych</h2>
+<p><strong>WEKTORY</strong></p>
+<p>Podstawowa funkcja wykorzystywana w R w celu utworzenia wektora to . Przykładowo, gdy chcemy utworzyć wektor o nazwie “a” z elementami 3 i 1 piszemy a=c(3,1). Wektor musi posiadać elementy tylko jednego typu. Rozróżniamy następujące wektory: wektor numeryczny, wektor znakowy oraz wektor logiczny.</p>
+
+<p><strong>Przykład 2.5</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.5 - wektory
+a = c(3, 5, 7, 9, 11)  # wektor numeryczny
+a
+dni = c(&quot;wtorek&quot;, &quot;czwartek&quot;, &quot;sobota&quot;, &quot;niedziela&quot;)  #  wektor znakowy
+dni
+c = c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE) # wektor logiczny
+c</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.5 - wektory</span>
+<span class="er">&gt;</span><span class="st"> </span>a =<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">11</span>)  <span class="co"># wektor numeryczny</span>
+&gt;<span class="st"> </span>a</code></pre></div>
+<pre><code>[1]  3  5  7  9 11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dni =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;wtorek&quot;</span>, <span class="st">&quot;czwartek&quot;</span>, <span class="st">&quot;sobota&quot;</span>, <span class="st">&quot;niedziela&quot;</span>)  <span class="co">#  wektor znakowy</span>
+&gt;<span class="st"> </span>dni</code></pre></div>
+<pre><code>[1] &quot;wtorek&quot;    &quot;czwartek&quot;  &quot;sobota&quot;    &quot;niedziela&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>c =<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">TRUE</span>,<span class="ot">TRUE</span>,<span class="ot">FALSE</span>,<span class="ot">TRUE</span>,<span class="ot">FALSE</span>) <span class="co"># wektor logiczny</span>
+&gt;<span class="st"> </span>c</code></pre></div>
+<pre><code>[1]  TRUE  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
+
+
+<p><strong>Przykład 2.6</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.6 - operacje na wektorach
+a = c(1,3,5)
+a
+b=c(3:14)
+b
+# łączenie dwóch wektorów
+ab = c(a,b)
+ab
+# dołączamy kolejne wartości
+ab[6:10] = c(0,-6,-3,-1,-5) 
+ab
+# Alternatywne metody tworzenia wektorów:
+rep(c(1,2), times=3) # jeśli chcemy powtórzyć jakiś wektor &#39;times&#39; razy
+rep(c(1,2), each=3)  # jeśli chcemy powtórzyć elementy wektora &#39;each&#39; razy
+seq(from=1, to=10, by=2 ) # tworzy sekwencję liczb (od 1 do 10 co 2)</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.6 - operacje na wektorach</span>
+<span class="er">&gt;</span><span class="st"> </span>a =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>)
+&gt;<span class="st"> </span>a</code></pre></div>
+<pre><code>[1] 1 3 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>b=<span class="kw">c</span>(<span class="dv">3</span>:<span class="dv">14</span>)
+&gt;<span class="st"> </span>b</code></pre></div>
+<pre><code> [1]  3  4  5  6  7  8  9 10 11 12 13 14</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># łączenie dwóch wektorów</span>
+<span class="er">&gt;</span><span class="st"> </span>ab =<span class="st"> </span><span class="kw">c</span>(a,b)
+&gt;<span class="st"> </span>ab</code></pre></div>
+<pre><code> [1]  1  3  5  3  4  5  6  7  8  9 10 11 12 13 14</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># dołączamy kolejne wartości</span>
+<span class="er">&gt;</span><span class="st"> </span>ab[<span class="dv">6</span>:<span class="dv">10</span>] =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,-<span class="dv">6</span>,-<span class="dv">3</span>,-<span class="dv">1</span>,-<span class="dv">5</span>) 
+&gt;<span class="st"> </span>ab</code></pre></div>
+<pre><code> [1]  1  3  5  3  4  0 -6 -3 -1 -5 10 11 12 13 14</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Alternatywne metody tworzenia wektorów:</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">times=</span><span class="dv">3</span>) <span class="co"># jeśli chcemy powtórzyć jakiś wektor &#39;times&#39; razy</span></code></pre></div>
+<pre><code>[1] 1 2 1 2 1 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">each=</span><span class="dv">3</span>)  <span class="co"># jeśli chcemy powtórzyć elementy wektora &#39;each&#39; razy</span></code></pre></div>
+<pre><code>[1] 1 1 1 2 2 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">1</span>, <span class="dt">to=</span><span class="dv">10</span>, <span class="dt">by=</span><span class="dv">2</span> ) <span class="co"># tworzy sekwencję liczb (od 1 do 10 co 2)</span></code></pre></div>
+<pre><code>[1] 1 3 5 7 9</code></pre>
+
+<p><strong>Odwoływanie się do elementów wektora:</strong></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>x[1:2] - odwołanie się do 1 i 2 elementu wektora x</p></li>
+<li><p>x[c(2,4)] - odwołanie się do 2 i 4 elementu wektora x</p></li>
+<li><p>x[-c(2,3)] - wektor x bez 2 i 3 elementu</p></li>
+<li><p>x[x&gt;6] - podzbiór wektora x - wyświetlane są tylko te wartości wektora x, które są większe od 6</p></li>
+</ol>
+<p></p>
+<p><strong>Przykład 2.7</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.7 - odwoływanie się do elementów wektora
+x = 1:7
+x
+x[5]  # 5 element wektora x
+x[-1]  # wszystko oprócz pierwszego elementu wektora x
+x[2:6]  # od 2-go do 6-go elementu wektora x
+x[c(2, 4)]  # 2 i 4 element wektora x
+x[x &lt; 4]  # wszystkie elementy wektora x mniejsze od 4</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.7 - odwoływanie się do elementów wektora</span>
+<span class="er">&gt;</span><span class="st"> </span>x=<span class="dv">1</span>:<span class="dv">7</span>
+&gt;<span class="st"> </span>x</code></pre></div>
+<pre><code>[1] 1 2 3 4 5 6 7</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x[<span class="dv">5</span>]           <span class="co"># 5 element wektora x</span></code></pre></div>
+<pre><code>[1] 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x[-<span class="dv">1</span>]          <span class="co"># wszystko oprócz pierwszego elementu wektora x</span></code></pre></div>
+<pre><code>[1] 2 3 4 5 6 7</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x[<span class="dv">2</span>:<span class="dv">6</span>]         <span class="co"># od 2-go do 6-go elementu wektora x</span></code></pre></div>
+<pre><code>[1] 2 3 4 5 6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)]      <span class="co"># 2 i 4 element wektora x</span></code></pre></div>
+<pre><code>[1] 2 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x[x &lt;<span class="st"> </span><span class="dv">4</span>]       <span class="co"># wszystkie elementy wektora x mniejsze od 4</span></code></pre></div>
+<pre><code>[1] 1 2 3</code></pre>
+
+<p><strong>Podstawowe operacje na wektorach: </strong></p>
+<p> - zwraca liczbę elementów wektora</p>
+<p>, ,  - minimum, maximum, rozstęp</p>
+<p>,  - suma i iloczyn elementów</p>
+<p>,  - średnia arytmetyczna i mediana</p>
+<p>,  - wariancja i odchylenie standardowe</p>
+<p> - zakres międzykwartylowy</p>
+<p> - posortowane elementy w kolejności rosnącej</p>
+<p> - podstawowe statystyki: min, max, średnia, mediana, kwartyle</p>
+
+<p><strong>Przykład 2.8</strong> (Kala 2005, s. 26)</p>
+<p>Obserwowano plonowanie 30 krzaków pomidorów “New Yorker” i otrzymano następujące wielkości plonów (w kg): 1.52, 1.57, 1.30, 1.62, 1.55, 1.70, 2.05, 1.64, 1.95, 1.80, 1.76, 1.40, 1.92, 2.20, 1.57, 1.59, 1.27, 1.79, 1.29, 1.84, 1.77, 1.72, 1.53, 1.32, 1.69, 1.95, 1.75, 1.08, 1.70, 1.45.</p>
+<p>Wyznaczyć wartość minimalną i maksymalną, rozstęp, sumę i iloczyn elementów, średnią arytmetyczną i medianę, wariancję i odchylenie standardowe. Następnie rosnąco posortować wszystkie elementy oraz wykonać polecenie “summary”.</p>
+
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.8 - Kala (2005, s.26) Przygotowanie danych
+y = c(1.52, 1.57, 1.3, 1.62, 1.55, 1.7, 2.05, 1.64, 1.95, 1.8, 1.76, 1.4, 1.92, 
+    2.2, 1.57, 1.59, 1.27, 1.79, 1.29, 1.84, 1.77, 1.72, 1.53, 1.32, 1.69, 1.95, 
+    1.75, 1.08, 1.7, 1.45)
+# wyświetlanie zawartości y
+y
+# wykonanie obliczeń
+min(y)  # wartość minimalna 
+max(y)  # wartość maksymalna
+range(y)  # rozstęp
+sum(y)  # suma elementów 
+prod(y)  # iloczyn elementów 
+var(y)  # wariancja
+sd(y)  # odchylenie standardowe
+sort(y)  # sortowanie elementów wektora y
+summary(y)  # wartości wybranych statystyk</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.8 - Kala (2005, s.26) Przygotowanie danych</span>
+<span class="er">&gt;</span><span class="st"> </span>y =<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.52</span>, <span class="fl">1.57</span>, <span class="fl">1.3</span>, <span class="fl">1.62</span>, <span class="fl">1.55</span>, <span class="fl">1.7</span>, <span class="fl">2.05</span>, <span class="fl">1.64</span>, <span class="fl">1.95</span>, <span class="fl">1.8</span>, <span class="fl">1.76</span>, <span class="fl">1.4</span>, <span class="fl">1.92</span>, 
++<span class="st">     </span><span class="fl">2.2</span>, <span class="fl">1.57</span>, <span class="fl">1.59</span>, <span class="fl">1.27</span>, <span class="fl">1.79</span>, <span class="fl">1.29</span>, <span class="fl">1.84</span>, <span class="fl">1.77</span>, <span class="fl">1.72</span>, <span class="fl">1.53</span>, <span class="fl">1.32</span>, <span class="fl">1.69</span>, <span class="fl">1.95</span>, 
++<span class="st">     </span><span class="fl">1.75</span>, <span class="fl">1.08</span>, <span class="fl">1.7</span>, <span class="fl">1.45</span>)
+&gt;<span class="st"> </span><span class="co"># wyświetlanie zawartości y</span>
+<span class="er">&gt;</span><span class="st"> </span>y</code></pre></div>
+<pre><code> [1] 1.52 1.57 1.30 1.62 1.55 1.70 2.05 1.64 1.95 1.80 1.76 1.40 1.92 2.20
+[15] 1.57 1.59 1.27 1.79 1.29 1.84 1.77 1.72 1.53 1.32 1.69 1.95 1.75 1.08
+[29] 1.70 1.45</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># wykonanie obliczeń</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">min</span>(y)  <span class="co"># wartość minimalna </span></code></pre></div>
+<pre><code>[1] 1.08</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">max</span>(y)  <span class="co"># wartość maksymalna</span></code></pre></div>
+<pre><code>[1] 2.2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">range</span>(y)  <span class="co"># rozstęp</span></code></pre></div>
+<pre><code>[1] 1.08 2.20</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sum</span>(y)  <span class="co"># suma elementów </span></code></pre></div>
+<pre><code>[1] 49.29</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">prod</span>(y)  <span class="co"># iloczyn elementów </span></code></pre></div>
+<pre><code>[1] 2068140</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">var</span>(y)  <span class="co"># wariancja</span></code></pre></div>
+<pre><code>[1] 0.06315966</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sd</span>(y)  <span class="co"># odchylenie standardowe</span></code></pre></div>
+<pre><code>[1] 0.2513158</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sort</span>(y)  <span class="co"># sortowanie elementów wektora y</span></code></pre></div>
+<pre><code> [1] 1.08 1.27 1.29 1.30 1.32 1.40 1.45 1.52 1.53 1.55 1.57 1.57 1.59 1.62
+[15] 1.64 1.69 1.70 1.70 1.72 1.75 1.76 1.77 1.79 1.80 1.84 1.92 1.95 1.95
+[29] 2.05 2.20</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summary</span>(y)  <span class="co"># wartości wybranych statystyk</span></code></pre></div>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.080   1.523   1.665   1.643   1.785   2.200 </code></pre>
+
+<p><strong>MACIERZE</strong></p>
+
+<p><strong>Macierz</strong> - zbiór elementów tego samego typu o strukturze wierszy i kolumn</p>
+<p>Przykład macierzy o 3 wierszach i 5 kolumnach:</p>
+<p><span class="math display">\[
+ \begin{pmatrix}
+2 &amp;  3 &amp; 7&amp;  5 &amp; 1 \\ 
+7 &amp; 9 &amp; 1 &amp; 4 &amp; 0 \\
+8 &amp; 2 &amp; 6 &amp; 3 &amp; 7 \\
+ \end{pmatrix}
+ \]</span></p>
+Funkcją tworzącą macierz jest
+
+<p>gdzie:</p>
+<p> - dane, które chcemy przedstawić w formie macierzy,</p>
+<p> - liczba wierszy,</p>
+<p> - liczba kolumn,</p>
+<p> - jeśli byrow=TRUE, to macierz tworzona jest wierszami (domyślnie byrow=FALSE)</p>
+<p></p>
+<p><strong>Przykład 2.9</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.9 - tworzenie macierzy
+# macierz o 3 wierszach
+mat1 = matrix(c(1,3,5,7,9,11,13,15,18,21,23,25),  nrow = 3)  
+mat1
+# macierz o 3 kolumnach
+mat2 = matrix(c(1,3,5,7,9,11,13,15,18,21,23,25),  ncol = 3)  
+mat2
+# macierz o 3 wierszach i 2 kolumnach
+mat3 = matrix(1:6,3,2)  
+mat3</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.9 - tworzenie macierzy</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="co"># macierz o 3 wierszach</span>
+<span class="er">&gt;</span><span class="st"> </span>mat1 =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">13</span>,<span class="dv">15</span>,<span class="dv">18</span>,<span class="dv">21</span>,<span class="dv">23</span>,<span class="dv">25</span>),  <span class="dt">nrow =</span> <span class="dv">3</span>)  
+&gt;<span class="st"> </span>mat1</code></pre></div>
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    7   13   21
+[2,]    3    9   15   23
+[3,]    5   11   18   25</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># macierz o 3 kolumnach</span>
+<span class="er">&gt;</span><span class="st"> </span>mat2 =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">13</span>,<span class="dv">15</span>,<span class="dv">18</span>,<span class="dv">21</span>,<span class="dv">23</span>,<span class="dv">25</span>),  <span class="dt">ncol =</span> <span class="dv">3</span>)  
+&gt;<span class="st"> </span>mat2</code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    9   18
+[2,]    3   11   21
+[3,]    5   13   23
+[4,]    7   15   25</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># macierz o 3 wierszach i 2 kolumnach</span>
+<span class="er">&gt;</span><span class="st"> </span>mat3 =<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">2</span>)    
+&gt;<span class="st"> </span>mat3</code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]    1    4
+[2,]    2    5
+[3,]    3    6</code></pre>
+
+<p><strong>Przykład 2.10</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.10 - alternatywne metody tworzenia macierzy
+macierz1 = matrix(seq(1:8), nrow = 4)
+macierz1
+macierz2 = matrix(seq(1:8), nrow = 4, byrow = TRUE)
+macierz2
+# macierz diagonalna
+macdiag1 = diag(4)
+macdiag1</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.10 - alternatywne metody tworzenia macierzy</span>
+<span class="er">&gt;</span><span class="st"> </span>macierz1 =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">seq</span>(<span class="dv">1</span>:<span class="dv">8</span>), <span class="dt">nrow =</span> <span class="dv">4</span>)
+&gt;<span class="st"> </span>macierz1</code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]    1    5
+[2,]    2    6
+[3,]    3    7
+[4,]    4    8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>macierz2 =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">seq</span>(<span class="dv">1</span>:<span class="dv">8</span>),  <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)
+&gt;<span class="st"> </span>macierz2</code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]    1    2
+[2,]    3    4
+[3,]    5    6
+[4,]    7    8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># macierz diagonalna</span>
+<span class="er">&gt;</span><span class="st"> </span>macdiag1=<span class="kw">diag</span>(<span class="dv">4</span>)     
+&gt;<span class="st"> </span>macdiag1</code></pre></div>
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    0    0    0
+[2,]    0    1    0    0
+[3,]    0    0    1    0
+[4,]    0    0    0    1</code></pre>
+
+<p><strong>Odwoływanie się do elementów macierzy:</strong></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>A[2, 3] - element z drugiego wiersza i trzeciej kolumny macierzy A</p></li>
+<li><p>A[2, ] - drugi wiersz macierzy A</p></li>
+<li><p>A[ , 3] - trzecia kolumna macierzy A</p></li>
+<li><p>A[ , c(1,3)] - pierwsza i trzecia kolumna macierzy A</p></li>
+</ol>
+
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.11 - odwoływanie się do elementów macierzy
+dane1 = matrix(seq(1:12),  nrow = 3)
+dane1
+dane1[1,2]  # element z pierwszego wiersza i drugiej kolumny macierzy dane1
+dane1[2,]  # drugi wiersz macierzy dane1
+dane1[,3]  # trzecia kolumna macierzy dane1
+dane1[ ,c(1,4)]  # pierwsza i czwarta kolumna macierzy dane1
+dane1[c(1,3),]  # pierwszy i trzeci wiersz macierzy dane1</code></pre>
+
+<p><strong>Przykład 2.11</strong></p>
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.11 - odwoływanie się do elementów macierzy</span>
+<span class="er">&gt;</span><span class="st"> </span>dane1 =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">seq</span>(<span class="dv">1</span>:<span class="dv">12</span>),<span class="dt">nrow =</span> <span class="dv">3</span>)
+&gt;<span class="st"> </span>dane1</code></pre></div>
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    4    7   10
+[2,]    2    5    8   11
+[3,]    3    6    9   12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dane1[<span class="dv">1</span>,<span class="dv">2</span>]  <span class="co"># element z pierwszego wiersza i drugiej kolumny macierzy dane1</span></code></pre></div>
+<pre><code>[1] 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dane1[<span class="dv">2</span>,]  <span class="co"># drugi wiersz macierzy dane1</span></code></pre></div>
+<pre><code>[1]  2  5  8 11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dane1[,<span class="dv">3</span>]  <span class="co"># trzecia kolumna macierzy dane1</span></code></pre></div>
+<pre><code>[1] 7 8 9</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dane1[ ,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)]  <span class="co"># pierwsza i czwarta kolumna macierzy dane1</span></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]    1   10
+[2,]    2   11
+[3,]    3   12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dane1[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),]  <span class="co"># pierwszy i trzeci wiersz macierzy dane1</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    4    7   10
+[2,]    3    6    9   12</code></pre>
+
+<p><strong>Podstawowe operacje na macierzach: </strong></p>
+<p> - wymiar macierzy A</p>
+<p> - iloczyn macierzy A i B</p>
+<p> - transpozycja macierzy A</p>
+<p> - wyznacznik macierzy A</p>
+<p> - macierz odwrotna do macierzy A</p>
+<p> - liczba kolumn, wierszy macierzy A</p>
+<p> - nazwy kolumn, wierszy macierzy A</p>
+<p> - sumy kolumn, wierszy macierzy A</p>
+<p> - wartości średnie dla kolumn, wierszy macierzy A</p>
+<p><strong>Przykład 2.12</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.12 - operacje na macierzach
+macierz1
+dim(macierz1) # zwracanie wymiaru macierzy
+t(macierz1) # transpozycja macierzy</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.12 - operacje na macierzach</span>
+<span class="er">&gt;</span><span class="st"> </span>macierz1</code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]    1    5
+[2,]    2    6
+[3,]    3    7
+[4,]    4    8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">dim</span>(macierz1) <span class="co"># zwracanie wymiaru macierzy</span></code></pre></div>
+<pre><code>[1] 4 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">t</span>(macierz1) <span class="co"># transpozycja macierzy</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    2    3    4
+[2,]    5    6    7    8</code></pre>
+
+<p><strong>Przykład 2.13</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.13 - mnożenie macierzy
+A=matrix(c(1,2,3,4,5,6), nrow=2)
+A
+B=matrix(c(9,8,7,6,5,4,3,2,1), nrow=3)
+B
+C=A%*%B 
+C</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.13 - mnożenie macierzy</span>
+<span class="er">&gt;</span><span class="st"> </span>A=<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>), <span class="dt">nrow=</span><span class="dv">2</span>)
+&gt;<span class="st"> </span>A</code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>B=<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">nrow=</span><span class="dv">3</span>)
+&gt;<span class="st"> </span>B</code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]    9    6    3
+[2,]    8    5    2
+[3,]    7    4    1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>C=A%*%B 
+&gt;<span class="st"> </span>C</code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]   68   41   14
+[2,]   92   56   20</code></pre>
+
+<p><strong>Przykład 2.14</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.14 - dalsze operacje na macierzach
+rowSums(B) # sumy dla wierszy macierzy B
+rowMeans(B) # średnie arytmetyczne dla wierszy macierzy B
+colSums(A) # sumy dla kolumn macierzy A
+colMeans(A) # średnie arytmetyczne dla kolumn macierzy A</code></pre>
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.14 - dalsze operacje na macierzach</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">rowSums</span>(B) <span class="co"># sumy dla wierszy macierzy B</span></code></pre></div>
+<pre><code>[1] 18 15 12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">rowMeans</span>(B) <span class="co"># średnie arytmetyczne dla wierszy macierzy B</span></code></pre></div>
+<pre><code>[1] 6 5 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">colSums</span>(A) <span class="co"># sumy dla kolumn macierzy A</span></code></pre></div>
+<pre><code>[1]  3  7 11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">colMeans</span>(A) <span class="co"># średnie arytmetyczne dla kolumn macierzy A</span></code></pre></div>
+<pre><code>[1] 1.5 3.5 5.5</code></pre>
+
+<p><strong>Przykład 2.15</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.15 - wyznacznik macierzy i owdrotność
+D=matrix(c(1,3,5,1,2,3,7,8,1), nrow=3)  
+D
+wyznacznik=det(D)  # wyznacznik macierzy D
+wyznacznik
+D1=solve(D)  # macierz odwrotna do macierzy D
+D1</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.15 - wyznacznik macierzy i owdrotność</span>
+<span class="er">&gt;</span><span class="st"> </span>D=<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">1</span>), <span class="dt">nrow=</span><span class="dv">3</span>)  <span class="co"># tworzenie macierzy D</span>
+&gt;<span class="st"> </span>D</code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    1    7
+[2,]    3    2    8
+[3,]    5    3    1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>wyznacznik=<span class="kw">det</span>(D)  <span class="co"># wyznacznik macierzy D</span>
+&gt;<span class="st"> </span>wyznacznik</code></pre></div>
+<pre><code>[1] 8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>D1=<span class="kw">solve</span>(D)  <span class="co"># macierz odwrotna do macierzy D</span>
+&gt;<span class="st"> </span>D1</code></pre></div>
+<pre><code>       [,1]  [,2]   [,3]
+[1,] -2.750  2.50 -0.750
+[2,]  4.625 -4.25  1.625
+[3,] -0.125  0.25 -0.125</code></pre>
+
+<p><strong>Przykład 2.16</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.16 - rozwiązywanie układu równań
+w=c(3,1,5)  # wektor wyrazów wolnych
+w
+roz=solve(D,w)  # rozwiązanie układu równań postaci Dx=w
+roz</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.16 - rozwiązywanie układu równań</span>
+<span class="er">&gt;</span><span class="st"> </span>w=<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">5</span>)  <span class="co"># wektor wyrazów wolnych</span>
+&gt;<span class="st"> </span>w</code></pre></div>
+<pre><code>[1] 3 1 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>roz=<span class="kw">solve</span>(D,w)  <span class="co"># rozwiązanie układu równań postaci Dx=w</span>
+&gt;<span class="st"> </span>roz</code></pre></div>
+<pre><code>[1] -9.50 17.75 -0.75</code></pre>
+<p><strong>RAMKA DANYCH</strong></p>
+<p><strong>Ramka danych</strong> - zbiór elementów o strukturze wierszy i kolumn, gdzie kolumny mogą być różnego typu.</p>
+<p>Funkcją tworzącą ramkę danych jest ‘data.frame’.</p>
+
+<p><strong>Przykład 2.17</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.17 - tworzenie ramki danych
+dawki=c(&quot;d0&quot;, &quot;d20&quot;, &quot;d50&quot;, &quot;d100&quot;)
+odmiany=c(&quot;K&quot;, &quot;M&quot;, &quot;P&quot;, &quot;S&quot;)
+plon=c(6.1, 5.4, 6.5, 6.3)
+roslina=data.frame(Odmiany=odmiany, Dawki=dawki, Plon=plon)
+roslina</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.17 - tworzenie ramki danych</span>
+<span class="er">&gt;</span><span class="st"> </span>dawki=<span class="kw">c</span>(<span class="st">&quot;d0&quot;</span>, <span class="st">&quot;d20&quot;</span>, <span class="st">&quot;d50&quot;</span>, <span class="st">&quot;d100&quot;</span>)
+&gt;<span class="st"> </span>odmiany=<span class="kw">c</span>(<span class="st">&quot;K&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;P&quot;</span>, <span class="st">&quot;S&quot;</span>)
+&gt;<span class="st"> </span>plon=<span class="kw">c</span>(<span class="fl">6.1</span>, <span class="fl">5.4</span>, <span class="fl">6.5</span>, <span class="fl">6.3</span>)
+&gt;<span class="st"> </span>roslina=<span class="kw">data.frame</span>(<span class="dt">Odmiany=</span>odmiany, <span class="dt">Dawki=</span>dawki, <span class="dt">Plon=</span>plon)
+&gt;<span class="st"> </span>roslina</code></pre></div>
+<pre><code>  Odmiany Dawki Plon
+1       K    d0  6.1
+2       M   d20  5.4
+3       P   d50  6.5
+4       S  d100  6.3</code></pre>
+
+<p><strong>Odwoływanie się do elementów z ramki danych:</strong></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>roslina[1:3,1] - pierwsze trzy elementy pierwszej kolumny</p></li>
+<li><p>roslina[1:2,‘Odmiany’] - pierwsze dwa elementy kolumny o nazwie ‘Odmiany’</p></li>
+<li><p>roslina$Plon[1:2] - pierwsze dwa elementy z kolumny o nazwie ‘Plon’</p></li>
+<li><p>roslina$Plon - wszystkie elementy z kolumny ‘Plon’</p></li>
+</ol>
+
+<p><strong>Przykład 2.18</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.18 - odwoływanie się do elementów ramki danych
+# przykładowa ramka danych
+data(iris) # załadowanie danych iris
+head(iris) # wyświetlenie pierwszych elementów ze zbioru iris
+iris[1:10,1] # pierwsze dziesięć elementów z pierwszej kolumny
+iris[1:10,&#39;Sepal.Length&#39;] # lub równoznacznie
+iris$Sepal.Length[1:10] # lub równoznacznie</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.18 - odwoływanie się do elementów ramki danych</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="co"># przykładowa ramka danych</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">data</span>(iris) <span class="co"># załadowanie danych iris</span>
+&gt;<span class="st"> </span><span class="kw">head</span>(iris) <span class="co"># wyświetlenie pierwszych elementów ze zbioru iris</span></code></pre></div>
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>iris[<span class="dv">1</span>:<span class="dv">10</span>,<span class="dv">1</span>] <span class="co"># pierwsze dziesięć elementów z pierwszej kolumny</span></code></pre></div>
+<pre><code> [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>iris[<span class="dv">1</span>:<span class="dv">10</span>,<span class="st">&#39;Sepal.Length&#39;</span>] <span class="co"># lub równoznacznie</span></code></pre></div>
+<pre><code> [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>iris$Sepal.Length[<span class="dv">1</span>:<span class="dv">10</span>] <span class="co"># lub równoznacznie</span></code></pre></div>
+<pre><code> [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9</code></pre>
+
+<p><strong>Podstawowe operacje na ramkach danych: </strong></p>
+<p> - wyświetla pierwsze rekordy</p>
+<p> - wyświetla ostatnie rekordy</p>
+<p> - pozwala odnosić się do nazw zmiennych znajdujących się bezpośrednio w danych</p>
+<p> - likwiduje możliwość bezpośredniego odnoszenia się do zmiennych</p>
+<p> - wyświetla informacje o obiekcie</p>
+<p> - tabela z liczbą wystąpień danego czynnika</p>
+<p> - określa podzbiór danego zbioru, spełniający określone warunki</p>
+<p> - stosuje określoną funkcję do zadanego podzbioru danych</p>
+
+<p><strong>Przykład 2.19</strong></p>
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 2.19 - operacje na ramkach danych
+data(trees)
+head(trees)
+Girth
+attach(trees)
+Girth
+str(trees)
+ankieta = data.frame(odpowiedzi = c(&quot;T&quot;, &quot;N&quot;, &quot;T&quot;, &quot;T&quot;, &quot;N&quot;, &quot;X&quot;, &quot;N&quot;, &quot;X&quot;, 
+    &quot;T&quot;), wiek = c(16, 23, 22, 65, 45, 32, 24, 12, 56))
+ankieta
+table(ankieta$odpowiedzi)  # zlicza ile było ankietowanych względem odpowiedzi
+subset(ankieta, wiek &gt; 20)  # wyznacza podzbiór ankietowanych, których wiek 
+# jest większy niż 20
+subset(ankieta, odpowiedzi == &quot;T&quot;)  # wyznacza podzbiór tylko z odpowiedziami &#39;T&#39;
+by(ankieta$wiek, ankieta$odpowiedzi, sum)  # wyznacza sumę lat dla respondentów 
+# względem odpowiedzi</code></pre>
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 2.19 - operacje na ramkach danych</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">data</span>(trees)
+&gt;<span class="st"> </span><span class="kw">head</span>(trees)</code></pre></div>
+<pre><code>  Girth Height Volume
+1   8.3     70   10.3
+2   8.6     65   10.3
+3   8.8     63   10.2
+4  10.5     72   16.4
+5  10.7     81   18.8
+6  10.8     83   19.7</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">attach</span>(trees)
+&gt;<span class="st"> </span>Girth</code></pre></div>
+<pre><code> [1]  8.3  8.6  8.8 10.5 10.7 10.8 11.0 11.0 11.1 11.2 11.3 11.4 11.4 11.7
+[15] 12.0 12.9 12.9 13.3 13.7 13.8 14.0 14.2 14.5 16.0 16.3 17.3 17.5 17.9
+[29] 18.0 18.0 20.6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(trees)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   31 obs. of  3 variables:
+ $ Girth : num  8.3 8.6 8.8 10.5 10.7 10.8 11 11 11.1 11.2 ...
+ $ Height: num  70 65 63 72 81 83 66 75 80 75 ...
+ $ Volume: num  10.3 10.3 10.2 16.4 18.8 19.7 15.6 18.2 22.6 19.9 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>ankieta=<span class="kw">data.frame</span>(<span class="dt">odpowiedzi=</span><span class="kw">c</span>(<span class="st">&#39;T&#39;</span>,<span class="st">&#39;N&#39;</span>,<span class="st">&#39;T&#39;</span>,<span class="st">&#39;T&#39;</span>,<span class="st">&#39;N&#39;</span>,<span class="st">&#39;X&#39;</span>,<span class="st">&#39;N&#39;</span>,<span class="st">&#39;X&#39;</span>,<span class="st">&#39;T&#39;</span>),
++<span class="st">                     </span><span class="dt">wiek=</span><span class="kw">c</span>(<span class="dv">16</span>,<span class="dv">23</span>,<span class="dv">22</span>,<span class="dv">65</span>,<span class="dv">45</span>,<span class="dv">32</span>,<span class="dv">24</span>,<span class="dv">12</span>,<span class="dv">56</span>))
+&gt;<span class="st"> </span>ankieta</code></pre></div>
+<pre><code>  odpowiedzi wiek
+1          T   16
+2          N   23
+3          T   22
+4          T   65
+5          N   45
+6          X   32
+7          N   24
+8          X   12
+9          T   56</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">table</span>(ankieta$odpowiedzi) <span class="co"># zlicza ile było ankietowanych względem odpowiedzi</span></code></pre></div>
+<pre><code>
+N T X 
+3 4 2 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">subset</span>(ankieta,wiek&gt;<span class="dv">20</span>)  <span class="co"># wyznacza podzbiór ankietowanych, których wiek jest większy niż 20</span></code></pre></div>
+<pre><code>  odpowiedzi wiek
+2          N   23
+3          T   22
+4          T   65
+5          N   45
+6          X   32
+7          N   24
+9          T   56</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">subset</span>(ankieta,odpowiedzi==<span class="st">&#39;T&#39;</span>)   <span class="co"># wyznacza podzbiór tylko z odpowiedziami &#39;T&#39;</span></code></pre></div>
+<pre><code>  odpowiedzi wiek
+1          T   16
+3          T   22
+4          T   65
+9          T   56</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">by</span>(ankieta$wiek, ankieta$odpowiedzi,sum)  <span class="co"># wyznacza sumę lat dla respondentów </span></code></pre></div>
+<pre><code>ankieta$odpowiedzi: N
+[1] 92
+-------------------------------------------------------- 
+ankieta$odpowiedzi: T
+[1] 159
+-------------------------------------------------------- 
+ankieta$odpowiedzi: X
+[1] 44</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># względem odpowiedzi</span></code></pre></div>
+
+</div>
+<div id="zadania-do-wykonania" class="section level2">
+<h2><span class="header-section-number">3.4</span> Zadania do wykonania</h2>
+<p>WEKTORY</p>
+<p>Zad. 1</p>
+<p>Wprowadź dowolne wektory <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span>, <span class="math inline">\(z\)</span>. Wykonaj następujące operacje: <span class="math inline">\(y-z\)</span>, <span class="math inline">\(x+y\)</span>, <span class="math inline">\(x/2\)</span>, <span class="math inline">\(ln(x)\)</span> – <span class="math inline">\(cos(y)\)</span></p>
+<p>Zad. 2</p>
+<p>Stwórz dane, które będą zawierały 8 jedynek i zapisz je pod zmienną cc, a następnie utwórz dane zawierające 199 zer i zapisz pod zmienną d</p>
+<p>Zad. 3</p>
+<p>Oblicz:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(100^2+101^2+...+200^2\)</span></p></li>
+<li><p><span class="math inline">\(\sqrt(log(1))+\sqrt(log(10))+...+\sqrt(log(100000))\)</span></p></li>
+</ol>
+<p>Zad. 4</p>
+<p>Użyj funkcji rep żeby utworzyć następujące dane:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>1 1 1 1 1 1 1 1</p></li>
+<li><p>1 4 1 4 1 4 1 4 1 4 1 4 1 4</p></li>
+<li><p>3 3 3 3 3 3 3 3 6 6 6</p></li>
+<li><p>5 4 4 3 3 3 2 2 2 2 1 1 1 1 1</p></li>
+<li><p>12 12 12 21 43 43</p></li>
+<li><p>„A” „B” „A” „B” „A” „B”</p></li>
+<li><p>1 1 3 3 5 5 7 7 9 9 11 11</p></li>
+</ol>
+<p>MACIERZE</p>
+<p>Zad. 1</p>
+<p>Zadeklaruj poniższe macierze:</p>
+<p><span class="math display">\[A =
+ \begin{pmatrix}
+1 &amp;  2 &amp; -3&amp;  0 \\ 
+2 &amp; -5 &amp; 4 &amp; 1 \\
+3 &amp; 7 &amp; 5 &amp; -2 \\
+0 &amp; 1&amp;  6&amp;  -3 \\
+ \end{pmatrix}
+ \]</span> <span class="math display">\[
+B =
+ \begin{pmatrix}
+1 &amp; 7 \\
+4 &amp; 2 \\ 
+3 &amp; -1 \\ 
+2 &amp; 0 \\ 
+ \end{pmatrix}
+\]</span> Oblicz wyznacznik macierzy <span class="math inline">\(\textbf{A}\)</span>, iloczyn <span class="math inline">\(\textbf{AB}\)</span>, macierz transponowaną <span class="math inline">\(\mathbf{A}^T\)</span>, macierz odwrotną <span class="math inline">\(\mathbf{A}^{-1}\)</span>.</p>
+<p>Zad. 2</p>
+<p>Zadeklaruj macierz A postaci:</p>
+<p><span class="math display">\[
+A =
+ \begin{pmatrix}
+1 &amp; 4 &amp; 7 \\
+2 &amp; 5 &amp; 8 \\
+3 &amp; 68 &amp; 9 \\
+\end{pmatrix}.
+\]</span></p>
+<p>Następnie, korzystając z funkcji R:</p>
+<ul>
+<li><p>Wyznacz liczbę wierszy i kolumn macierzy <span class="math inline">\(\textbf{A}\)</span></p></li>
+<li><p>Wyznacz sumę wszystkich elementów macierzy <span class="math inline">\(\textbf{A}\)</span></p></li>
+<li><p>Wyznacz średnią wszytkich elementów w poszczególnych kolumnach macierzy <span class="math inline">\(\textbf{A}\)</span></p></li>
+<li><p>Wyznacz sumę wszytkich elementów w wierszu drugim macierzy <span class="math inline">\(\textbf{A}\)</span></p></li>
+<li><p>Oblicz <span class="math inline">\(A_{12}\)</span> + <span class="math inline">\(A_{33}\)</span></p></li>
+<li><p>Wyświetl zawartość trzeciej kolumny</p></li>
+<li><p>Wyświetl zawartość drugiego wiersza</p></li>
+</ul>
+<p>RAMKI DANYCH</p>
+<p>Zad. 1</p>
+<p>Bazując na danych iris (załaduj je wykorzystując funkcję: ) odpowiedz na następujące pytania:</p>
+<ul>
+<li><p>Ile wierszy i kolumn zawierają te dane?</p></li>
+<li><p>Oblicz wartość średnią i odchylenie standardowe dla zmiennej Sepal.Width oraz Sepal.Length dla każdego gatunku osobno.</p></li>
+<li><p>Wybierz tylko wiersze, które odpowiadają gatunkowi Virginica i przypisz te dane nazwie ‘virginica’.</p></li>
+<li><p>Wybierz tylko te dane, które odpowiadają gatunkowi Virginica dla zmiennej Sepal.Length i przypisz je nazwie ‘virginica.sl’.</p></li>
+<li><p>Ile kwiatów z każdego gatunku zawierają dane iris?</p></li>
+<li><p>Jakie jest minimum dla zmiennej Sepal.Length dla gatunku setosa?</p></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="przygotowanie-danych.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-obliczenia_w_r.Rmd",
+"text": "Edit"
+},
+"download": ["bookdown-ksiazka.pdf", "bookdown-ksiazka.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

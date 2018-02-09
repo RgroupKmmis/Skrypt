@@ -1,0 +1,281 @@
+# Wizualizacje
+W rozdziale tym przedstawione zostaną podstawowe informacje dotyczące graficznych prezentacji danych oraz wykresów dla przykładowych funkcji.
+
+## Graficzna prezentacja danych
+
+
+<!-- \begin{table}[!ht] -->
+<!-- \centering -->
+<!-- \caption{Podstawowe funkcje do tworzenia wykresów} -->
+<!-- \footnotesize -->
+<!-- \begin{tabular}{lcc} -->
+<!-- \hline -->
+<!-- Nazwa funkcji  & Przykładowe argumenty  & Przykład użycia  \\ \hline -->
+<!-- \textbf{curve} & \begin{tabular}[c]{@{}c@{}} \textbf{expr} - wyrażenie funkcji \\ \textbf{from} - wartość początkowa \\ \textbf{to} - wartość końcowa\end{tabular} &  curve(cos, from = -2*pi, to = 2*pi)     \\ \hline -->
+<!-- \textbf{plot} & \begin{tabular}[c]{@{}c@{}} \textbf{type} - rodzaj linii  \\ \textbf{main} - tytuł wykresu \\ \textbf{col} - kolor wykresu \end{tabular} &   \begin{tabular}[c]{@{}c@{}} plot(log(1:5), type = /"l",\\ main = "Wykres funkcji", col = "blue")   \end{tabular} \\ \hline -->
+<!-- \textbf{hist} & \begin{tabular}[c]{@{}c@{}} \textbf{breaks} - liczba przedziałów klasowych \\ (może być wektor, funkcja, liczba) \\\textbf{freq} - jeżeli 'TRUE' histogram \\wyznaczony jest na podstawie częstości \end{tabular} & \begin{tabular}[c]{@{}c@{}} x <- rchisq(100, df = 4)  \\  hist(x, breaks = 6, freq = FALSE)  \end{tabular}   \\ \hline -->
+<!-- \textbf{boxplot} & \begin{tabular}[c]{@{}c@{}} \textbf{data} - zbiór danych z którego korzystamy \\ \textbf{horizontal} - 'TRUE' oznacza, że będzie w poziomie \\ \textbf{add} - jeśli 'TRUE' dodany zostanie \\boxplot do istniejącego rysunku \end{tabular} & \begin{tabular}[c]{@{}c@{}} boxplot(count \~ spray, horizontal=TRUE,\\ data = InsectSprays) \end{tabular}\\ \hline -->
+<!-- \textbf{barplot} & \begin{tabular}[c]{@{}c@{}} \textbf{height} - wysokość kolumn \\  -->
+<!-- \textbf{width} - szerokość kolumn \end{tabular} &  \begin{tabular}[c]{@{}c@{}} tN <- table(Ni <- rpois(100, \\ lambda = 5)) \\ barplot(tN, col = rainbow(20)) \end{tabular} \\ \hline -->
+<!-- \end{tabular} -->
+<!-- \end{table} -->
+
+ \vspace{0.8cm}
+**Przykład 4.1** (Kala 2005, s. 26)
+
+Obserwowano plonowanie 30 krzaków pomidorów "New Yorker" i otrzymano następujące wielkości plonów (w kg):
+1.52, 1.57, 1.30, 1.62, 1.55, 1.70, 2.05, 1.64, 1.95, 1.80, 1.76, 1.40, 1.92, 2.20, 1.57, 1.59, 1.27, 1.79, 1.29, 1.84, 1.77, 1.72, 1.53, 1.32, 1.69, 1.95, 1.75, 1.08, 1.70, 1.45.
+
+Wyznaczyć podstawowe statystyki dla wielkości plonów przy użyciu funkcji "summary" oraz przedstawić graficznie dane przy użyciu funkcji: barplot, plot, histogram oraz boxplot.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE,tidy=FALSE}
+#  Przykład 4.1 (Kala 2005, s. 26)
+y=c(1.52,1.57,1.30,1.62,1.55,1.70,2.05,1.64,1.95,1.80,1.76,1.40,1.92,2.20,1.57,
+1.59,1.27,1.79,1.29,1.84,1.77,1.72,1.53,1.32,1.69,1.95,1.75,1.08,1.70,1.45)
+summary(y)  # wyznaczenie wybranych statystyk
+barplot(y)  # Rys. 4.1
+plot(y)  # Rys. 4.2
+# xlab - tytuł osi OX, ylab - tytuł osi OY, main - tytuł wykresu
+plot(y,xlab="numery krzakow",ylab="wartosci y w kg", main="Plony pomidorow") # Rys. 4.3
+hist(y)  # Rys. 4.4
+hist(y, main="Plonowanie pomidorow")  # Rys.4.5
+# col - kolory wykresu
+hist(y, col=rainbow(20), xlab="przedzialy", ylab="liczebnosci",
+     main="Plonowanie pomidorow") # Rys. 4.6
+boxplot(y) # Rys. 4.7
+```
+\vspace{0.8cm}
+**Realizacja w R**
+
+```{r Barplot1, echo=TRUE,fig.align='center',highlight=FALSE,fig.cap='Barplot dla danych - Kala (2005, s. 26)', fig.pos='H',out.width='70%'}
+#  Przykład 4.1 (Kala 2005, s. 26)
+y=c(1.52,1.57,1.30,1.62,1.55,1.70,2.05,1.64,1.95,1.80,1.76,1.40,1.92,2.20,1.57,
+1.59,1.27,1.79,1.29,1.84,1.77,1.72,1.53,1.32,1.69,1.95,1.75,1.08,1.70,1.45)
+summary(y)  # wyznaczenie wybranych statystyk
+barplot(y)  # Rys. 4.1
+```
+
+```{r  echo=TRUE,highlight=FALSE,fig.cap='Przykład użycia funkcji plot dla danych - Kala (2005, s. 26)', fig.align='center',fig.pos='H',out.width='70%'}
+plot(y)  # Rys. 4.2
+```
+
+```{r plott2, highlight=FALSE,echo=TRUE,fig.cap='Przykład użycia funkcji plot z tytułami osi dla danych - Kala (2005, s. 26)', fig.align='center',fig.pos='H',out.width='70%',tidy = FALSE, warning = FALSE,dev.args=list(encoding='CP1250')}
+# xlab - tytuł osi OX, ylab - tytuł osi OY, main - tytuł wykresu
+plot(y,xlab="numery krzaków",ylab="wartości y w kg", main="Plony
+     pomidorów") # Rys. 4.3
+```
+
+
+
+```{r plott3, echo=TRUE,highlight=FALSE,fig.cap='Histogram dla danych - Kala (2005, s. 26)', fig.align='center',fig.pos='H',out.width='70%'}
+hist(y)  # Rys. 4.4
+```
+
+```{r plott4, echo=TRUE,highlight=FALSE,fig.cap='Histogram z tytułem dla danych - Kala (2005, s. 26)', fig.align='center',fig.pos='H',out.width='70%',dev.args=list(encoding='CP1250')}
+hist(y, main="Plonowanie pomidorów")  # Rys. 4.5
+```
+
+```{r plott5,highlight=FALSE, warning = FALSE,echo=TRUE,fig.cap='Histogram z tytułami w kolorze dla danych - Kala (2005, s. 26)', fig.align='center',fig.pos='H',out.width='70%',tidy=FALSE, dev.args=list(encoding='CP1250')}
+# col - kolory wykresu
+hist(y, col=rainbow(20), xlab="przedziały", ylab="liczebności",
+     main="Plonowanie pomidorów") # Rys. 4.6
+```
+
+```{r plott6, highlight=FALSE,echo=TRUE,fig.cap='Boxplot dla danych - Kala (2005, s. 26)', fig.align='center',fig.pos='H',out.width='70%'}
+boxplot(y) # Rys. 4.7
+```
+
+
+\newpage
+
+**Przykład 4.2** (Greń 1975, s. 161)
+
+Dla  danych z przykładu 3.1 wykonać wykres typu boxplot.
+
+\vspace{0.8cm}
+
+**Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 4.2 - (Greń 1975, s. 161)
+# przygotowanie danych
+A = c(6.7,7.3,8.0,8.0,7.9,9.2,10.1,9.2,8.3,8.4,8.0,7.9)
+B = c(7.5,7.7,7.7,8.2,8.9,8.9,10.6,10.2,9.4,9.4,8.2,7.8)
+C = c(5.9,6.9,7.0,7.0,9.5,9.6,9.6,10.3,8.1,8.5,8.6,8.8)
+dane=data.frame(A, B, C)  # tworzenie ramki danych o nazwie "dane"
+dane
+boxplot(dane)   # Rys. 4.8
+boxplot(dane, main="ABC")   # Rys. 4.9
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 4.2 - (Greń 1975, s. 161)
+# przygotowanie danych
+A = c(6.7,7.3,8.0,8.0,7.9,9.2,10.1,9.2,8.3,8.4,8.0,7.9)
+B = c(7.5,7.7,7.7,8.2,8.9,8.9,10.6,10.2,9.4,9.4,8.2,7.8)
+C = c(5.9,6.9,7.0,7.0,9.5,9.6,9.6,10.3,8.1,8.5,8.6,8.8)
+dane=data.frame(A, B, C)  # tworzenie ramki danych o nazwie "dane"
+dane
+```
+
+```{r plott7, highlight=FALSE,echo=TRUE,fig.cap='Boxplot dla danych - Greń (1975, s. 161)', fig.align='center',fig.pos='H',out.width='57%'}
+boxplot(dane) # Rys. 4.8
+```
+
+```{r plott8, highlight=FALSE,echo=TRUE,fig.cap='Boxplot z tytułem wykresu - Greń (1975, s. 161)', fig.align='center',fig.pos='H',out.width='57%'}
+boxplot(dane,main="ABC") # Rys. 4.9
+```
+
+## Wykresy dla przykładowych funkcji
+\vspace{0.8cm}
+**Przykład 4.3**
+
+Narysować wykres funkcji $y=x^3$ dla $x \in \langle -10;10 \rangle$ z osiami współrzędnych.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 4.3
+x = -10:10  # ustalenie wartości x
+x # wyświetlenie zawartości x
+y=x^3  # obliczenie wartości y
+plot(x, y)  # Rys. 4.10
+# pch - określenie znaków (symboli) na wykresie
+plot(x, y, pch = 1:20) # zmiana wartości argumentu 'pch'  -  Rys. 4.11
+lines(x,y)  # dodanie linii łączących x i y  - Rys. 4.12
+abline(h=0)  # dodanie linii poziomej y=0, czyli osi OX
+abline(v=0, col="red") # dodanie czerwonej linii pionowej x=0 (oś OY)  - Rys. 4.13
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 4.3
+x = -10:10  # ustalenie wartości x
+x # wyświetlenie zawartości x
+y=x^3  # obliczenie wartości y
+
+```
+
+
+
+```{r plott9, highlight=FALSE,echo=TRUE,fig.cap='Wykres funkcji $y=x^3$', fig.align='center',fig.pos='H',out.width='70%'}
+plot(x, y)  # Rys. 4.10
+```
+
+```{r plott9a,highlight=FALSE, echo=TRUE,fig.cap='Wykres funkcji $y=x^3$ ze zmianą wartości pch', fig.align='center',fig.pos='H',out.width='70%'}
+# pch - określenie znaków (symboli) na wykresie
+plot(x, y, pch = 1:20) # zmiana wartości argumentu 'pch' -  Rys. 4.11
+```
+
+
+\newpage
+
+```{r highlight=FALSE,eval=FALSE,echo=TRUE}
+lines(x,y)  # dodanie linii łączących x i y -  Rys. 4.12
+```
+
+
+```{r  highlight=FALSE,echo=FALSE,fig.cap='Wykres funkcji $y=x^3$ z liniami łączącymi', fig.align='center',fig.pos='H',out.width='70%'}
+plot(x, y, pch = 1:20) # zmiana wartości argumentu 'pch' 
+lines(x,y)  # dodanie linii łączących x i y
+```
+
+```{r highlight=FALSE,echo=TRUE,eval=FALSE}
+abline(h=0)  # dodanie linii poziomej y=0, czyli osi OX
+abline(v=0, col="red") # dodanie czerwonej linii pionowej x=0 (oś OY)  - Rys. 4.13
+```
+```{r  highlight=FALSE,echo=FALSE,fig.cap='Wykres funkcji $y=x^3$ z osiami OX i OY', fig.align='center',fig.pos='H',out.width='70%'}
+plot(x, y)  # wykres x i y
+lines(x,y)  # dodanie linii łączących x i y.
+abline(h=0)  # dodanie linii poziomej y=0, czyli osi OX
+abline(v=0, col="red") # dodanie czerwonej linii pionowej x=0 (oś OY)  - Rys. 4.13
+```
+
+
+
+**Przykład 4.4**
+
+Narysować w jednym „oknie” wykresy funkcji $y=sin(x)$ oraz $y=cos(x)$ dla $x \in \langle -3 \pi;3 \pi \rangle$.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE,tidy.opts=list(width.cutoff=37)}
+# Przykład 4.4
+# ustalamy wartości x
+x = seq(-3*pi, 3*pi, by=0.3)
+# rysujemy funkcję sin(x) - type='l' oznacza linię
+plot(x, sin(x), type="l", main="Wykres funkcji sin(x) i cos(x)", col="red")  # Rys. 4.14
+# dorysowujemy funkcję cos(x) i nadajemy tytuł osi OY
+lines(x, cos(x),  col="blue", type="l", ylab='wartości funkcji')  # Rys. 4.15
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 4.4
+# ustalamy wartości x
+x = seq(-3*pi, 3*pi, by=0.3)
+```
+
+```{r  echo=TRUE,highlight=FALSE,fig.cap='Wykres funkcji $y=sin(x)$', fig.align = 'center',fig.pos='H',out.width='70%',tidy=TRUE,tidy.opts=list(width.cutoff=37)}
+# rysujemy funkcję sin(x) - type='l' oznacza linię
+plot(x, sin(x), type="l", main="Wykres funkcji sin(x) i cos(x)", col="red") # Rys. 4.14
+```
+```{r  eval=FALSE,highlight=FALSE,echo=TRUE,fig.cap='plot13', fig.align='center',fig.pos='H',out.width='70%'}
+# dorysowujemy funkcję cos(x) i nadajemy tytuł osi OY
+lines(x, cos(x),  col="blue", type="l", ylab='wartości funkcji')  # Rys. 4.15
+```
+
+```{r lines, highlight=FALSE,echo=FALSE,fig.cap='Wykresy funkcji $y=sin(x)$ oraz $y=cos(x)$ przy pomocy funkcji plot i lines', fig.align='center',fig.pos='H',out.width='70%'}
+plot(x, sin(x), type="l", main="Wykres funkcji sin(x) i cos(x)", col="red")
+lines(x, cos(x),  col="blue", type="l")
+```
+
+\vspace{0.8cm}
+**Przykład 4.5**
+
+Narysować w jednym 'oknie' wykresy funkcji $y=sin(x)$ oraz $y=cos(x)$ dla $x \in \langle -3 \pi;3 \pi \rangle$ przy pomocy funkcji 'curve'.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,tidy=TRUE,highlight=FALSE}
+# Przykład 4.5 - funkcja 'curve'
+# Rys. 4.16
+curve(sin, from = -3*pi, to = 3*pi, type = "l", col = "red", xlab="argumenty funkcji", 
+      ylab = "wartości funkcji") 
+curve(cos, from = -3*pi, to = 3*pi, type = "b", col = "blue", add = T)
+title(main="Wykres funkcji y=sin(x) i y=cos(x)")
+```
+
+\newpage
+
+**Realizacja w R**
+```{r echo=TRUE,warning=FALSE,highlight=FALSE,fig.cap='Wykresy funkcji $y=sin(x)$ oraz $y=cos(x)$ przy pomocy funkcji curve', fig.align='center',tidy=TRUE,fig.pos='H',out.width='70%'}
+# Przykład 4.5 - funkcja 'curve'
+# Rys. 4.16
+curve(sin, from = -3*pi, to = 3*pi, type = "l", col = "red", xlab="argumenty funkcji", 
+      ylab = "wartości funkcji") 
+curve(cos, from = -3*pi, to = 3*pi, type = "b", col = "blue", add = T)
+title(main="Wykres funkcji y=sin(x) i y=cos(x)")
+```
+
+
+
+## Zadania do wykonania
+
+Zad. 1 
+
+Wczytaj dane "Studenci.xlsx" i wykonaj wykres funkcją \texttt{plot} typu punktowego, gdzie na osi X znajdować się będzie wiek studentów, a na osi Y wysokość stypendium. Zaznacz kolorem czerwonym kobiety, a niebieskim mężczyzn.
+
+\newpage
+
+Zad. 2 
+
+Na jednym wykresie narysuj w przedziale $[-5, 5]$ następujące funkcje: $y = x^2$; $y = (x-2)^2$; $y = (x-2)^2+3$; $y = x^2+3$; $y = (x+1)^2-2$.
+Dodaj linie $x = 0$ w kolorze czarnym. Każda funkcja niech będzie narysowana innym kolorem. Nadaj tytuł: "Wykresy funkcji przesuniętych".
+
+\vspace{0.8cm}
+Zad. 3
+
+Narysuj histogram dla wysokości stypendium dla danych z pliku "Studenci.xlsx".

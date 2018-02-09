@@ -1,0 +1,936 @@
+
+
+# Obliczenia w R
+
+W programie R mamy nie tylko możliwość wykonywania zaawansowanych obliczeń statystycznych, ale także możemy używać R do zwykłych działań jako kalkulatora. 
+
+Polecenia w R można realizować na kilka sposobów. Dwa najprostsze są następujące: 
+  
+  1. W lewym górnym oknie RStudio (okno edycji) piszemy polecenie (kod, skrypt) i następnie wykonujemy polecenie "Run" (kursor wskazuje, który wiersz poleceń będzie wykonany, natomiast zaznaczony obszar wskazuje, które polecenia będą wykonane).
+2. W lewym dolnym oknie RStudio (okno konsoli) po znaku zachęty ">" piszemy polecenie (kod, skrypt) i wykonujemy to polecenie naciskając klawisz "enter".
+
+**Uwagi**
+  
+  1. Realizacja wykonanych poleceń przedstawiana jest w lewym dolnym oknie RStudio (okno konsoli).
+2. Po znaku "#" występuje komentarz, który nie jest wykonywany. 
+3. Liczba rzeczywista przedstawiana jest za pomocą kropki, a nie przecinka (separatorem dziesietnym jest kropka, a nie przecinek).
+4. Nazwy obiektów mogą zawierać duże i małe litery, przy czym wielkość znaków jest rozróżnialna.
+5. Nazwy nie mogą się zaczynać od liczby oraz znaku '\_'.
+
+
+## Proste obliczenia matematyczne
+
+\begin{table}[!ht]
+\centering
+\caption{Podstawowe funkcje i operatory w R}
+\label{operatory}
+\begin{tabular}{ccc}
+\hline
+Funkcja/Operator  & Opis jej działania  & Przykład użycia  \\ \hline
++, - , /, *                                                                                   & \begin{tabular}[c]{@{}c@{}}Dodawanie, odejmowanie, dzielenie, \\ mnożenie\end{tabular}                                                                                              & 2+3; 1-2; 4/2; 4*3                                              \\
+sqrt(x), \textasciicircum      & Pierwiastkowanie, potęgowanie                                         & sqrt(4); 2\textasciicircum 4    \\
+\begin{tabular}[c]{@{}c@{}}log(x), log10(x) \\ log(x, a)\\  log2(x) \\ exp(x)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Logarytm naturalny (log), dziesiętny (log10) \\ Logarytm o podstawie a z liczby x \\ Logarytm o podstawie 2 \\ Funkcja wykładnicza $e^x$\end{tabular} & \begin{tabular}[c]{@{}c@{}}log(8); log10(4) \\log(6,9) \\ log2(5) \\ exp(3) \end{tabular}\\
+sin(x), cos(x)    & Funkcje trygonometryczne sinus, cosinus z x  & sin(3*pi/4)  \\
+round(x,a) & Zaokrąglenie x do a miejsc po przecinku & round(8.345,2) \\
+x\%\%y                                                                                        & Reszta z dzielenia x przez y                                                                                                                                                        & 4\%\%3                                                          \\
+x\%/\%y                                                                                       & Część całkowita z dzielenia x przez y                                                                                                                                               & 6\%/\%4                                                         \\
+abs(x)                                                                                        & Wartość bezwzględna z x                                                                                                                                                             & abs(-4)                                                         \\ \hline                                                           
+\end{tabular}
+\end{table}
+
+**Przykład 2.1**
+  
+  W lewym górnym oknie RStudio (okno edycji) piszemy: 
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+6+8 
+```
+i wykonujemy polecenie "Run". Wówczas w lewym dolnym oknie RStudio (okno konsoli) pojawi się:
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+6+8 
+```
+gdzie znak ">" jest znakiem zachęty, "6+8" jest wykonanym poleceniem, "[1]" jest liczbą elementów wyjściowych, natomiast "14" jest wynikiem realizacji polecenia wejściowego.
+
+**Uwaga**
+  
+  W prezentowanym manuskrypcie wszystkie polecenia, kody oraz skrypty oznaczane są czcionką koloru czarnego i nazwane "Kod w R". Najlepiej polecenia takie umieścić w lewym górnym oknie RStudio (okno edycji). Natomiast wynik wykonania skryptu (po uruchomieniu poleceniem "Run"), przedstawiony jest w lewym dolnym oknie RStudio (okno konsoli) i nazwany "Realizacja w R".
+
+
+
+\vspace{0.8cm}
+
+**Przykład 2.2**
+  
+  **Kod w R**
+```{r, eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.2 - proste obliczenia matematyczne
+3+5 # dodawanie
+4-6 # odejmowanie
+8*7 # mnożenie
+21/5 # dzielenie
+5^3 # 5 do potęgi 3
+sqrt(49) # pierwiastek kwadratowy z 49
+49^(1/2) # pierwiastek kwadratowy z 49
+(8)^(1/3) # pierwiastek trzeciego stopnia z 8
+log(7) # logarytm naturalny z 7
+log10(6) # logarytm o podstawie 10 z 6
+log2(5) # logarytm o podstawie 2 z 5
+log(4,5) # logarytm o podstawie 5 z 4
+exp(3) # e do potęgi 3
+sin(6.28) # sinus kąta 6.28 (w radianach), czyli kąta 360 stopni
+cos(pi/2) # cosinus kąta pi/2 (w radianach), czyli kąta 90 stopni
+```
+
+\vspace{0.8cm}
+
+**Realizacja w R**
+```{r highlight=FALSE,tidy.opts=list(width.cutoff=37),comment=NA,prompt=TRUE}
+# Przykład 2.2 - proste obliczenia matematyczne
+3+5 # dodawanie
+4-6 # odejmowanie
+8*7 # mnożenie
+21/5 # dzielenie
+5^3 # 5 do potęgi 3
+sqrt(49) # pierwiastek kwadratowy z 49
+49^(1/2) # pierwiastek kwadratowy z 49
+(8)^(1/3) # pierwiastek trzeciego stopnia z 8
+log(7) # logarytm naturalny z 7
+log10(6) # logarytm o podstawie 10 z 6
+log2(5) # logarytm o podstawie 2 z 5
+log(4,5) # logarytm o podstawie 5 z 4
+exp(3) # e do potęgi 3
+sin(6.28) # sinus kąta 6.28 (w radianach), czyli kąta 360 stopni
+cos(pi/2) # cosinus kąta pi/2 (w radianach), czyli kąta 90 stopni
+```
+\vspace{0.8cm}
+
+**Uwaga**
+  
+  W R można zapisać różne działania w tej samej linii, ale muszą być oddzielone średnikami. 
+
+\vspace{0.8cm}
+
+**Przykład 2.3**
+  
+  **Kod w R**
+  
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.3 - obliczenia matematyczne
+2+3; 1-2; 4/2; 4*3
+```
+\vspace{0.8cm}
+
+**Realizacja w R**
+```{r, tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.3 - obliczenia matematyczne
+2+3; 1-2; 4/2; 4*3
+```
+## Zmienne 
+W R operatorem przypisania jest znak "=" lub "<-". W manuskrypcie stosujemy znak "=".
+
+\vspace{0.8cm}
+
+**Przykład 2.4**
+  
+  **Kod w R**
+```{r, eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.4 - operacje przypisania
+x=4  # przypisanie zmiennej x wartości 4
+x  # wyświetlenie wartości zmiennej x, czyli 4
+imie = "Jan"
+imie
+nazwisko="Nowak"
+nazwisko
+```
+
+
+**Realizacja w R**
+```{r, tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.4 - operacje przypisania
+x=4  # przypisanie zmiennej x wartości 4
+x  # wyświetlenie wartości zmiennej x, czyli 4
+imie = "Jan"
+imie
+nazwisko="Nowak"
+nazwisko
+```
+
+
+
+## Wektory, macierze oraz ramki danych
+
+
+**WEKTORY**
+  
+  
+  Podstawowa funkcja wykorzystywana w R w celu utworzenia wektora to "\texttt{c()}" od 'concatenate' - powiązać. Przykładowo, gdy chcemy utworzyć wektor o nazwie "a" z elementami 3 i 1 piszemy a=c(3,1). Wektor musi posiadać elementy tylko jednego typu. Rozróżniamy następujące wektory: wektor numeryczny, wektor znakowy oraz wektor logiczny.
+
+\vspace{0.8cm}
+
+**Przykład 2.5**
+  
+  **Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.5 - wektory
+ # wektor numeryczny
+a = c(3, 5, 7, 9, 11) 
+a
+#  wektor znakowy, znak w cudzysłowiu ""
+dni = c("wtorek", "czwartek", "sobota", "niedziela")  
+dni
+# wektor logiczny
+c = c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE) 
+c
+```
+\vspace{0.8cm}
+
+**Realizacja w R**
+```{r comment=NA,prompt=TRUE,highlight=FALSE}
+# Przykład 2.5 - wektory
+ # wektor numeryczny
+a = c(3, 5, 7, 9, 11) 
+a
+#  wektor znakowy, znak w cudzysłowiu ""
+dni = c("wtorek", "czwartek", "sobota", "niedziela")  
+dni
+# wektor logiczny
+c = c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE) 
+c
+```
+
+Przykładowe metody tworzenia wektorów znajdują się w Tablicy 2.2.
+
+
+\begin{table}[!ht]
+\centering
+\caption{Przykładowe funkcje tworzenia wektorów}
+\label{cos}
+\begin{tabular}{ccc}
+\hline
+Funkcja/Operator                                                             & \begin{tabular}[c]{@{}c@{}}Przykład\\ {[}wynik{]}\end{tabular}                           & Opis                                                                                                                          \\ \hline
+:                                                                         & \begin{tabular}[c]{@{}c@{}}1:3\\ {[}1,2,3{]}\end{tabular}                              & Tworzy sekwencje od : do                                                                                                      \\ \hline
+seq(from=x,to=y,by=z)                                                     & \begin{tabular}[c]{@{}c@{}}seq(from=0,to=8,by=2)\\ {[}0,2,4,6,8{]}\end{tabular}          & \begin{tabular}[c]{@{}c@{}}Tworzy regularne sekwencje \\ od 0 do 8 co 2\end{tabular}                                          \\ \hline
+\begin{tabular}[c]{@{}c@{}}seq(from=x,to=y, \\ length.out=z)\end{tabular} & \begin{tabular}[c]{@{}c@{}}seq(from=0,to=10,\\ length.out=3)\\ {[}0,5,10{]}\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tworzy\\ regularne sekwencje \\ od 0 do 10 co 3 liczbach\end{tabular}                               \\ \hline
+\begin{tabular}[c]{@{}c@{}}rep(x),\\ rep(x,y)\end{tabular}                & \begin{tabular}[c]{@{}c@{}}rep(3); rep(3,4)\\ {[}3{]}; {[}3,3,3,3{]}\end{tabular}        & \begin{tabular}[c]{@{}c@{}}Pierwszy argument oznacza \\ co ma być powtórzone\\ drugi ile razy (domyślnie jest 1)\end{tabular} \\ \hline
+rep(x,length.out=y)                                                       & \begin{tabular}[c]{@{}c@{}}rep(1:2,length.out=4)\\ {[}1,2,1,2{]}\end{tabular}            & \begin{tabular}[c]{@{}c@{}}Powtórzona sekwencja liczb \\ 1 i 2 o długości 4\end{tabular}                                      \\ \hline
+rep(x,each=y)                                                             & \begin{tabular}[c]{@{}c@{}}rep(3:1,each=2)\\ {[}3,3,2,2,1,1{]}\end{tabular}              & \begin{tabular}[c]{@{}c@{}}Każda\\ cyfra z sekwencji 3:1 \\ powtórzona 2 razy\end{tabular}                                    \\ \hline
+\end{tabular}
+\end{table}
+
+\vspace{0.8cm}
+
+
+
+**Przykład 2.6**
+  
+  **Kod w R**
+```{r, eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.6 - operacje na wektorach
+a = c(1,3,5) # określenie wektora a
+a
+b=c(3:14) # określenie wektora b
+b
+# łączymy wektory a i b
+ab = c(a,b)
+ab
+# zastępujemy liczby z pozycji 6,7,...,10 innymi liczbami
+ab[6:10] = c(0,-6,-3,-1,-5) 
+ab
+# Alternatywne metody tworzenia wektorów:
+rep(c(1,2), times=3) # powtarzamy wektor (1,2) - 3 razy
+rep(c(1,2), each=3)  # powtarzamy elementy wektora (1,2) - 3 razy
+seq(from=1, to=10, by=2 ) # tworzymy sekwencję liczb (od 1 do 10 co 2)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r, tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.6 - operacje na wektorach
+a = c(1,3,5) # określenie wektora a
+a
+b=c(3:14) # określenie wektora b
+b
+# łączymy wektory a i b
+ab = c(a,b)
+ab
+# zastępujemy liczby z pozycji 6,7,...,10 innymi liczbami
+ab[6:10] = c(0,-6,-3,-1,-5) 
+ab
+# Alternatywne metody tworzenia wektorów:
+rep(c(1,2), times=3) # powtarzamy wektor (1,2) - 3 razy
+rep(c(1,2), each=3)  # powtarzamy elementy wektora (1,2) - 3 razy
+seq(from=1, to=10, by=2 ) # tworzymy sekwencję liczb (od 1 do 10 co 2)
+```
+
+\vspace{0.8cm}
+**Odwoływanie się do elementów wektora:**
+  
+  a) x[1:2] - odwołanie się do 1 i 2 elementu wektora x
+
+b) x[c(2,4)] - odwołanie się do 2 i 4 elementu wektora x
+
+c) x[-c(2,3)] - wektor x bez 2 i 3 elementu
+
+d) x[x>6] - podzbiór wektora x: wyświetlane są 
+tylko te wartości wektora x, które są większe od 6
+
+\vspace{0.8cm}
+
+**Przykład 2.7**
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE,tidy=TRUE}
+# Przykład 2.7 - odwoływanie się do elementów wektora
+x=1:7 # określenie wektora x
+x
+x[5]           # 5-ty element wektora x
+x[-1]          # wszystkie elementy oprócz pierwszego elementu wektora x
+x[2:6]         # od 2-go do 6-go elementu wektora x
+x[c(2,4)]      # 2-gi i 4-ty element wektora x
+x[x < 4]       # wszystkie elementy wektora x mniejsze od 4
+```
+\newpage
+
+**Realizacja w R**
+```{r,tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.7 - odwoływanie się do elementów wektora
+x=1:7 # określenie wektora x
+x
+x[5]           # 5-ty element wektora x
+x[-1]          # wszystkie elementy oprócz pierwszego elementu wektora x
+x[2:6]         # od 2-go do 6-go elementu wektora x
+x[c(2,4)]      # 2-gi i 4-ty element wektora x
+x[x < 4]       # wszystkie elementy wektora x mniejsze od 4
+```
+
+\vspace{0.8cm}
+**Podstawowe operacje na wektorach: **
+
+\texttt{x} jest wektorem liczbowym
+  
+  \texttt{length(x)} - liczba elementów wektora \texttt{x}
+
+
+\texttt{min(x)}, \texttt{max(x)}, \texttt{range(x)} - minimum, maximum, rozstęp
+
+\texttt{sum(x)}, \texttt{prod(x)} - suma i iloczyn elementów 
+
+\texttt{mean(x)}, \texttt{median(x)} - średnia arytmetyczna i mediana
+
+\texttt{var(x)}, \texttt{sd(x)} - wariancja i odchylenie standardowe
+
+\texttt{IQR(x)} - zakres międzykwartylowy 
+
+\texttt{sort(x)} - posortowane elementy w kolejności rosnącej
+
+\texttt{summary(x)} - podstawowe statystyki: min, max, średnia, mediana, kwartyle
+
+
+\vspace{0.8cm}
+**Przykład 2.8**  (Kala 2005, s. 26)
+
+Obserwowano plonowanie 30 krzaków pomidorów "New Yorker" i otrzymano następujące wielkości plonów (w kg):
+  1.52, 1.57, 1.30, 1.62, 1.55, 1.70, 2.05, 1.64, 1.95, 1.80, 1.76, 1.40, 1.92, 2.20, 1.57, 1.59, 1.27, 1.79, 1.29, 1.84, 1.77, 1.72, 1.53, 1.32, 1.69, 1.95, 1.75, 1.08, 1.70, 1.45.
+
+Wyznaczyć  wartość minimalną i maksymalną, rozstęp, sumę i iloczyn elementów, średnią arytmetyczną i medianę, wariancję i odchylenie standardowe. Następnie rosnąco  posortować wszystkie elementy oraz wykonać polecenie "summary".
+
+\vspace{0.8cm}
+
+**Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.8 - (Kala 2005, s.26)
+# Przygotowanie danych
+y = c(1.52, 1.57, 1.30, 1.62, 1.55, 1.70, 2.05, 1.64, 1.95, 1.80, 1.76, 1.40,
+      1.92, 2.20, 1.57, 1.59, 1.27, 1.79, 1.29, 1.84, 1.77, 1.72, 1.53, 1.32,
+      1.69, 1.95, 1.75, 1.08, 1.70, 1.45) 
+# wyświetlanie zawartości y
+y
+# wykonanie obliczeń
+min(y)  # wartość minimalna 
+max(y)  # wartość maksymalna
+range(y)  # wartość min i max
+length(y) # liczba elementów
+sum(y)  # suma elementów 
+prod(y)  # iloczyn elementów 
+var(y)  # wariancja
+sd(y)  # odchylenie standardowe
+sort(y) # sortowanie elementów (szereg pozycyjny)
+summary(y) # wartości wybranych statystyk
+
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r,comment=NA,highlight=FALSE,prompt=TRUE}
+# Przykład 2.8 - (Kala 2005, s.26)
+# Przygotowanie danych
+y = c(1.52, 1.57, 1.30, 1.62, 1.55, 1.70, 2.05, 1.64, 1.95, 1.80, 1.76, 1.40,
+      1.92, 2.20, 1.57, 1.59, 1.27, 1.79, 1.29, 1.84, 1.77, 1.72, 1.53, 1.32,
+      1.69, 1.95, 1.75, 1.08, 1.70, 1.45) 
+# wyświetlanie zawartości y
+y
+# wykonanie obliczeń
+min(y)  # wartość minimalna 
+max(y)  # wartość maksymalna
+range(y)  # wartość min i max
+length(y) # liczba elementów
+sum(y)  # suma elementów 
+prod(y)  # iloczyn elementów 
+var(y)  # wariancja
+sd(y)  # odchylenie standardowe
+sort(y) # sortowanie elementów (szereg pozycyjny)
+summary(y) # wartości wybranych statystyk
+```
+
+\vspace{0.8cm}
+**MACIERZE**
+  
+  \vspace{0.8cm}
+**Macierz**  - zbiór elementów tego samego typu o strukturze wierszy i kolumn.
+
+Przykład macierzy o 3 wierszach i 5 kolumnach:
+  
+  $$
+  \begin{pmatrix}
+2 &  3 & 7&  5 & 1 \\ 
+7 & 9 & 1 & 4 & 0 \\
+8 & 2 & 6 & 3 & 7 \\
+\end{pmatrix}
+$$
+  
+  
+  
+  Funkcją tworzącą macierz jest 
+\begin{center}
+\texttt{matrix(data, nrow, ncol, byrow)}
+\end{center}
+
+gdzie: 
+  
+  \texttt{data} - dane, które chcemy przedstawić w formie macierzy,
+
+\texttt{nrow} - liczba wierszy,
+
+\texttt{ncol} - liczba kolumn, 
+
+\texttt{byrow} - jeśli byrow=TRUE, to macierz tworzona jest wierszami (domyślnie byrow=FALSE)
+
+\vspace{0.8cm}
+
+**Przykład 2.9**
+  
+  **Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.9 - tworzenie macierzy
+# macierz o 3 wierszach tworzona kolumnami
+mat1 = matrix(c(1,3,5,7,9,11,13,15,18,21,23,25),  nrow = 3)  
+mat1
+# macierz o 3 kolumnach tworzona kolumnami
+mat2 = matrix(c(1,3,5,7,9,11,13,15,18,21,23,25),  ncol = 3)  
+mat2
+# macierz o 3 wierszach i 2 kolumnach
+mat3 = matrix(1:6,3,2)  
+mat3
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.9 - tworzenie macierzy
+# macierz o 3 wierszach
+mat1 = matrix(c(1,3,5,7,9,11,13,15,18,21,23,25),  nrow = 3)  
+mat1
+# macierz o 3 kolumnach
+mat2 = matrix(c(1,3,5,7,9,11,13,15,18,21,23,25),  ncol = 3)  
+mat2
+# macierz o 3 wierszach i 2 kolumnach
+mat3 = matrix(1:6,3,2)    
+mat3
+```
+
+\vspace{0.8cm}
+
+**Przykład 2.10**
+  
+  **Kod w R**
+```{r, eval=FALSE,echo=TRUE,highlight=FALSE,tidy=TRUE}
+# Przykład 2.10 - alternatywne metody tworzenia macierzy
+macierz1 = matrix(seq(1:8), nrow = 4)
+macierz1
+macierz2 = matrix(seq(1:8),  nrow = 4, byrow=TRUE)
+macierz2
+# macierz diagonalna
+macdiag1=diag(1:5)      
+macdiag1
+# macierz jednostkowa
+macdiag2=diag(4)      
+macdiag2
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r, tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.10 - alternatywne metody tworzenia macierzy
+macierz1 = matrix(seq(1:8), nrow = 4)
+macierz1
+macierz2 = matrix(seq(1:8),  nrow = 4, byrow=TRUE)
+macierz2
+# macierz diagonalna
+macdiag1=diag(1:5)      
+macdiag1
+# macierz jednostkowa
+macdiag2=diag(4)      
+macdiag2
+```
+
+
+\vspace{0.8cm}
+
+**Odwoływanie się do elementów macierzy:**
+  
+  a) A[2,3] - element z drugiego wiersza i trzeciej kolumny macierzy A
+
+b) A[2, ] - drugi wiersz macierzy A
+
+c) A[ ,3] - trzecia kolumna macierzy A
+
+d) A[ ,c(1,3)] - pierwsza i trzecia kolumna macierzy A
+
+
+**Przykład 2.11**
+  
+  **Kod w R**
+```{r, eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.11 - odwoływanie się do elementów macierzy
+dane1 = matrix(seq(1:12),nrow = 3) # tworzenie macierzy dane1
+dane1 # wyświetlenie zawartości macierzy dane1
+dane1[1,2]  # element z pierwszego wiersza i drugiej kolumny macierzy dane1
+dane1[2,]  # drugi wiersz macierzy dane1
+dane1[,3]  # trzecia kolumna macierzy dane1
+dane1[ ,c(1,4)]  # pierwsza i czwarta kolumna macierzy dane1
+dane1[c(1,3),]  # pierwszy i trzeci wiersz macierzy dane1
+
+```
+\vspace{0.8cm}
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.11 - odwoływanie się do elementów macierzy
+dane1 = matrix(seq(1:12),  nrow = 3) # tworzenie macierzy dane1
+dane1 # wyświetlenie zawartości macierzy dane1
+dane1[1,2]  # element z pierwszego wiersza i drugiej kolumny macierzy dane1
+dane1[2,]  # drugi wiersz macierzy dane1
+dane1[,3]  # trzecia kolumna macierzy dane1
+dane1[ ,c(1,4)]  # pierwsza i czwarta kolumna macierzy dane1
+dane1[c(1,3),]  # pierwszy i trzeci wiersz macierzy dane1
+```
+
+\vspace{0.8cm}
+
+**Podstawowe operacje na macierzach: **
+  
+  \texttt{dim(A)} - wymiar macierzy A
+
+\texttt{A\%*\%B} - iloczyn macierzy A i B
+
+\texttt{t(A)} - transpozycja macierzy A
+
+\texttt{det(A)} - wyznacznik macierzy A
+
+\texttt{solve(A)} - macierz odwrotna do macierzy A
+
+\texttt{ncol(A), nrow(A)} - liczba kolumn, wierszy macierzy A
+
+\texttt{colnames(A), rownames(A)} - nazwy kolumn, wierszy macierzy A
+
+\texttt{colSums(A), rowSums(A)} - sumy kolumn, wierszy macierzy A
+
+\texttt{colMeans(A), rowMeans(A)} - wartości średnie dla kolumn, wierszy macierzy A
+
+\texttt{diag(A)} - wektor o elementach z przekątnej macierzy A
+
+\vspace{0.8cm}
+
+**Przykład 2.12**
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.12 - operacje na macierzach
+macierz1
+dim(macierz1) # wymiar macierzy
+t(macierz1) # transpozycja macierzy
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.12 - operacje na macierzach
+macierz1
+dim(macierz1) # wymiar macierzy
+t(macierz1) # transpozycja macierzy
+```
+
+
+\vspace{0.8cm}
+**Przykład 2.13**
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.13 - mnożenie macierzy
+A=matrix(c(1,2,3,4,5,6), nrow=2)
+A
+B=matrix(c(9,8,7,6,5,4,3,2,1), nrow=3)
+B
+C=A%*%B 
+C
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.13 - mnożenie macierzy
+A=matrix(c(1,2,3,4,5,6), nrow=2)
+A
+B=matrix(c(9,8,7,6,5,4,3,2,1), nrow=3)
+B
+C=A%*%B 
+C
+```
+\vspace{0.8cm}
+
+**Przykład 2.14**
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.14 - dalsze operacje na macierzach
+rowSums(B) # sumy dla wierszy macierzy B
+rowMeans(B) # średnie arytmetyczne dla wierszy macierzy B
+colSums(A) # sumy dla kolumn macierzy A
+colMeans(A) # średnie arytmetyczne dla kolumn macierzy A
+```
+\vspace{0.8cm}
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.14 - dalsze operacje na macierzach
+rowSums(B) # sumy dla wierszy macierzy B
+rowMeans(B) # średnie arytmetyczne dla wierszy macierzy B
+colSums(A) # sumy dla kolumn macierzy A
+colMeans(A) # średnie arytmetyczne dla kolumn macierzy A
+```
+\vspace{0.8cm}
+**Przykład 2.15**
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.15 - wyznacznik i odwrotność macierzy 
+D=matrix(c(1,3,5,1,2,3,7,8,1), nrow=3)  
+D
+wyznacznik=det(D)  # wyznacznik macierzy D
+wyznacznik
+D1=solve(D)  # macierz odwrotna do macierzy D
+D1
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),comment=NA,highlight=FALSE,prompt=TRUE}
+# Przykład 2.15 -  wyznacznik i odwrotność macierzy
+D=matrix(c(1,3,5,1,2,3,7,8,1), nrow=3)  # tworzenie macierzy D
+D
+wyznacznik=det(D)  # wyznacznik macierzy D
+wyznacznik
+D1=solve(D)  # macierz odwrotna do macierzy D
+D1
+```
+\vspace{0.8cm}
+**Przykład 2.16**
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.16 - rozwiązywanie układu równań
+w=c(3,1,5)  # wektor wyrazów wolnych
+w
+roz=solve(D,w)  # rozwiązanie układu równań postaci Dx=w, D - macierz układu
+roz
+```
+
+\newpage
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),comment=NA,highlight=FALSE,prompt=TRUE}
+# Przykład 2.16 - rozwiązywanie układu równań
+w=c(3,1,5)  # wektor wyrazów wolnych
+w
+roz=solve(D,w)  # rozwiązanie układu równań postaci Dx=w, D - macierz układu
+roz
+```
+
+\vspace{0.8cm}
+
+**RAMKA DANYCH**
+  
+  **Ramka danych** - zbiór elementów o strukturze wierszy i kolumn, gdzie kolumny mogą być różnego typu.
+
+Funkcją tworzącą ramkę danych jest 'data.frame'.
+
+\vspace{0.8cm}
+**Przykład 2.17**
+  
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.17 - tworzenie ramki danych
+dawki=c("d0", "d20", "d50", "d100")
+odmiany=c("K", "M", "P", "S")
+plon=c(6.1, 5.4, 6.5, 6.3)
+roslina=data.frame(Odmiany=odmiany, Dawki=dawki, Plon=plon)
+roslina
+
+```
+
+\newpage
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.17 - tworzenie ramki danych
+dawki=c("d0", "d20", "d50", "d100")
+odmiany=c("K", "M", "P", "S")
+plon=c(6.1, 5.4, 6.5, 6.3)
+roslina=data.frame(Odmiany=odmiany, Dawki=dawki, Plon=plon)
+roslina
+```
+
+
+\vspace{0.8cm}
+
+
+**Odwoływanie się do elementów z ramki danych:**
+  
+  a) roslina[1:3,1] - pierwsze trzy elementy pierwszej kolumny
+
+b) roslina[1:2,'Odmiany'] - pierwsze dwa elementy kolumny o nazwie 'Odmiany'
+
+c) roslina$Plon - wszystkie elementy z kolumny 'Plon'
+
+d) roslina$Plon[1:2] - pierwsze dwa elementy z kolumny o nazwie 'Plon'
+
+
+
+
+\vspace{0.4cm}
+**Przykład 2.18**
+
+W R można korzystać z gotowych zbiorów danych. Przykładowe dane o nazwie 'iris' oraz 'trees' użyte zostaną w dalszej części rozdziału.
+
+
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.18 - odwoływanie się do elementów ramki danych
+# przykładowa ramka danych
+data(iris) # załadowanie danych iris
+head(iris) # wyświetlenie pierwszych elementów ze zbioru iris
+iris[1:10,1] # pierwsze dziesięć elementów z pierwszej kolumny
+iris[1:10,'Sepal.Length'] # lub równoznacznie
+iris$Sepal.Length[1:10] # lub równoznacznie
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.18 - odwoływanie się do elementów ramki danych
+# przykładowa ramka danych
+data(iris) # załadowanie danych iris
+head(iris) # wyświetlenie pierwszych elementów ze zbioru iris
+iris[1:10,1] # pierwsze dziesięć elementów z pierwszej kolumny
+iris[1:10,'Sepal.Length'] # lub równoznacznie
+iris$Sepal.Length[1:10] # lub równoznacznie
+```
+
+\vspace{0.8cm}
+
+**Podstawowe operacje na ramkach danych: **
+  
+  \texttt{head()} - wyświetla pierwsze rekordy
+
+\texttt{tail()} - wyświetla ostatnie rekordy
+
+\texttt{attach()} - pozwala odnosić się do nazw zmiennych znajdujących się bezpośrednio w danych
+
+\texttt{detach()} - likwiduje możliwość bezpośredniego odnoszenia się do zmiennych
+
+\texttt{str()} - wyświetla informacje o obiekcie
+
+\texttt{table()} - tabela z liczbą wystąpień danego czynnika lub kombinacji czynników
+
+\texttt{subset()} - określa podzbiór danego zbioru, spełniający określone warunki
+
+\texttt{by()} - stosuje określoną funkcję do zadanego podzbioru danych
+
+
+\vspace{0.8cm}
+**Przykład 2.19**
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE,tidy=TRUE}
+# Przykład 2.19 - operacje na ramkach danych
+data(trees)
+head(trees)
+attach(trees)
+Girth
+str(trees)
+# tworzenie nowej ramki danych o nazwie 'ankieta'
+ankieta=data.frame(odpowiedzi=c('T','N','T','T','N','X','N','X','T'),
+                   wiek=c(16,23,22,65,45,32,24,12,56))
+ankieta
+# zliczanie ile było ankietowanych względem odpowiedzi
+table(ankieta$odpowiedzi) 
+# podzbiór ankietowanych, których wiek jest większy niż 20
+subset(ankieta,wiek>20)  
+# podzbiór tylko z odpowiedziami 'T'
+subset(ankieta,odpowiedzi=='T')  
+# suma lat dla respondentów względem odpowiedzi
+by(ankieta$wiek, ankieta$odpowiedzi,sum) 
+```
+
+\newpage
+
+**Realizacja w R**
+```{r tidy=TRUE, comment=NA,highlight=FALSE,prompt=TRUE}
+# Przykład 2.19 - operacje na ramkach danych
+data(trees)
+head(trees)
+attach(trees)
+Girth
+str(trees)
+# tworzenie nowej ramki danych o nazwie 'ankieta'
+ankieta=data.frame(odpowiedzi=c('T','N','T','T','N','X','N','X','T'),
+                   wiek=c(16,23,22,65,45,32,24,12,56))
+ankieta
+# zliczanie ile było ankietowanych względem odpowiedzi
+table(ankieta$odpowiedzi) 
+# wyznacza podzbiór ankietowanych, których wiek jest większy niż 20
+subset(ankieta,wiek>20)  
+# wyznacza podzbiór tylko z odpowiedziami 'T'
+subset(ankieta,odpowiedzi=='T')  
+# wyznacza sumę lat dla respondentów względem odpowiedzi
+by(ankieta$wiek, ankieta$odpowiedzi,sum) 
+
+```
+
+\vspace{0.8cm}
+
+## Zadania do wykonania
+
+**Wektory**
+  
+  Zad. 1
+
+Wprowadź dowolne wektory $x$, $y$, $z$. Wykonaj następujące operacje: $y-z$, $x+y$, $x/2$, $ln(x)$ – $cos(y)$
+  
+  \vspace{0.8cm}
+
+Zad. 2
+
+Stwórz dane, które będą zawierały 8 jedynek i zapisz je pod zmienną cc, a następnie utwórz dane zawierające 199 zer i zapisz pod zmienną d
+
+\vspace{0.8cm}
+
+Zad. 3
+
+Oblicz:
+  
+  a) $100^2+101^2+...+200^2$
+  
+  b) $\sqrt(log(1))+\sqrt(log(10))+...+\sqrt(log(100000))$
+  
+  \vspace{0.8cm}   
+
+Zad. 4
+
+Użyj funkcji rep żeby utworzyć następujące dane:
+  
+  a)	1 1 1 1 1 1 1 1 
+
+b)  1 4 1 4 1 4 1 4 1 4 1 4 1 4
+
+c)  3 3 3 3 3 3 3 3 6 6 6
+
+d)  5 4 4 3 3 3 2 2 2 2 1 1 1 1 1
+
+e)  12  12  12  21  43  43
+
+f)  „A”  „B”  „A”  „B”  „A”  „B” 
+
+g)  1 1 3 3 5 5 7 7 9 9 11 11
+
+\vspace{0.8cm}
+
+**Macierze**
+  
+  Zad. 1 
+
+Zadeklaruj poniższe macierze:
+  
+  $$A =
+  \begin{pmatrix}
+1 &  2 & -3&  0 \\ 
+2 & -5 & 4 & 1 \\
+3 & 7 & 5 & -2 \\
+0 & 1&  6&  -3 \\
+\end{pmatrix}
+$$
+  $$
+  B =
+  \begin{pmatrix}
+1 & 7 \\
+4 & 2 \\ 
+3 & -1 \\ 
+2 & 0 \\ 
+\end{pmatrix}
+$$
+  Oblicz wyznacznik macierzy $\textbf{A}$, iloczyn $\textbf{AB}$, macierz transponowaną $\mathbf{A}^T$, macierz odwrotną $\mathbf{A}^{-1}$.
+
+\vspace{0.8cm}
+
+Zad. 2
+
+Zadeklaruj macierz A postaci:
+  
+  $$
+  A =
+  \begin{pmatrix}
+1 & 4 & 7 \\
+2 & 5 & 8 \\
+3 & 68 & 9 \\
+\end{pmatrix}.
+$$
+  
+  Następnie, korzystając z funkcji R wyznacz:
+  
+  a) liczbę wierszy i kolumn macierzy $\textbf{A}$
+  
+  b) sumę wszystkich elementów macierzy $\textbf{A}$
+  
+  c) średnią wszytkich elementów w poszczególnych kolumnach macierzy $\textbf{A}$
+  
+  d) sumę wszytkich elementów w wierszu drugim macierzy $\textbf{A}$
+  
+  e) sumę: $A_{12}$ + $A_{33}$, gdzie $A_{12}$ oznacza element macierzy $A$ znajdujący się na przecięciu pierwszego wiersza i drugiej kolumny
+  
+  f) zawartość trzeciej kolumny
+
+g) zawartość drugiego wiersza
+
+\vspace{0.8cm}
+
+**Ramki danych**
+  
+  Zad. 1
+
+Bazując na danych iris (wczytaj je wykorzystując funkcję: \texttt{data(iris)}) odpowiedz na następujące pytania:
+  
+  a) ile wierszy i kolumn zawierają te dane?
+  
+  b) oblicz wartość średnią i odchylenie standardowe dla zmiennej Sepal.Width oraz Sepal.Length dla każdego gatunku osobno.
+
+c) wybierz tylko wiersze, które odpowiadają gatunkowi Virginica i przypisz te dane nazwie 'virginica'.
+
+d) wybierz tylko te dane, które odpowiadają gatunkowi Virginica dla zmiennej Sepal.Length i przypisz je nazwie 'virginica.sl'.
+
+e) ile kwiatów z każdego gatunku zawierają dane iris?
+  
+  f) jakie jest minimum dla zmiennej Sepal.Length dla gatunku setosa?
+  
+  

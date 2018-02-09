@@ -1,0 +1,5 @@
+book_filename: "bookdown-ksiazka"
+cover-image: images/cover.png
+language:
+  ui:
+    chapter_name: "Rozdział "

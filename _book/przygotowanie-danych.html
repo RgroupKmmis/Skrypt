@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statystyka dla przyrodników w R</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statystyka dla przyrodników w R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/cover.png" />
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="zjanna/Skrypt" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statystyka dla przyrodników w R" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:image" content="images/cover.png" />
+
+<meta name="author" content="Idzi Siatkowski">
+<meta name="author" content="Joanna Zyprych-Walczak">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="obliczenia-w-r.html">
+<link rel="next" href="wizualizacje.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Placeholder</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Wprowadzenie</a></li>
+<li class="chapter" data-level="3" data-path="obliczenia-w-r.html"><a href="obliczenia-w-r.html"><i class="fa fa-check"></i><b>3</b> Obliczenia w R</a></li>
+<li class="chapter" data-level="4" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html"><i class="fa fa-check"></i><b>4</b> Przygotowanie danych</a><ul>
+<li class="chapter" data-level="4.1" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#wczytanie-danych-tekstowych"><i class="fa fa-check"></i><b>4.1</b> Wczytanie danych tekstowych</a></li>
+<li class="chapter" data-level="4.2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#wczytanie-danych-z-excela"><i class="fa fa-check"></i><b>4.2</b> Wczytanie danych z Excela</a></li>
+<li class="chapter" data-level="4.3" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#zadania-do-wykonania"><i class="fa fa-check"></i><b>4.3</b> Zadania do wykonania</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="wizualizacje.html"><a href="wizualizacje.html"><i class="fa fa-check"></i><b>5</b> Wizualizacje</a></li>
+<li class="chapter" data-level="6" data-path="testowanie.html"><a href="testowanie.html"><i class="fa fa-check"></i><b>6</b> Testowanie</a></li>
+<li class="chapter" data-level="7" data-path="badanie-zaleznosci-cech.html"><a href="badanie-zaleznosci-cech.html"><i class="fa fa-check"></i><b>7</b> Badanie zależności cech</a></li>
+<li class="chapter" data-level="8" data-path="regresja-liniowa-i-wielokrotna.html"><a href="regresja-liniowa-i-wielokrotna.html"><i class="fa fa-check"></i><b>8</b> Regresja liniowa i wielokrotna</a></li>
+<li class="chapter" data-level="9" data-path="odpowiedzi-do-zadan.html"><a href="odpowiedzi-do-zadan.html"><i class="fa fa-check"></i><b>9</b> Odpowiedzi do zadań</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statystyka dla przyrodników w R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="przygotowanie-danych" class="section level1">
+<h1><span class="header-section-number">Rozdział 4</span> Przygotowanie danych</h1>
+<p>W R dane można przygotować na wiele sposobów. W niniejszym opracowaniu przygotowanie danych oznacza: wczytanie, otwarcie i wyświetlenie danych na ekranie. Najprostszą metodą “tworzenia danych”, omówioną w poprzednim rozdziale, jest zastosowanie polecenia “c()”, czyli utworzenie wektora elementów wskazanych w nawiasie “()”. Jeśli np. mamy liczby 3, 5, 2 oraz 8 i wykonamy polecenie x=c(3, 5, 2, 8), to zmienna x będzie wektorem powyższych liczb. Natomiast, jeśli mamy dane zapisane na dysku w formie pliku tekstowego lub pliku utworzonego w excelu, to należy zastosować odpowiednie polecenia do wczytania takiego pliku.</p>
+
+<p><strong>Przykład 3.1</strong> (Greń 1975, s. 161)</p>
+<p>Wylosowano po 12 pędów żyta trzech różnych gatunków i otrzymano dla nich następujące długości kłosów żyta (w cm) - patrz Tablica <a href="#gren161"><strong>??</strong></a>.</p>
+
+<p>Przygotować i wczytać dane w formie: ramki danych, pliku tekstowego, pliku excelowskiego.</p>
+
+<p><strong>Metoda 1 - ramka danych</strong></p>
+
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Matoda 1 - ramka danych
+A = c(6.7,7.3,8.0,8.0,7.9,9.2,10.1,9.2,8.3,8.4,8.0,7.9)
+B = c(7.5,7.7,7.7,8.2,8.9,8.9,10.6,10.2,9.4,9.4,8.2,7.8)
+C = c(5.9,6.9,7.0,7.0,9.5,9.6,9.6,10.3,8.1,8.5,8.6,8.8)
+dane=data.frame(A,B,C)  # tworzenie ramki danych o nazwie &quot;dane&quot;
+dane</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Metoda 1 - ramka danych</span>
+<span class="er">&gt;</span><span class="st"> </span>A =<span class="st"> </span><span class="kw">c</span>(<span class="fl">6.7</span>,<span class="fl">7.3</span>,<span class="fl">8.0</span>,<span class="fl">8.0</span>,<span class="fl">7.9</span>,<span class="fl">9.2</span>,<span class="fl">10.1</span>,<span class="fl">9.2</span>,<span class="fl">8.3</span>,<span class="fl">8.4</span>,<span class="fl">8.0</span>,<span class="fl">7.9</span>)
+&gt;<span class="st"> </span>B =<span class="st"> </span><span class="kw">c</span>(<span class="fl">7.5</span>,<span class="fl">7.7</span>,<span class="fl">7.7</span>,<span class="fl">8.2</span>,<span class="fl">8.9</span>,<span class="fl">8.9</span>,<span class="fl">10.6</span>,<span class="fl">10.2</span>,<span class="fl">9.4</span>,<span class="fl">9.4</span>,<span class="fl">8.2</span>,<span class="fl">7.8</span>)
+&gt;<span class="st"> </span>C =<span class="st"> </span><span class="kw">c</span>(<span class="fl">5.9</span>,<span class="fl">6.9</span>,<span class="fl">7.0</span>,<span class="fl">7.0</span>,<span class="fl">9.5</span>,<span class="fl">9.6</span>,<span class="fl">9.6</span>,<span class="fl">10.3</span>,<span class="fl">8.1</span>,<span class="fl">8.5</span>,<span class="fl">8.6</span>,<span class="fl">8.8</span>)
+&gt;<span class="st"> </span>dane=<span class="kw">data.frame</span>(A,B,C)  <span class="co"># tworzenie ramki danych o nazwie &quot;dane&quot;</span>
+&gt;<span class="st"> </span>dane</code></pre></div>
+<pre><code>      A    B    C
+1   6.7  7.5  5.9
+2   7.3  7.7  6.9
+3   8.0  7.7  7.0
+4   8.0  8.2  7.0
+5   7.9  8.9  9.5
+6   9.2  8.9  9.6
+7  10.1 10.6  9.6
+8   9.2 10.2 10.3
+9   8.3  9.4  8.1
+10  8.4  9.4  8.5
+11  8.0  8.2  8.6
+12  7.9  7.8  8.8</code></pre>
+<div id="wczytanie-danych-tekstowych" class="section level2">
+<h2><span class="header-section-number">4.1</span> Wczytanie danych tekstowych</h2>
+<p><strong>Metoda 2 - plik tekstowy</strong></p>
+W folderze “D://abc” pod nazwą “kwiaty.txt” zapisujemy plik tekstowy postaci:
+
+<p>Następnie wykonujemy polecenia wczytania pliku tekstowego przy pomocy funkcji  i podstawienia wczytanych wartości pod nazwę “dane1” (druga linia poniższego kodu) oraz wyświetlenie zawartości zmiennej “dane1” (trzecia linia kodu). Używając funkcji  stosujemy argument , co oznacza, że dane będą wczytane traktując pierwszy wiersz jako nagłówek.</p>
+
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># czytanie pliku tekstowego
+dane1 = read.table(&quot;~/Desktop/kwiaty.txt&quot;, header=TRUE)
+dane1</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># czytanie pliku tekstowego</span>
+<span class="er">&gt;</span><span class="st"> </span>dane1 =<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;~/Desktop/kwiaty.txt&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)
+&gt;<span class="st"> </span>dane1</code></pre></div>
+<pre><code>      A    B    C
+1   6.7  7.5  5.9
+2   7.3  7.7  6.9
+3   8.0  7.7  7.0
+4   8.0  8.2  7.0
+5   7.9  8.9  9.5
+6   9.2  8.9  9.6
+7  10.1 10.6  9.6
+8   9.2 10.2 10.3
+9   8.3  9.4  8.1
+10  8.4  9.4  8.5
+11  8.0  8.2  8.6
+12  7.9  7.8  8.8</code></pre>
+</div>
+<div id="wczytanie-danych-z-excela" class="section level2">
+<h2><span class="header-section-number">4.2</span> Wczytanie danych z Excela</h2>
+<p><strong>Metoda 3 - plik excelowski</strong></p>
+<p>W folderze “D://abc” pod nazwami “kwiaty.xlsx” oraz “kwiaty.xls” w arkuszu ‘dane’ zapisujemy plik z treścią jak plik tekstowy “kwiaty.txt”. Następnie wykonujemy poniższe polecenia. Do wczytywania danych w formacie excel stosujemy funkcję  z pakietu . Używamy tutaj argumentu  wskazując, że dane do wczytania znajdują się w arkuszu o nazwie ‘dane’.</p>
+
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># czytanie pliku typu xlsx 
+library(readxl)  # otwarcie pakietu &quot;readxl&quot;
+dane2 = read_excel(&quot;~/Desktop/kwiaty.xlsx&quot;, sheet = &#39;dane&#39;)
+dane2</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># czytanie pliku typu xlsx i xls</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">library</span>(readxl)  <span class="co"># otwarcie pakietu &quot;readxl&quot;</span>
+&gt;<span class="st"> </span>dane2 =<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;~/Desktop/kwiaty.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&#39;dane&#39;</span>)
+&gt;<span class="st"> </span>dane2</code></pre></div>
+<pre><code># A tibble: 12 x 1
+    `A    B    C`
+            &lt;chr&gt;
+ 1  6.7  7.5  5.9
+ 2  7.3  7.7  6.9
+ 3  8.0  7.7  7.0
+ 4  8.0  8.2  7.0
+ 5  7.9  8.9  9.5
+ 6  9.2  8.9  9.6
+ 7 10.1 10.6  9.6
+ 8  9.2 10.2 10.3
+ 9  8.3  9.4  8.1
+10  8.4  9.4  8.5
+11  8.0  8.2  8.6
+12  7.9  7.8  8.8</code></pre>
+
+<p><strong>Przydatne funkcje</strong></p>
+<p> - usuwanie wszystkich obiektów z pamięci</p>
+<p> - ustanowienie aktualnej ścieżki dostępu do folderu “abc” znajdującego się na dysku D. Oznacza to, że jeśli zastosujemy tą funkcje, to zamiast funkcji</p>
+<p></p>
+<p>możemy wykorzystać funkcję postaci</p>
+<p></p>
+
+</div>
+<div id="zadania-do-wykonania" class="section level2">
+<h2><span class="header-section-number">4.3</span> Zadania do wykonania</h2>
+<p>Zad. 1</p>
+<p>Pobierz ze strony www.up.poznan.pl/kmmis/R plik rodziny.txt i wczytaj go do R. Następnie odpowiedz na następujące pytania:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Ile rodzin żyje w mieście, a ile na wsi?</p></li>
+<li><p>Ile dużych rodzin mieszka w mieście, a ile na wsi?</p></li>
+<li><p>Ile rodzin ze wsi jedzie na wakacje?</p></li>
+<li><p>Jaki jest maksymalny dochód dużych rodzin żyjących w mieście?</p></li>
+</ol>
+<p>Zad. 2</p>
+<p>Pobierz ze strony www.up.poznan.pl/kmmis/R plik studenci.xlsx i wczytaj go do R. Następnie odpowiedz na następujące pytania:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Ile studentów i studentek studiuje leśnictwo?</p></li>
+<li><p>Jakie jest średnie stypendium dla studentów, a jakie dla studentek?</p></li>
+<li><p>Ile studentek studiuje agroturystykę?</p></li>
+<li><p>Ile studentów leśnictwa nie ma stypendium?</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="obliczenia-w-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="wizualizacje.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-przygotowanie_danych.Rmd",
+"text": "Edit"
+},
+"download": ["bookdown-ksiazka.pdf", "bookdown-ksiazka.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

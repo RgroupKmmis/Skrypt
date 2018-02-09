@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statystyka dla przyrodników w R</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statystyka dla przyrodników w R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/cover.png" />
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="zjanna/Skrypt" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statystyka dla przyrodników w R" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:image" content="images/cover.png" />
+
+<meta name="author" content="Idzi Siatkowski">
+<meta name="author" content="Joanna Zyprych-Walczak">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="testowanie.html">
+<link rel="next" href="regresja-liniowa-i-wielokrotna.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Placeholder</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Wprowadzenie</a></li>
+<li class="chapter" data-level="3" data-path="obliczenia-w-r.html"><a href="obliczenia-w-r.html"><i class="fa fa-check"></i><b>3</b> Obliczenia w R</a></li>
+<li class="chapter" data-level="4" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html"><i class="fa fa-check"></i><b>4</b> Przygotowanie danych</a></li>
+<li class="chapter" data-level="5" data-path="wizualizacje.html"><a href="wizualizacje.html"><i class="fa fa-check"></i><b>5</b> Wizualizacje</a></li>
+<li class="chapter" data-level="6" data-path="testowanie.html"><a href="testowanie.html"><i class="fa fa-check"></i><b>6</b> Testowanie</a></li>
+<li class="chapter" data-level="7" data-path="badanie-zaleznosci-cech.html"><a href="badanie-zaleznosci-cech.html"><i class="fa fa-check"></i><b>7</b> Badanie zależności cech</a><ul>
+<li class="chapter" data-level="7.1" data-path="badanie-zaleznosci-cech.html"><a href="badanie-zaleznosci-cech.html#korelacje"><i class="fa fa-check"></i><b>7.1</b> Korelacje</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="badanie-zaleznosci-cech.html"><a href="badanie-zaleznosci-cech.html#cechy-ilosciowe"><i class="fa fa-check"></i><b>7.1.1</b> Cechy ilościowe</a></li>
+<li class="chapter" data-level="7.1.2" data-path="badanie-zaleznosci-cech.html"><a href="badanie-zaleznosci-cech.html#cechy-jakosciowe"><i class="fa fa-check"></i><b>7.1.2</b> Cechy jakościowe</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="badanie-zaleznosci-cech.html"><a href="badanie-zaleznosci-cech.html#tablice-kontyngencji"><i class="fa fa-check"></i><b>7.2</b> Tablice kontyngencji</a></li>
+<li class="chapter" data-level="7.3" data-path="badanie-zaleznosci-cech.html"><a href="badanie-zaleznosci-cech.html#zadania-do-wykonania"><i class="fa fa-check"></i><b>7.3</b> Zadania do wykonania</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="regresja-liniowa-i-wielokrotna.html"><a href="regresja-liniowa-i-wielokrotna.html"><i class="fa fa-check"></i><b>8</b> Regresja liniowa i wielokrotna</a></li>
+<li class="chapter" data-level="9" data-path="odpowiedzi-do-zadan.html"><a href="odpowiedzi-do-zadan.html"><i class="fa fa-check"></i><b>9</b> Odpowiedzi do zadań</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statystyka dla przyrodników w R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="badanie-zaleznosci-cech" class="section level1">
+<h1><span class="header-section-number">Rozdział 7</span> Badanie zależności cech</h1>
+<div id="korelacje" class="section level2">
+<h2><span class="header-section-number">7.1</span> Korelacje</h2>
+<p>Korelacja wskazuje siłę i kierunek zależności pomiędzy dwiema cechami. Korelacja dla próby wyrażona jest za pomocą współczynnika korelacji <span class="math inline">\(r\)</span>, gdzie <span class="math inline">\(r \in \langle -1; 1 \rangle\)</span>.</p>
+<p>Klasyfikacja współczynnika korelacji <span class="math inline">\(r\)</span>:</p>
+<p><span class="math inline">\(|r| = 0\)</span> - brak korelacji,</p>
+<p><span class="math inline">\(0,0 &lt; |r| \leq 0,1\)</span> - korelacja nikła,</p>
+<p><span class="math inline">\(0,1 &lt; |r| \leq 0,3\)</span> - korelacja słaba,</p>
+<p><span class="math inline">\(0,3 &lt; |r| \leq 0,5\)</span> - korelacja przeciętna,</p>
+<p><span class="math inline">\(0,5 &lt; |r| \leq 0,7\)</span> - korelacja wysoka,</p>
+<p><span class="math inline">\(0,7 &lt; |r| \leq 0,9\)</span> - korelacja bardzo wysoka,</p>
+<p><span class="math inline">\(0,9 &lt; |r| &lt; 1,0\)</span> - korelacja niemal pełna,</p>
+<p><span class="math inline">\(|r| = 1\)</span> - korelacja pełna.</p>
+<p>Jeśli wartość współczynnika korelacji <span class="math inline">\(r\)</span> jest dodatnia to mamy zależność liniową dodatnią. Oznacza to, że wraz ze wzrostem jednostkowym wartości jednej cechy rosną z tym samym przyrostem wartości drugiej z cech. Natomiast, jeśli wartość współczynnika korelacji r jest ujemna to mamy zależność liniową ujemną, tzn. wraz ze wzrostem jednostkowym wartości jednej cechy maleją o tą samą wielkość wartości drugiej z cech.</p>
+<p><strong>Uwaga</strong></p>
+<p>Oprócz wyznaczania wartości współczynnika korelacji <span class="math inline">\(r\)</span> dla próby, należy zawsze zbadać czy współczynnik korelacji dla populacji jest istotny. Weryfikację hipotez o istotności współczynnika korelacji dla populacji możemy wykonać przy pomocy funkcji , gdzie ‘xxx’=‘pearson’ lub ‘kendall’ lub ‘spearman’ oraz domyślnie ‘xxx’=‘pearson’.</p>
+<div id="cechy-ilosciowe" class="section level3">
+<h3><span class="header-section-number">7.1.1</span> Cechy ilościowe</h3>
+<p>Cecha ilościowa (mierzalna) jest to cecha, która przyjmuje wartości liczbowe. Dla cech ilościowych wyznacza się współczynnik korelacji <span class="math inline">\(r\)</span> Pearsona stosując funkcję .</p>
+
+<p><strong>Przykład 6.1</strong> (Dobek, Szwaczkowski 2007, s. 153)</p>
+<p>Badano zależność pomiędzy długością pędu (cm) a długością kłosa (cm) pewnej odmiany pszenicy. Z poletka wybrano losowo 25 roślin, u których dokonano pomiaru obydwu cech. Wyniki zaprezentowano w Tablicy <a href="#Dobek"><strong>??</strong></a>.</p>
+
+<p>Czy korelacja między badanymi cechami jest istotna?</p>
+
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 6.1
+rm(list = ls())  # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+pszenica = read.table(&quot;~/Desktop/Dobek_153.txt&quot;, header = T)
+head(pszenica)
+# współczynnik korelacji
+round(cor(pszenica$dk, pszenica$dp), 2)  # funkcja round wyświetla wyniki 
+# z zaokrągleniem do 2 miejsc po przecinku testowanie istotności korelacji
+cor.test(pszenica$dk, pszenica$dp)</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 6.1</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())  <span class="co"># usuwanie wszystkich zmiennych z przestrzeni roboczej</span>
+&gt;<span class="st"> </span><span class="co"># tworzenie danych</span>
+<span class="er">&gt;</span><span class="st"> </span>pszenica =<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;~/Desktop/Dobek_153.txt&quot;</span>, 
++<span class="st">     </span><span class="dt">header =</span> T)
+&gt;<span class="st"> </span><span class="kw">head</span>(pszenica)</code></pre></div>
+<pre><code>  nr  dp  dk
+1  1 105 5.6
+2  2 103 6.2
+3  3 101 4.8
+4  4 107 6.5
+5  5 103 5.4
+6  6 102 5.0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># współczynnik korelacji</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">round</span>(<span class="kw">cor</span>(pszenica$dk, pszenica$dp), <span class="dv">2</span>)  <span class="co"># funkcja round wyświetla wyniki </span></code></pre></div>
+<pre><code>[1] 0.66</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># z zaokrągleniem do 2 miejsc po</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="co"># przecinku testowanie istotności</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="co"># korelacji</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">cor.test</span>(pszenica$dk, pszenica$dp)</code></pre></div>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  pszenica$dk and pszenica$dp
+t = 4.2547, df = 23, p-value = 0.0002984
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.3639564 0.8388175
+sample estimates:
+      cor 
+0.6636478 </code></pre>
+
+<p><strong>Interpretacja</strong></p>
+<p>Wartość współczynnika korelacji <span class="math inline">\(r\)</span> Pearsona wynosi 0,66, więc korelacja jest wysoka. Ponadto, ponieważ <span class="math inline">\(p\)</span>-wartość = 0,0003, więc odrzucamy hipotezę zerową i przyjmujemy hipotezę alternatywną stwierdzając, że zależność pomiędzy długością pędu a długością kłosa pewnej odmiany pszenicy jest istotna.</p>
+</div>
+<div id="cechy-jakosciowe" class="section level3">
+<h3><span class="header-section-number">7.1.2</span> Cechy jakościowe</h3>
+<p>Cecha jakościowa (niemierzalna) jest to cecha, która ma charakter opisowy lub podlega kategoryzacji. Współczynnik korelacji <span class="math inline">\(r_S\)</span> Spearmana używamy w przypadku gdy:</p>
+<ol style="list-style-type: decimal">
+<li><p>choć jedna z badanych cech jest cechą jakościową (niemierzalna), ale istnieje możliwość uporządkowania (ponumerowania) wariantów każdej z cech,</p></li>
+<li><p>cechy mają charakter ilościowy (mierzalny), ale liczebność zbiorowości jest mała (n&lt;30).</p></li>
+</ol>
+
+<p><strong>Przykład 6.2</strong> (Dobek, Szwaczkowski 2007, s. 163)</p>
+<p>Dwaj eksperci niezależnie oceniali stopień porażenia ziarniaków w skali od 1 do 20. Uzyskali następujące wyniki:</p>
+<p>ekspert 1: 5, 7, 34, 9, 12, 16, 9, 13, 18, 6, 17</p>
+<p>ekspert 2: 6, 6, 3, 10, 8, 18, 10, 11, 16, 8, 15</p>
+<p>Czy oceny obu ekspertów są skorelowane?</p>
+
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 6.2
+eksp1=c(5, 7, 34, 9, 12, 16, 9, 13, 18, 6, 17)
+eksp2=c(6, 6, 3, 10, 8, 18, 10, 11, 16, 8, 15)
+cor.test(eksp1, eksp2, method = &quot;spearman&quot;)</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 6.2</span>
+<span class="er">&gt;</span><span class="st"> </span>eksp1=<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">34</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">16</span>, <span class="dv">9</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">6</span>, <span class="dv">17</span>)
+&gt;<span class="st"> </span>eksp2=<span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">18</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">8</span>, <span class="dv">15</span>)
+&gt;<span class="st"> </span><span class="kw">cor.test</span>(eksp1, eksp2, <span class="dt">method =</span> <span class="st">&quot;spearman&quot;</span>)</code></pre></div>
+<pre><code>Warning in cor.test.default(eksp1, eksp2, method = &quot;spearman&quot;): Cannot
+compute exact p-value with ties</code></pre>
+<pre><code>
+    Spearman&#39;s rank correlation rho
+
+data:  eksp1 and eksp2
+S = 130.18, p-value = 0.2126
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.4082612 </code></pre>
+<p><strong>Interpretacja</strong></p>
+<p>Wartość współczynnika korelacji Spearmana <span class="math inline">\(r_S = 0,408\)</span>, więc korelacja jest przeciętna. Ponadto, ponieważ <span class="math inline">\(p\)</span>-wartość = 0,2126, więc nie odrzucamy hipotezy zerowej i stwierdzamy, że współczynnik korelacji Spearmana nie różni się istotnie od zera. Oznacza to, że oceniani eksperci niezależnie ocenili stopień porażenia ziarniaków.</p>
+</div>
+</div>
+<div id="tablice-kontyngencji" class="section level2">
+<h2><span class="header-section-number">7.2</span> Tablice kontyngencji</h2>
+<p>Tablica kontyngencji przedstawia liczebności dwóch cech (zmiennych) jakościowych (niemierzalnych). Najczęściej interesujące są następujące hipotezy:</p>
+<p> <span class="math inline">\(H_0\)</span>: cechy <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span> są niezależne</p>
+<p> <span class="math inline">\(H_1\)</span>: cechy <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span> są zależne (6.1)</p>
+<p>Weryfikację hipotez (6.1) wykonuje się stosując test <span class="math inline">\(\chi^2\)</span> (). Jeśli conajmniej jedna liczebność ma wartość 5 lub mniej, to należy zastosować dokładny test Fishera ().</p>
+
+<p><strong>Przykład 6.3</strong> (Kala 2005, s. 87)</p>
+<p>Badając jakość jabłek oceniono owoce ze względu na uszkodzenia spowodowane przez owocówkę jabłkóweczkę (U - owoce uszkodzone, N - owoce nieuszkodzone) oraz porażone parchem jabłoniowym (C - owoce czyste, P - owoce z plamami). W wyniku klasyfikacji owoców uzyskano następujące liczebności:</p>
+
+<p>Czy na poziomie istotności 0,01 można uznać, że badane zmienne są niezależne?</p>
+
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># analiza tablicy kontyngencji
+# Kala 2005, s. 87
+x = matrix(c(29, 17, 194, 68), ncol = 2)
+x
+chisq.test(x)</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># analiza tablicy kontyngencji</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="co"># Kala 2005, s. 87</span>
+<span class="er">&gt;</span><span class="st"> </span>x =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">29</span>, <span class="dv">17</span>, <span class="dv">194</span>, <span class="dv">68</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)
+&gt;<span class="st"> </span>x</code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]   29  194
+[2,]   17   68</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">chisq.test</span>(x)</code></pre></div>
+<pre><code>
+    Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+
+data:  x
+X-squared = 1.8519, df = 1, p-value = 0.1736</code></pre>
+<p><strong>Interpretacja</strong></p>
+<p>Ponieważ <span class="math inline">\(p\)</span>-wartość = 0.1736, więc nie odrzucamy hipotezy <span class="math inline">\(H_0\)</span> i stwierdzamy, że badane zmienne są niezależne.</p>
+
+<p><strong>Przykład 6.3</strong> (Hanusz, Tarasińska 2006, s. 84)</p>
+<p>W celu sprawdzenia, czy przy ocenie stanu technicznego pewnego urządzenia można się posługiwać łatwym do wyznaczenia pomiarem, wybrano losowo 100 urządzeń i zanotowano następujące dane:</p>
+
+
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 6.3
+x = matrix(c(37, 6, 22, 9, 11, 15), ncol = 3)
+x
+chisq.test(x)</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 6.3</span>
+<span class="er">&gt;</span><span class="st"> </span>x =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">37</span>, <span class="dv">6</span>, <span class="dv">22</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">15</span>), <span class="dt">ncol =</span> <span class="dv">3</span>)
+&gt;<span class="st"> </span>x</code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]   37   22   11
+[2,]    6    9   15</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">chisq.test</span>(x)</code></pre></div>
+<pre><code>
+    Pearson&#39;s Chi-squared test
+
+data:  x
+X-squared = 14.781, df = 2, p-value = 0.0006172</code></pre>
+<p><strong>Interpretacja</strong></p>
+<p>Ponieważ <span class="math inline">\(p\)</span>-wartość = 0.0006172, więc odrzucamy hipotezę <span class="math inline">\(H_0\)</span> i przyjmujemy hipotezę <span class="math inline">\(H_1\)</span>. Stwierdzamy, że ocena stanu badanego urządzenia zależy od wartości pomiaru.</p>
+
+<p><strong>Przykład 6.4</strong></p>
+Wysunięto hipotezę, że wadliwość produkcji luksusowych samochodów nie zależy od metody produkcji. Wylosowano niezależnie próbę 296 aut i otrzymano następujące wyniki badania jakości dla poszczególnych metod:
+
+
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Przykład 6.4
+x = matrix(c(5,4,67,96,75,49), ncol = 3)
+x
+fisher.test(x)</code></pre>
+
+<p><strong>Realizacja w R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Przykład 6.4</span>
+<span class="er">&gt;</span><span class="st"> </span>x =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">67</span>,<span class="dv">96</span>,<span class="dv">75</span>,<span class="dv">49</span>), <span class="dt">ncol =</span> <span class="dv">3</span>)
+&gt;<span class="st"> </span>x</code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]    5   67   75
+[2,]    4   96   49</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">fisher.test</span>(x)</code></pre></div>
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  x
+p-value = 0.004014
+alternative hypothesis: two.sided</code></pre>
+<p><strong>Interpretacja</strong></p>
+<p>Ponieważ <span class="math inline">\(p\)</span>-wartość = 0.004014, więc odrzucamy hipotezę <span class="math inline">\(H_0\)</span> i przyjmujemy hipotezę <span class="math inline">\(H_1\)</span>. Stwierdzamy, że wadliwość produkcji luksusowych samochodów nie zależy od metody produkcji.</p>
+</div>
+<div id="zadania-do-wykonania" class="section level2">
+<h2><span class="header-section-number">7.3</span> Zadania do wykonania</h2>
+<p><strong>Korelacje</strong></p>
+<p>Zad. 1 (Dobek, Szwaczkowski 2007, s. 163)</p>
+<p>U dziewięciu losowo wybranych koni półkrwi dokonano pomiaru wysokości w kłębie (cm) i obwodu nadpęcia (cm), uzyskując następujące wyniki:</p>
+<p>wysokość w kłębie: 163, 170, 158, 156, 161, 159, 161, 168, 177</p>
+<p>obwód nadpęcia: 21, 24, 22, 19, 24, 26, 26, 27, 28</p>
+<p>Sprawdź, czy cechy te są skorelowane.</p>
+<p>Zad. 2 (Dobek, Szwaczkowski 2007, s. 163)</p>
+<p>W badaniach nad strukturą plonu pszenżyta, przy gęstości wysiewu 400 <span class="math inline">\(ziaren/m^2\)</span>, oznaczono masę 1000 ziaren i plon ziarna. Uzyskano następujące obserwacje:</p>
+<p>masa 1000 ziaren: 44.1, 45.6, 45.2, 46.8, 43.3, 47.1, 46.8, 45.7</p>
+<p>plon: 4.68, 4.76, 4.71, 4.87, 4.31, 4.97, 4.82, 4.72</p>
+<p>Czy korelacja między badanymi cechami jest istotna?</p>
+<p><strong>Tablice kontyngencji</strong></p>
+<p>Zad. 1 (Greń 1975, s. 138)</p>
+W pewnym doświadczeniu farmakologicznym otrzymano na 120 badanych szczurów, którym podano pewien preparat, 57 takich, które doszły do pokarmu w labiryncie doświadczalnym w czasie do 1 minuty. Natomiast na 100 szczurów, którym nie podano tego preparatu, 71 wykonało to zadanie w tym samym czasie. Sporządzono następującą tablicę wyników badania farmakologicznego:
+
+<p>Zweryfikuj hipotezę o otępiającym działaniu badanego preparatu.</p>
+<p>Zad. 2 (Greń 1975, s. 135)</p>
+<p>Wysunięto hipotezę medyczną, że pacjenci z objawem klinicznym niewydolności oddechowej charaktarezują się istotnie zawyżonym poziomem aktywności pewnego enzymu. Losowa próba 49 pacjentów z niewydolnością oddechową i 208 pacjentów bez objawów tej niewydolności dały wyniki zestawione w Tablicy <a href="#gren135"><strong>??</strong></a>. Na poziomie istotności 0.01 zweryfikować hipotezę o niezależności aktywności badanego enzymu w organiźmie chorych od posiadania objawu klinicznego niewydolności oddechowej.</p>
+
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="testowanie.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regresja-liniowa-i-wielokrotna.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-korelacja.Rmd",
+"text": "Edit"
+},
+"download": ["bookdown-ksiazka.pdf", "bookdown-ksiazka.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

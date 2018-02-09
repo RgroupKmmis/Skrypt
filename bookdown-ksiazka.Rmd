@@ -1,0 +1,3418 @@
+--- 
+title: "R w analizie statystycznej dla przyrodników"
+author:
+- Idzi Siatkowski
+- Joanna Zyprych-Walczak
+# date: "`r format(Sys.time(), '%d %B %Y')`"
+site: bookdown::bookdown_site
+output: bookdown::pdf_book
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+papersize: B5
+fontsize: 12pt
+margin-top: 10ptx;
+margin-bottom: 2cm;
+margin-right: 10ptx;
+margin-left: 2cm;
+link-citations: yes
+github-repo: zjanna/Skrypt
+cover-image: "images/cover.png"
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+---
+
+
+
+
+
+```{r include=FALSE}
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+<!--chapter:end:index.Rmd-->
+
+
+# Wprowadzenie {#intro}
+## Cel książki
+Prezentowana książka przeznaczona jest dla wszystkich początkujących, nie znających środowiska R, a chcących poznać podstawowe możliwości obliczeniowe i graficzne oprogramowania R w zakresie zastosowań statystyki. Celem książki jest zapoznanie czytelnika z podstawami składni języka R oraz zastosowaniem R w podstawowych obliczeniach statystycznych. Książka zawiera przykłady wraz z programami (kodami, skryptami) napisanymi w R. Przykłady dotyczą zagadnień przyrodniczych i pochodzą z podręczników, w których znajduje się teoria statystyczna \citep{elandt1964, gren1975, kala2005, hanusz2006, dobek2007}. Po wykonaniu przedstawionych przykładów czytelnik powinien samodzielnie rozwiązywać problemy statystyczne związane z  m.in. testowaniem, regresją, badaniem zależności cech oraz wykonywać wykresy lub prezentacje graficzne.
+
+## Co to jest R
+R \citep{R} jest narzędziem (programem, środowiskiem) przeznaczonym m.in. do wykonywania zarówno prostych, jak i tych bardziej złożonych obliczeń i analiz statystycznych, a także do tworzenia wysokiej jakości grafiki. Oznacza to, że w R możemy wykonywać podstawowe obliczenia takie jak np.: na kalkulatorze oraz możemy stosować go do zaawansowanych metod statystycznych, obliczeń symulacyjnych oraz optymalizacyjnych. Ponadto, przy jego pomocy możliwe jest tworzenie różnego rodzaju wykresów. 
+
+## Zalety R
+- R jest darmowy (licencja GPL GNU)
+- Pozwala na korzystanie z 11791 pakietów (listopad 2017)
+- Umożliwia tworzenie wykresów oraz rysunków
+- Umożliwia wykonywanie funkcji z bibliotek napisanych w różnych językach programowania (Fortran, C, C++, S)
+- Pozwala na tworzenie i używanie własnych programów 
+- Działa w różnych systemach operacyjnych (np. Windows, Linux, Mac)
+- R jest elastyczny, nie jest "czarną skrzynką" tzn. na każdym etapie dostępny jest kod wykonywanych poleceń
+- R jest wykorzystywany w uczelniach, instytutach badawczych, bankach, małych i dużych firmach analizujących różne typy danych oraz wykonujących wszelkie analizy statystyczne.
+
+## Instalacja R i RStudio
+**Instalacja R** 
+
+W pierwszej kolejności należy skopiować na swój komputer plik instalacyjny R, np. plik "R-3.3.3-win.exe" ze strony internetowej
+\begin{center}
+{\bf www.r-project.org }
+\end{center}
+
+czyli: 
+
+1. uruchamiamy stronę internetową "www.r-project.org" 
+2. wybieramy "download R"
+3. wybieramy np. "https://cloud.r-project.org/"
+4. wybieramy "Download R for Windows" (działamy pod windows'em)
+5. wybieramy "install R for the first time"
+6. wybieramy "Download R 3.3.3 for Windows"
+7. zapisujemy plik instalacyjny "R-3.3.3-win.exe" na swoim komputerze.
+
+Następnie należy uruchomić skopiowany plik instalacyjny i postępować zgodnie ze wskazówkami.
+
+
+**Instalacja RStudio** 
+
+Po instalacji R proponujemy zainstalować edytor (interfejs) RStudio \citep{RStudio} dla łatwiejszego korzystania z R. W niniejszej książce ograniczymy się do programu RStudio z kilku ważnych powodów. Jednym z nich jest darmowość i ogólnodostępność tego edytora oraz możliwość instalacji zarówno w systemie Windows, Mac, Linux, jak i jego bezpośrednie użycie ze strony internetowej korzystając z serwera RStudio. Kolejnymi ułatwieniami dla użytkownika jest między innymi: podświetlanie tekstu w celu podpowiedzi składni funkcji, uzupełnianie kodu, nazw zmiennych, łatwe zarządzanie wieloma katalogami za pomocą projektów, szybkie instalowanie pakietów, ukazywanie podpowiedzi dotyczących funkcji i ich argumentów oraz zmiennych otrzymanych po jej zastosowaniu, podgląd danych oraz wykresów w oddzielnym oknie. Aby zainstalować RStudio należy skopiować na swój komputer darmową wersję programu instalacyjnego RStudio ze strony internetowej:
+\begin{center}
+{\bf www.rstudio.com }
+\end{center}
+czyli np. plik "RStudio-1.0.136.exe". Uruchamiając ten plik dokonujemy instalacji edytora RStudio. Po zainstalowaniu uruchamiamy RStudio i ukazuje się nam ekran komputera np. tak jak na Rysunku 1.1.
+
+```{r eval=TRUE, echo=FALSE, out.width = '99%',highlight=FALSE, fig.align='center',fig.pos='H',fig.cap='Przykładowy ekran RStudio'}
+knitr::include_graphics("images/RStudio.png")
+```
+
+Interfejs RStudio składa się z czterech okien. Lewe dolne okno jest konsolą. Po znaku zachęty ">" możemy napisać polecenie (komendę, skrypt) i po naciśnięciu klawisza "enter" polecenie to zostanie wykonane, a wynik zostanie wyświetlony poniżej. Okno lewe górne (okno edycji) służy do edycji skryptów, które można tworzyć, zmieniać, zapisywać oraz wykonywać klikając na polecenie "run". Wyniki realizacji poleceń wyświetlane są w lewym dolnym oknie, czyli oknie konsoli. Okno prawe górne jest oknem zawierającym historię działania w RStudio oraz przedstawiającym informacje o wprowadzonych danych. Natomiast w prawym dolnym oknie znajdują się informacje o pakietach, plikach, wyświetlane są rysunki oraz pomoc. 
+
+\vspace{0.8cm}
+
+**Przydatne skróty klawiszowe w RStudio**
+
+* uzupełnianie nazw funkcji i obiektów - 'tab'
+
+* wyświetlanie kodu funkcji - klawisz F2 
+
+* wyświetlanie pomocy na temat funkcji - klawisz F1 
+
+* zamknięcie programu - ctrl+q
+
+* zamknięcie skryptu - ctrl+w
+
+**Uwaga**
+
+Należy najpierw zainstalować R, a następnie RStudio. Uruchamiamy tylko RStudio.
+
+## Pakiety
+Podczas instalacji R, instalowane są także systemowe pakiety obliczeniowe ('system library'). W każdym momencie możemy zainstalować dowolny pakiet korzystając z prawego dolnego okna RStudio. Należy w zakładce "Packages" uruchomić polecenie "Install" i wpisać nazwę pakietu. Natomiast informacje dotyczące pakietów można uzyskać na dwa sposoby. Po pierwsze, w RStudio w prawym dolnym oknie wybierając "Packages" mamy spis wszystkich zainstalowanych pakietów. Drugi sposób, to kolejno uruchamiamy:
+
+1. www.r-project.org 
+2. CRAN
+3. np. "https://cloud.r-project.org/"
+4. "Packages".
+
+Po zainstalowaniu pakietu, można z niego korzystać (czyli stosować polecenia w nim zawarte) dopiero po aktywowaniu pakietu poleceniem library(), gdzie w nawiasach wpisana jest nazwa pakietu.
+
+## Dokumentacja i szukanie pomocy
+
+Materiały dla początkujących, a także zaawansowanych użytkowników R dotyczące jego wykorzystania w podstawowej oraz zaawansowanej statystyce, a także zastosowanie R w tworzeniu wykresów znajdują się na różnych stronach internetowych, szczególnie na stronie "www.r-project.org". Są to artykuły, raporty oraz książki - także w języku polskim. Natomiast pomoc najłatwiej można uzyskać wpisując w oknie konsoli poszukiwane hasło poprzedzone znakiem zapytania lub wpisując polecenie help(), gdzie w nawiasach wpisana jest nazwa hasła. Treść pomocy wyświetlona zostanie w prawym dolnym oknie. 
+
+## Zadania do wykonania
+
+Zad. 1 
+
+Zainstaluj pakiet ‘agricolae’ i przedstaw własności funkcji ‘correlation’.
+
+Zad. 2 
+
+Zainstaluj pakiet 'agridat' i opisz dane 'yates.oats'.
+
+Zad. 3 
+
+Zainstaluj pakiet 'openxlsx' i przedstaw informacje o funkcji 'read.xlsx'.
+
+
+<!--chapter:end:01-wprowadzenie.Rmd-->
+
+
+
+# Obliczenia w R
+
+W programie R mamy nie tylko możliwość wykonywania zaawansowanych obliczeń statystycznych, ale także możemy używać R do zwykłych działań jako kalkulatora. 
+
+Polecenia w R można realizować na kilka sposobów. Dwa najprostsze są następujące: 
+  
+  1. W lewym górnym oknie RStudio (okno edycji) piszemy polecenie (kod, skrypt) i następnie wykonujemy polecenie "Run" (kursor wskazuje, który wiersz poleceń będzie wykonany, natomiast zaznaczony obszar wskazuje, które polecenia będą wykonane).
+2. W lewym dolnym oknie RStudio (okno konsoli) po znaku zachęty ">" piszemy polecenie (kod, skrypt) i wykonujemy to polecenie naciskając klawisz "enter".
+
+**Uwagi**
+  
+  1. Realizacja wykonanych poleceń przedstawiana jest w lewym dolnym oknie RStudio (okno konsoli).
+2. Po znaku "#" występuje komentarz, który nie jest wykonywany. 
+3. Liczba rzeczywista przedstawiana jest za pomocą kropki, a nie przecinka (separatorem dziesietnym jest kropka, a nie przecinek).
+4. Nazwy obiektów mogą zawierać duże i małe litery, przy czym wielkość znaków jest rozróżnialna.
+5. Nazwy nie mogą się zaczynać od liczby oraz znaku '\_'.
+
+
+## Proste obliczenia matematyczne
+
+\begin{table}[!ht]
+\centering
+\caption{Podstawowe funkcje i operatory w R}
+\label{operatory}
+\begin{tabular}{ccc}
+\hline
+Funkcja/Operator  & Opis jej działania  & Przykład użycia  \\ \hline
++, - , /, *                                                                                   & \begin{tabular}[c]{@{}c@{}}Dodawanie, odejmowanie, dzielenie, \\ mnożenie\end{tabular}                                                                                              & 2+3; 1-2; 4/2; 4*3                                              \\
+sqrt(x), \textasciicircum      & Pierwiastkowanie, potęgowanie                                         & sqrt(4); 2\textasciicircum 4    \\
+\begin{tabular}[c]{@{}c@{}}log(x), log10(x) \\ log(x, a)\\  log2(x) \\ exp(x)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Logarytm naturalny (log), dziesiętny (log10) \\ Logarytm o podstawie a z liczby x \\ Logarytm o podstawie 2 \\ Funkcja wykładnicza $e^x$\end{tabular} & \begin{tabular}[c]{@{}c@{}}log(8); log10(4) \\log(6,9) \\ log2(5) \\ exp(3) \end{tabular}\\
+sin(x), cos(x)    & Funkcje trygonometryczne sinus, cosinus z x  & sin(3*pi/4)  \\
+round(x,a) & Zaokrąglenie x do a miejsc po przecinku & round(8.345,2) \\
+x\%\%y                                                                                        & Reszta z dzielenia x przez y                                                                                                                                                        & 4\%\%3                                                          \\
+x\%/\%y                                                                                       & Część całkowita z dzielenia x przez y                                                                                                                                               & 6\%/\%4                                                         \\
+abs(x)                                                                                        & Wartość bezwzględna z x                                                                                                                                                             & abs(-4)                                                         \\ \hline                                                           
+\end{tabular}
+\end{table}
+
+**Przykład 2.1**
+  
+  W lewym górnym oknie RStudio (okno edycji) piszemy: 
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+6+8 
+```
+i wykonujemy polecenie "Run". Wówczas w lewym dolnym oknie RStudio (okno konsoli) pojawi się:
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+6+8 
+```
+gdzie znak ">" jest znakiem zachęty, "6+8" jest wykonanym poleceniem, "[1]" jest liczbą elementów wyjściowych, natomiast "14" jest wynikiem realizacji polecenia wejściowego.
+
+**Uwaga**
+  
+  W prezentowanym manuskrypcie wszystkie polecenia, kody oraz skrypty oznaczane są czcionką koloru czarnego i nazwane "Kod w R". Najlepiej polecenia takie umieścić w lewym górnym oknie RStudio (okno edycji). Natomiast wynik wykonania skryptu (po uruchomieniu poleceniem "Run"), przedstawiony jest w lewym dolnym oknie RStudio (okno konsoli) i nazwany "Realizacja w R".
+
+
+
+\vspace{0.8cm}
+
+**Przykład 2.2**
+  
+  **Kod w R**
+```{r, eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.2 - proste obliczenia matematyczne
+3+5 # dodawanie
+4-6 # odejmowanie
+8*7 # mnożenie
+21/5 # dzielenie
+5^3 # 5 do potęgi 3
+sqrt(49) # pierwiastek kwadratowy z 49
+49^(1/2) # pierwiastek kwadratowy z 49
+(8)^(1/3) # pierwiastek trzeciego stopnia z 8
+log(7) # logarytm naturalny z 7
+log10(6) # logarytm o podstawie 10 z 6
+log2(5) # logarytm o podstawie 2 z 5
+log(4,5) # logarytm o podstawie 5 z 4
+exp(3) # e do potęgi 3
+sin(6.28) # sinus kąta 6.28 (w radianach), czyli kąta 360 stopni
+cos(pi/2) # cosinus kąta pi/2 (w radianach), czyli kąta 90 stopni
+```
+
+\vspace{0.8cm}
+
+**Realizacja w R**
+```{r highlight=FALSE,tidy.opts=list(width.cutoff=37),comment=NA,prompt=TRUE}
+# Przykład 2.2 - proste obliczenia matematyczne
+3+5 # dodawanie
+4-6 # odejmowanie
+8*7 # mnożenie
+21/5 # dzielenie
+5^3 # 5 do potęgi 3
+sqrt(49) # pierwiastek kwadratowy z 49
+49^(1/2) # pierwiastek kwadratowy z 49
+(8)^(1/3) # pierwiastek trzeciego stopnia z 8
+log(7) # logarytm naturalny z 7
+log10(6) # logarytm o podstawie 10 z 6
+log2(5) # logarytm o podstawie 2 z 5
+log(4,5) # logarytm o podstawie 5 z 4
+exp(3) # e do potęgi 3
+sin(6.28) # sinus kąta 6.28 (w radianach), czyli kąta 360 stopni
+cos(pi/2) # cosinus kąta pi/2 (w radianach), czyli kąta 90 stopni
+```
+\vspace{0.8cm}
+
+**Uwaga**
+  
+  W R można zapisać różne działania w tej samej linii, ale muszą być oddzielone średnikami. 
+
+\vspace{0.8cm}
+
+**Przykład 2.3**
+  
+  **Kod w R**
+  
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.3 - obliczenia matematyczne
+2+3; 1-2; 4/2; 4*3
+```
+\vspace{0.8cm}
+
+**Realizacja w R**
+```{r, tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.3 - obliczenia matematyczne
+2+3; 1-2; 4/2; 4*3
+```
+## Zmienne 
+W R operatorem przypisania jest znak "=" lub "<-". W manuskrypcie stosujemy znak "=".
+
+\vspace{0.8cm}
+
+**Przykład 2.4**
+  
+  **Kod w R**
+```{r, eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.4 - operacje przypisania
+x=4  # przypisanie zmiennej x wartości 4
+x  # wyświetlenie wartości zmiennej x, czyli 4
+imie = "Jan"
+imie
+nazwisko="Nowak"
+nazwisko
+```
+
+
+**Realizacja w R**
+```{r, tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.4 - operacje przypisania
+x=4  # przypisanie zmiennej x wartości 4
+x  # wyświetlenie wartości zmiennej x, czyli 4
+imie = "Jan"
+imie
+nazwisko="Nowak"
+nazwisko
+```
+
+
+
+## Wektory, macierze oraz ramki danych
+
+
+**WEKTORY**
+  
+  
+  Podstawowa funkcja wykorzystywana w R w celu utworzenia wektora to "\texttt{c()}" od 'concatenate' - powiązać. Przykładowo, gdy chcemy utworzyć wektor o nazwie "a" z elementami 3 i 1 piszemy a=c(3,1). Wektor musi posiadać elementy tylko jednego typu. Rozróżniamy następujące wektory: wektor numeryczny, wektor znakowy oraz wektor logiczny.
+
+\vspace{0.8cm}
+
+**Przykład 2.5**
+  
+  **Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.5 - wektory
+ # wektor numeryczny
+a = c(3, 5, 7, 9, 11) 
+a
+#  wektor znakowy, znak w cudzysłowiu ""
+dni = c("wtorek", "czwartek", "sobota", "niedziela")  
+dni
+# wektor logiczny
+c = c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE) 
+c
+```
+\vspace{0.8cm}
+
+**Realizacja w R**
+```{r comment=NA,prompt=TRUE,highlight=FALSE}
+# Przykład 2.5 - wektory
+ # wektor numeryczny
+a = c(3, 5, 7, 9, 11) 
+a
+#  wektor znakowy, znak w cudzysłowiu ""
+dni = c("wtorek", "czwartek", "sobota", "niedziela")  
+dni
+# wektor logiczny
+c = c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE) 
+c
+```
+
+Przykładowe metody tworzenia wektorów znajdują się w Tablicy 2.2.
+
+
+\begin{table}[!ht]
+\centering
+\caption{Przykładowe funkcje tworzenia wektorów}
+\label{cos}
+\begin{tabular}{ccc}
+\hline
+Funkcja/Operator                                                             & \begin{tabular}[c]{@{}c@{}}Przykład\\ {[}wynik{]}\end{tabular}                           & Opis                                                                                                                          \\ \hline
+:                                                                         & \begin{tabular}[c]{@{}c@{}}1:3\\ {[}1,2,3{]}\end{tabular}                              & Tworzy sekwencje od : do                                                                                                      \\ \hline
+seq(from=x,to=y,by=z)                                                     & \begin{tabular}[c]{@{}c@{}}seq(from=0,to=8,by=2)\\ {[}0,2,4,6,8{]}\end{tabular}          & \begin{tabular}[c]{@{}c@{}}Tworzy regularne sekwencje \\ od 0 do 8 co 2\end{tabular}                                          \\ \hline
+\begin{tabular}[c]{@{}c@{}}seq(from=x,to=y, \\ length.out=z)\end{tabular} & \begin{tabular}[c]{@{}c@{}}seq(from=0,to=10,\\ length.out=3)\\ {[}0,5,10{]}\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tworzy\\ regularne sekwencje \\ od 0 do 10 co 3 liczbach\end{tabular}                               \\ \hline
+\begin{tabular}[c]{@{}c@{}}rep(x),\\ rep(x,y)\end{tabular}                & \begin{tabular}[c]{@{}c@{}}rep(3); rep(3,4)\\ {[}3{]}; {[}3,3,3,3{]}\end{tabular}        & \begin{tabular}[c]{@{}c@{}}Pierwszy argument oznacza \\ co ma być powtórzone\\ drugi ile razy (domyślnie jest 1)\end{tabular} \\ \hline
+rep(x,length.out=y)                                                       & \begin{tabular}[c]{@{}c@{}}rep(1:2,length.out=4)\\ {[}1,2,1,2{]}\end{tabular}            & \begin{tabular}[c]{@{}c@{}}Powtórzona sekwencja liczb \\ 1 i 2 o długości 4\end{tabular}                                      \\ \hline
+rep(x,each=y)                                                             & \begin{tabular}[c]{@{}c@{}}rep(3:1,each=2)\\ {[}3,3,2,2,1,1{]}\end{tabular}              & \begin{tabular}[c]{@{}c@{}}Każda\\ cyfra z sekwencji 3:1 \\ powtórzona 2 razy\end{tabular}                                    \\ \hline
+\end{tabular}
+\end{table}
+
+\vspace{0.8cm}
+
+
+
+**Przykład 2.6**
+  
+  **Kod w R**
+```{r, eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.6 - operacje na wektorach
+a = c(1,3,5) # określenie wektora a
+a
+b=c(3:14) # określenie wektora b
+b
+# łączymy wektory a i b
+ab = c(a,b)
+ab
+# zastępujemy liczby z pozycji 6,7,...,10 innymi liczbami
+ab[6:10] = c(0,-6,-3,-1,-5) 
+ab
+# Alternatywne metody tworzenia wektorów:
+rep(c(1,2), times=3) # powtarzamy wektor (1,2) - 3 razy
+rep(c(1,2), each=3)  # powtarzamy elementy wektora (1,2) - 3 razy
+seq(from=1, to=10, by=2 ) # tworzymy sekwencję liczb (od 1 do 10 co 2)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r, tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.6 - operacje na wektorach
+a = c(1,3,5) # określenie wektora a
+a
+b=c(3:14) # określenie wektora b
+b
+# łączymy wektory a i b
+ab = c(a,b)
+ab
+# zastępujemy liczby z pozycji 6,7,...,10 innymi liczbami
+ab[6:10] = c(0,-6,-3,-1,-5) 
+ab
+# Alternatywne metody tworzenia wektorów:
+rep(c(1,2), times=3) # powtarzamy wektor (1,2) - 3 razy
+rep(c(1,2), each=3)  # powtarzamy elementy wektora (1,2) - 3 razy
+seq(from=1, to=10, by=2 ) # tworzymy sekwencję liczb (od 1 do 10 co 2)
+```
+
+\vspace{0.8cm}
+**Odwoływanie się do elementów wektora:**
+  
+  a) x[1:2] - odwołanie się do 1 i 2 elementu wektora x
+
+b) x[c(2,4)] - odwołanie się do 2 i 4 elementu wektora x
+
+c) x[-c(2,3)] - wektor x bez 2 i 3 elementu
+
+d) x[x>6] - podzbiór wektora x: wyświetlane są 
+tylko te wartości wektora x, które są większe od 6
+
+\vspace{0.8cm}
+
+**Przykład 2.7**
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE,tidy=TRUE}
+# Przykład 2.7 - odwoływanie się do elementów wektora
+x=1:7 # określenie wektora x
+x
+x[5]           # 5-ty element wektora x
+x[-1]          # wszystkie elementy oprócz pierwszego elementu wektora x
+x[2:6]         # od 2-go do 6-go elementu wektora x
+x[c(2,4)]      # 2-gi i 4-ty element wektora x
+x[x < 4]       # wszystkie elementy wektora x mniejsze od 4
+```
+\newpage
+
+**Realizacja w R**
+```{r,tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.7 - odwoływanie się do elementów wektora
+x=1:7 # określenie wektora x
+x
+x[5]           # 5-ty element wektora x
+x[-1]          # wszystkie elementy oprócz pierwszego elementu wektora x
+x[2:6]         # od 2-go do 6-go elementu wektora x
+x[c(2,4)]      # 2-gi i 4-ty element wektora x
+x[x < 4]       # wszystkie elementy wektora x mniejsze od 4
+```
+
+\vspace{0.8cm}
+**Podstawowe operacje na wektorach: **
+
+\texttt{x} jest wektorem liczbowym
+  
+  \texttt{length(x)} - liczba elementów wektora \texttt{x}
+
+
+\texttt{min(x)}, \texttt{max(x)}, \texttt{range(x)} - minimum, maximum, rozstęp
+
+\texttt{sum(x)}, \texttt{prod(x)} - suma i iloczyn elementów 
+
+\texttt{mean(x)}, \texttt{median(x)} - średnia arytmetyczna i mediana
+
+\texttt{var(x)}, \texttt{sd(x)} - wariancja i odchylenie standardowe
+
+\texttt{IQR(x)} - zakres międzykwartylowy 
+
+\texttt{sort(x)} - posortowane elementy w kolejności rosnącej
+
+\texttt{summary(x)} - podstawowe statystyki: min, max, średnia, mediana, kwartyle
+
+
+\vspace{0.8cm}
+**Przykład 2.8**  (Kala 2005, s. 26)
+
+Obserwowano plonowanie 30 krzaków pomidorów "New Yorker" i otrzymano następujące wielkości plonów (w kg):
+  1.52, 1.57, 1.30, 1.62, 1.55, 1.70, 2.05, 1.64, 1.95, 1.80, 1.76, 1.40, 1.92, 2.20, 1.57, 1.59, 1.27, 1.79, 1.29, 1.84, 1.77, 1.72, 1.53, 1.32, 1.69, 1.95, 1.75, 1.08, 1.70, 1.45.
+
+Wyznaczyć  wartość minimalną i maksymalną, rozstęp, sumę i iloczyn elementów, średnią arytmetyczną i medianę, wariancję i odchylenie standardowe. Następnie rosnąco  posortować wszystkie elementy oraz wykonać polecenie "summary".
+
+\vspace{0.8cm}
+
+**Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.8 - (Kala 2005, s.26)
+# Przygotowanie danych
+y = c(1.52, 1.57, 1.30, 1.62, 1.55, 1.70, 2.05, 1.64, 1.95, 1.80, 1.76, 1.40,
+      1.92, 2.20, 1.57, 1.59, 1.27, 1.79, 1.29, 1.84, 1.77, 1.72, 1.53, 1.32,
+      1.69, 1.95, 1.75, 1.08, 1.70, 1.45) 
+# wyświetlanie zawartości y
+y
+# wykonanie obliczeń
+min(y)  # wartość minimalna 
+max(y)  # wartość maksymalna
+range(y)  # wartość min i max
+length(y) # liczba elementów
+sum(y)  # suma elementów 
+prod(y)  # iloczyn elementów 
+var(y)  # wariancja
+sd(y)  # odchylenie standardowe
+sort(y) # sortowanie elementów (szereg pozycyjny)
+summary(y) # wartości wybranych statystyk
+
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r,comment=NA,highlight=FALSE,prompt=TRUE}
+# Przykład 2.8 - (Kala 2005, s.26)
+# Przygotowanie danych
+y = c(1.52, 1.57, 1.30, 1.62, 1.55, 1.70, 2.05, 1.64, 1.95, 1.80, 1.76, 1.40,
+      1.92, 2.20, 1.57, 1.59, 1.27, 1.79, 1.29, 1.84, 1.77, 1.72, 1.53, 1.32,
+      1.69, 1.95, 1.75, 1.08, 1.70, 1.45) 
+# wyświetlanie zawartości y
+y
+# wykonanie obliczeń
+min(y)  # wartość minimalna 
+max(y)  # wartość maksymalna
+range(y)  # wartość min i max
+length(y) # liczba elementów
+sum(y)  # suma elementów 
+prod(y)  # iloczyn elementów 
+var(y)  # wariancja
+sd(y)  # odchylenie standardowe
+sort(y) # sortowanie elementów (szereg pozycyjny)
+summary(y) # wartości wybranych statystyk
+```
+
+\vspace{0.8cm}
+**MACIERZE**
+  
+  \vspace{0.8cm}
+**Macierz**  - zbiór elementów tego samego typu o strukturze wierszy i kolumn.
+
+Przykład macierzy o 3 wierszach i 5 kolumnach:
+  
+  $$
+  \begin{pmatrix}
+2 &  3 & 7&  5 & 1 \\ 
+7 & 9 & 1 & 4 & 0 \\
+8 & 2 & 6 & 3 & 7 \\
+\end{pmatrix}
+$$
+  
+  
+  
+  Funkcją tworzącą macierz jest 
+\begin{center}
+\texttt{matrix(data, nrow, ncol, byrow)}
+\end{center}
+
+gdzie: 
+  
+  \texttt{data} - dane, które chcemy przedstawić w formie macierzy,
+
+\texttt{nrow} - liczba wierszy,
+
+\texttt{ncol} - liczba kolumn, 
+
+\texttt{byrow} - jeśli byrow=TRUE, to macierz tworzona jest wierszami (domyślnie byrow=FALSE)
+
+\vspace{0.8cm}
+
+**Przykład 2.9**
+  
+  **Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.9 - tworzenie macierzy
+# macierz o 3 wierszach tworzona kolumnami
+mat1 = matrix(c(1,3,5,7,9,11,13,15,18,21,23,25),  nrow = 3)  
+mat1
+# macierz o 3 kolumnach tworzona kolumnami
+mat2 = matrix(c(1,3,5,7,9,11,13,15,18,21,23,25),  ncol = 3)  
+mat2
+# macierz o 3 wierszach i 2 kolumnach
+mat3 = matrix(1:6,3,2)  
+mat3
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.9 - tworzenie macierzy
+# macierz o 3 wierszach
+mat1 = matrix(c(1,3,5,7,9,11,13,15,18,21,23,25),  nrow = 3)  
+mat1
+# macierz o 3 kolumnach
+mat2 = matrix(c(1,3,5,7,9,11,13,15,18,21,23,25),  ncol = 3)  
+mat2
+# macierz o 3 wierszach i 2 kolumnach
+mat3 = matrix(1:6,3,2)    
+mat3
+```
+
+\vspace{0.8cm}
+
+**Przykład 2.10**
+  
+  **Kod w R**
+```{r, eval=FALSE,echo=TRUE,highlight=FALSE,tidy=TRUE}
+# Przykład 2.10 - alternatywne metody tworzenia macierzy
+macierz1 = matrix(seq(1:8), nrow = 4)
+macierz1
+macierz2 = matrix(seq(1:8),  nrow = 4, byrow=TRUE)
+macierz2
+# macierz diagonalna
+macdiag1=diag(1:5)      
+macdiag1
+# macierz jednostkowa
+macdiag2=diag(4)      
+macdiag2
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r, tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.10 - alternatywne metody tworzenia macierzy
+macierz1 = matrix(seq(1:8), nrow = 4)
+macierz1
+macierz2 = matrix(seq(1:8),  nrow = 4, byrow=TRUE)
+macierz2
+# macierz diagonalna
+macdiag1=diag(1:5)      
+macdiag1
+# macierz jednostkowa
+macdiag2=diag(4)      
+macdiag2
+```
+
+
+\vspace{0.8cm}
+
+**Odwoływanie się do elementów macierzy:**
+  
+  a) A[2,3] - element z drugiego wiersza i trzeciej kolumny macierzy A
+
+b) A[2, ] - drugi wiersz macierzy A
+
+c) A[ ,3] - trzecia kolumna macierzy A
+
+d) A[ ,c(1,3)] - pierwsza i trzecia kolumna macierzy A
+
+
+**Przykład 2.11**
+  
+  **Kod w R**
+```{r, eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.11 - odwoływanie się do elementów macierzy
+dane1 = matrix(seq(1:12),nrow = 3) # tworzenie macierzy dane1
+dane1 # wyświetlenie zawartości macierzy dane1
+dane1[1,2]  # element z pierwszego wiersza i drugiej kolumny macierzy dane1
+dane1[2,]  # drugi wiersz macierzy dane1
+dane1[,3]  # trzecia kolumna macierzy dane1
+dane1[ ,c(1,4)]  # pierwsza i czwarta kolumna macierzy dane1
+dane1[c(1,3),]  # pierwszy i trzeci wiersz macierzy dane1
+
+```
+\vspace{0.8cm}
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.11 - odwoływanie się do elementów macierzy
+dane1 = matrix(seq(1:12),  nrow = 3) # tworzenie macierzy dane1
+dane1 # wyświetlenie zawartości macierzy dane1
+dane1[1,2]  # element z pierwszego wiersza i drugiej kolumny macierzy dane1
+dane1[2,]  # drugi wiersz macierzy dane1
+dane1[,3]  # trzecia kolumna macierzy dane1
+dane1[ ,c(1,4)]  # pierwsza i czwarta kolumna macierzy dane1
+dane1[c(1,3),]  # pierwszy i trzeci wiersz macierzy dane1
+```
+
+\vspace{0.8cm}
+
+**Podstawowe operacje na macierzach: **
+  
+  \texttt{dim(A)} - wymiar macierzy A
+
+\texttt{A\%*\%B} - iloczyn macierzy A i B
+
+\texttt{t(A)} - transpozycja macierzy A
+
+\texttt{det(A)} - wyznacznik macierzy A
+
+\texttt{solve(A)} - macierz odwrotna do macierzy A
+
+\texttt{ncol(A), nrow(A)} - liczba kolumn, wierszy macierzy A
+
+\texttt{colnames(A), rownames(A)} - nazwy kolumn, wierszy macierzy A
+
+\texttt{colSums(A), rowSums(A)} - sumy kolumn, wierszy macierzy A
+
+\texttt{colMeans(A), rowMeans(A)} - wartości średnie dla kolumn, wierszy macierzy A
+
+\texttt{diag(A)} - wektor o elementach z przekątnej macierzy A
+
+\vspace{0.8cm}
+
+**Przykład 2.12**
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.12 - operacje na macierzach
+macierz1
+dim(macierz1) # wymiar macierzy
+t(macierz1) # transpozycja macierzy
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.12 - operacje na macierzach
+macierz1
+dim(macierz1) # wymiar macierzy
+t(macierz1) # transpozycja macierzy
+```
+
+
+\vspace{0.8cm}
+**Przykład 2.13**
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.13 - mnożenie macierzy
+A=matrix(c(1,2,3,4,5,6), nrow=2)
+A
+B=matrix(c(9,8,7,6,5,4,3,2,1), nrow=3)
+B
+C=A%*%B 
+C
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.13 - mnożenie macierzy
+A=matrix(c(1,2,3,4,5,6), nrow=2)
+A
+B=matrix(c(9,8,7,6,5,4,3,2,1), nrow=3)
+B
+C=A%*%B 
+C
+```
+\vspace{0.8cm}
+
+**Przykład 2.14**
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.14 - dalsze operacje na macierzach
+rowSums(B) # sumy dla wierszy macierzy B
+rowMeans(B) # średnie arytmetyczne dla wierszy macierzy B
+colSums(A) # sumy dla kolumn macierzy A
+colMeans(A) # średnie arytmetyczne dla kolumn macierzy A
+```
+\vspace{0.8cm}
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.14 - dalsze operacje na macierzach
+rowSums(B) # sumy dla wierszy macierzy B
+rowMeans(B) # średnie arytmetyczne dla wierszy macierzy B
+colSums(A) # sumy dla kolumn macierzy A
+colMeans(A) # średnie arytmetyczne dla kolumn macierzy A
+```
+\vspace{0.8cm}
+**Przykład 2.15**
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.15 - wyznacznik i odwrotność macierzy 
+D=matrix(c(1,3,5,1,2,3,7,8,1), nrow=3)  
+D
+wyznacznik=det(D)  # wyznacznik macierzy D
+wyznacznik
+D1=solve(D)  # macierz odwrotna do macierzy D
+D1
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),comment=NA,highlight=FALSE,prompt=TRUE}
+# Przykład 2.15 -  wyznacznik i odwrotność macierzy
+D=matrix(c(1,3,5,1,2,3,7,8,1), nrow=3)  # tworzenie macierzy D
+D
+wyznacznik=det(D)  # wyznacznik macierzy D
+wyznacznik
+D1=solve(D)  # macierz odwrotna do macierzy D
+D1
+```
+\vspace{0.8cm}
+**Przykład 2.16**
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.16 - rozwiązywanie układu równań
+w=c(3,1,5)  # wektor wyrazów wolnych
+w
+roz=solve(D,w)  # rozwiązanie układu równań postaci Dx=w, D - macierz układu
+roz
+```
+
+\newpage
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),comment=NA,highlight=FALSE,prompt=TRUE}
+# Przykład 2.16 - rozwiązywanie układu równań
+w=c(3,1,5)  # wektor wyrazów wolnych
+w
+roz=solve(D,w)  # rozwiązanie układu równań postaci Dx=w, D - macierz układu
+roz
+```
+
+\vspace{0.8cm}
+
+**RAMKA DANYCH**
+  
+  **Ramka danych** - zbiór elementów o strukturze wierszy i kolumn, gdzie kolumny mogą być różnego typu.
+
+Funkcją tworzącą ramkę danych jest 'data.frame'.
+
+\vspace{0.8cm}
+**Przykład 2.17**
+  
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.17 - tworzenie ramki danych
+dawki=c("d0", "d20", "d50", "d100")
+odmiany=c("K", "M", "P", "S")
+plon=c(6.1, 5.4, 6.5, 6.3)
+roslina=data.frame(Odmiany=odmiany, Dawki=dawki, Plon=plon)
+roslina
+
+```
+
+\newpage
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.17 - tworzenie ramki danych
+dawki=c("d0", "d20", "d50", "d100")
+odmiany=c("K", "M", "P", "S")
+plon=c(6.1, 5.4, 6.5, 6.3)
+roslina=data.frame(Odmiany=odmiany, Dawki=dawki, Plon=plon)
+roslina
+```
+
+
+\vspace{0.8cm}
+
+
+**Odwoływanie się do elementów z ramki danych:**
+  
+  a) roslina[1:3,1] - pierwsze trzy elementy pierwszej kolumny
+
+b) roslina[1:2,'Odmiany'] - pierwsze dwa elementy kolumny o nazwie 'Odmiany'
+
+c) roslina$Plon - wszystkie elementy z kolumny 'Plon'
+
+d) roslina$Plon[1:2] - pierwsze dwa elementy z kolumny o nazwie 'Plon'
+
+
+
+
+\vspace{0.4cm}
+**Przykład 2.18**
+
+W R można korzystać z gotowych zbiorów danych. Przykładowe dane o nazwie 'iris' oraz 'trees' użyte zostaną w dalszej części rozdziału.
+
+
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 2.18 - odwoływanie się do elementów ramki danych
+# przykładowa ramka danych
+data(iris) # załadowanie danych iris
+head(iris) # wyświetlenie pierwszych elementów ze zbioru iris
+iris[1:10,1] # pierwsze dziesięć elementów z pierwszej kolumny
+iris[1:10,'Sepal.Length'] # lub równoznacznie
+iris$Sepal.Length[1:10] # lub równoznacznie
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 2.18 - odwoływanie się do elementów ramki danych
+# przykładowa ramka danych
+data(iris) # załadowanie danych iris
+head(iris) # wyświetlenie pierwszych elementów ze zbioru iris
+iris[1:10,1] # pierwsze dziesięć elementów z pierwszej kolumny
+iris[1:10,'Sepal.Length'] # lub równoznacznie
+iris$Sepal.Length[1:10] # lub równoznacznie
+```
+
+\vspace{0.8cm}
+
+**Podstawowe operacje na ramkach danych: **
+  
+  \texttt{head()} - wyświetla pierwsze rekordy
+
+\texttt{tail()} - wyświetla ostatnie rekordy
+
+\texttt{attach()} - pozwala odnosić się do nazw zmiennych znajdujących się bezpośrednio w danych
+
+\texttt{detach()} - likwiduje możliwość bezpośredniego odnoszenia się do zmiennych
+
+\texttt{str()} - wyświetla informacje o obiekcie
+
+\texttt{table()} - tabela z liczbą wystąpień danego czynnika lub kombinacji czynników
+
+\texttt{subset()} - określa podzbiór danego zbioru, spełniający określone warunki
+
+\texttt{by()} - stosuje określoną funkcję do zadanego podzbioru danych
+
+
+\vspace{0.8cm}
+**Przykład 2.19**
+  
+  **Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE,tidy=TRUE}
+# Przykład 2.19 - operacje na ramkach danych
+data(trees)
+head(trees)
+attach(trees)
+Girth
+str(trees)
+# tworzenie nowej ramki danych o nazwie 'ankieta'
+ankieta=data.frame(odpowiedzi=c('T','N','T','T','N','X','N','X','T'),
+                   wiek=c(16,23,22,65,45,32,24,12,56))
+ankieta
+# zliczanie ile było ankietowanych względem odpowiedzi
+table(ankieta$odpowiedzi) 
+# podzbiór ankietowanych, których wiek jest większy niż 20
+subset(ankieta,wiek>20)  
+# podzbiór tylko z odpowiedziami 'T'
+subset(ankieta,odpowiedzi=='T')  
+# suma lat dla respondentów względem odpowiedzi
+by(ankieta$wiek, ankieta$odpowiedzi,sum) 
+```
+
+\newpage
+
+**Realizacja w R**
+```{r tidy=TRUE, comment=NA,highlight=FALSE,prompt=TRUE}
+# Przykład 2.19 - operacje na ramkach danych
+data(trees)
+head(trees)
+attach(trees)
+Girth
+str(trees)
+# tworzenie nowej ramki danych o nazwie 'ankieta'
+ankieta=data.frame(odpowiedzi=c('T','N','T','T','N','X','N','X','T'),
+                   wiek=c(16,23,22,65,45,32,24,12,56))
+ankieta
+# zliczanie ile było ankietowanych względem odpowiedzi
+table(ankieta$odpowiedzi) 
+# wyznacza podzbiór ankietowanych, których wiek jest większy niż 20
+subset(ankieta,wiek>20)  
+# wyznacza podzbiór tylko z odpowiedziami 'T'
+subset(ankieta,odpowiedzi=='T')  
+# wyznacza sumę lat dla respondentów względem odpowiedzi
+by(ankieta$wiek, ankieta$odpowiedzi,sum) 
+
+```
+
+\vspace{0.8cm}
+
+## Zadania do wykonania
+
+**Wektory**
+  
+  Zad. 1
+
+Wprowadź dowolne wektory $x$, $y$, $z$. Wykonaj następujące operacje: $y-z$, $x+y$, $x/2$, $ln(x)$ – $cos(y)$
+  
+  \vspace{0.8cm}
+
+Zad. 2
+
+Stwórz dane, które będą zawierały 8 jedynek i zapisz je pod zmienną cc, a następnie utwórz dane zawierające 199 zer i zapisz pod zmienną d
+
+\vspace{0.8cm}
+
+Zad. 3
+
+Oblicz:
+  
+  a) $100^2+101^2+...+200^2$
+  
+  b) $\sqrt(log(1))+\sqrt(log(10))+...+\sqrt(log(100000))$
+  
+  \vspace{0.8cm}   
+
+Zad. 4
+
+Użyj funkcji rep żeby utworzyć następujące dane:
+  
+  a)	1 1 1 1 1 1 1 1 
+
+b)  1 4 1 4 1 4 1 4 1 4 1 4 1 4
+
+c)  3 3 3 3 3 3 3 3 6 6 6
+
+d)  5 4 4 3 3 3 2 2 2 2 1 1 1 1 1
+
+e)  12  12  12  21  43  43
+
+f)  „A”  „B”  „A”  „B”  „A”  „B” 
+
+g)  1 1 3 3 5 5 7 7 9 9 11 11
+
+\vspace{0.8cm}
+
+**Macierze**
+  
+  Zad. 1 
+
+Zadeklaruj poniższe macierze:
+  
+  $$A =
+  \begin{pmatrix}
+1 &  2 & -3&  0 \\ 
+2 & -5 & 4 & 1 \\
+3 & 7 & 5 & -2 \\
+0 & 1&  6&  -3 \\
+\end{pmatrix}
+$$
+  $$
+  B =
+  \begin{pmatrix}
+1 & 7 \\
+4 & 2 \\ 
+3 & -1 \\ 
+2 & 0 \\ 
+\end{pmatrix}
+$$
+  Oblicz wyznacznik macierzy $\textbf{A}$, iloczyn $\textbf{AB}$, macierz transponowaną $\mathbf{A}^T$, macierz odwrotną $\mathbf{A}^{-1}$.
+
+\vspace{0.8cm}
+
+Zad. 2
+
+Zadeklaruj macierz A postaci:
+  
+  $$
+  A =
+  \begin{pmatrix}
+1 & 4 & 7 \\
+2 & 5 & 8 \\
+3 & 68 & 9 \\
+\end{pmatrix}.
+$$
+  
+  Następnie, korzystając z funkcji R wyznacz:
+  
+  a) liczbę wierszy i kolumn macierzy $\textbf{A}$
+  
+  b) sumę wszystkich elementów macierzy $\textbf{A}$
+  
+  c) średnią wszytkich elementów w poszczególnych kolumnach macierzy $\textbf{A}$
+  
+  d) sumę wszytkich elementów w wierszu drugim macierzy $\textbf{A}$
+  
+  e) sumę: $A_{12}$ + $A_{33}$, gdzie $A_{12}$ oznacza element macierzy $A$ znajdujący się na przecięciu pierwszego wiersza i drugiej kolumny
+  
+  f) zawartość trzeciej kolumny
+
+g) zawartość drugiego wiersza
+
+\vspace{0.8cm}
+
+**Ramki danych**
+  
+  Zad. 1
+
+Bazując na danych iris (wczytaj je wykorzystując funkcję: \texttt{data(iris)}) odpowiedz na następujące pytania:
+  
+  a) ile wierszy i kolumn zawierają te dane?
+  
+  b) oblicz wartość średnią i odchylenie standardowe dla zmiennej Sepal.Width oraz Sepal.Length dla każdego gatunku osobno.
+
+c) wybierz tylko wiersze, które odpowiadają gatunkowi Virginica i przypisz te dane nazwie 'virginica'.
+
+d) wybierz tylko te dane, które odpowiadają gatunkowi Virginica dla zmiennej Sepal.Length i przypisz je nazwie 'virginica.sl'.
+
+e) ile kwiatów z każdego gatunku zawierają dane iris?
+  
+  f) jakie jest minimum dla zmiennej Sepal.Length dla gatunku setosa?
+  
+  
+
+<!--chapter:end:02-obliczenia_w_r.Rmd-->
+
+
+# Przygotowanie danych
+W R dane można przygotować na wiele sposobów. W niniejszym opracowaniu przygotowanie danych oznacza: wczytanie, otwarcie i wyświetlenie danych na ekranie. Najprostszą metodą "tworzenia danych", omówioną w poprzednim rozdziale, jest zastosowanie polecenia "c()", czyli utworzenie wektora elementów wskazanych w nawiasach "()". Jeśli np. mamy liczby 3, 5, 2 oraz 8 i wykonamy polecenie x=c(3, 5, 2, 8), to zmienna x będzie wektorem powyższych liczb. Natomiast, jeśli mamy dane zapisane na dysku w formie pliku tekstowego lub pliku utworzonego w excelu, to  należy zastosować odpowiednie polecenia do wczytania takiego pliku.
+
+\vspace{0.8cm}
+**Przykład 3.1** (Greń 1975, s. 161)
+
+Wylosowano po 12 pędów żyta trzech różnych gatunków i otrzymano dla nich następujące długości kłosów żyta (w cm) - patrz Tablica \@ref(gren161).
+
+
+\begin{table}[!ht]
+\centering
+\caption{Dane - Greń (1975, s. 161)}
+\label{gren161}
+\begin{tabular}{lll}
+\multicolumn{3}{c}{Gatunek} \\ \hline
+A       & B    & C    \\ \hline
+6.7     & 7.5  & 5.9  \\
+7.3     & 7.7  & 6.9  \\
+8.0     & 7.7  & 7.0  \\
+8.0     & 8.2  & 7.0  \\
+7.9     & 8.9  & 9.5  \\
+9.2     & 8.9  & 9.6  \\
+10.1    & 10.6 & 9.6  \\
+9.2     & 10.2 & 10.3 \\
+8.3     & 9.4  & 8.1  \\
+8.4     & 9.4  & 8.5  \\
+8.0     & 8.2  & 8.6  \\
+7.9     & 7.8  & 8.8 \\ \hline
+\end{tabular}
+\end{table}
+
+Wykonać poniższe polecenia:
+
+1. Przedstawić dane w formie ramki danych.
+2. Zapisać dane na pulpicie "Pulpit://abc" w postaci pliku tekstowego o nazwie 'kwiaty.txt'. Następnie wczytać i wyświetlić zawartość tego pliku. 
+3. Zapisać dane na pulpicie "Pulpit://abc" w postaci pliku excelowskiego o nazwie 'kwiaty.xlsx'. Następnie wczytać i wyświetlić zawartość tego pliku. 
+
+\vspace{0.8cm}
+
+## Wczytanie ramki danych 
+
+
+**Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 3.1 (Greń 1975, s. 161)
+# ramka danych
+A = c(6.7,7.3,8.0,8.0,7.9,9.2,10.1,9.2,8.3,8.4,8.0,7.9)
+B = c(7.5,7.7,7.7,8.2,8.9,8.9,10.6,10.2,9.4,9.4,8.2,7.8)
+C = c(5.9,6.9,7.0,7.0,9.5,9.6,9.6,10.3,8.1,8.5,8.6,8.8)
+dane=data.frame(A,B,C)  # tworzenie ramki danych o nazwie "dane"
+dane
+```
+\newpage
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 3.1 (Greń 1975, s. 161)
+# ramka danych
+A = c(6.7,7.3,8.0,8.0,7.9,9.2,10.1,9.2,8.3,8.4,8.0,7.9)
+B = c(7.5,7.7,7.7,8.2,8.9,8.9,10.6,10.2,9.4,9.4,8.2,7.8)
+C = c(5.9,6.9,7.0,7.0,9.5,9.6,9.6,10.3,8.1,8.5,8.6,8.8)
+dane=data.frame(A,B,C)  # tworzenie ramki danych o nazwie "dane"
+dane
+```
+
+\newpage
+
+## Wczytanie danych tekstowych
+
+
+Na pulpicie "Pulpit://abc" pod nazwą "kwiaty.txt" zapisujemy plik tekstowy postaci: 
+\begin{table}[H]
+\centering
+\label{dane1}
+\begin{tabular}{l}
+A    B    C    \\
+6.7  7.5  5.9  \\
+7.3  7.7  6.9  \\
+8.0  7.7  7.0  \\
+8.0  8.2  7.0  \\
+7.9  8.9  9.5  \\
+9.2  8.9  9.6  \\
+10.1 10.6  9.6 \\
+9.2 10.2 10.3  \\
+8.3  9.4  8.1  \\
+8.4  9.4  8.5  \\
+8.0  8.2  8.6  \\
+7.9  7.8  8.8 
+\end{tabular}
+\end{table}
+
+Następnie wykonujemy polecenia wczytania pliku tekstowego przy pomocy funkcji \texttt{read.table} i podstawienia wczytanych wartości pod nazwę "dane1" (trzecia linia poniższego kodu) oraz wyświetlenie zawartości  zmiennej "dane1" (czwarta linia kodu). Używając funkcji \texttt{read.table()} stosujemy argument \texttt{header=TRUE}, co oznacza, że dane będą wczytane traktując pierwszy wiersz jako nagłówek.
+
+\vspace{0.8cm}
+
+
+**Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 3.1 (Greń 1975, s. 161)
+# wczytanie pliku tekstowego
+dane1 = read.table("~/Desktop/kwiaty.txt", header=TRUE)
+dane1
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 3.1 - Greń (1975, s. 161)
+# wczytanie pliku tekstowego
+dane1 = read.table("~/Desktop/kwiaty.txt", header=TRUE)
+dane1
+```
+
+
+## Wczytanie danych z Excela
+
+
+W folderze "D://abc" pod nazwą "kwiaty.xlsx" w arkuszu 'dane' zapisujemy plik z treścią taką jak w pliku tekstowym "kwiaty.txt". Do wczytywania danych w formacie \texttt{xlsx} stosujemy funkcję \texttt{read.xlsx()} z pakietu \texttt{openxlsx}. Używamy argumentu \texttt{sheet=dane} wskazując, że dane do wczytania znajdują się w arkuszu o nazwie 'dane'.
+\vspace{0.8cm}
+
+
+**Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 3.1 (Greń 1975, s. 161)
+# czytanie pliku typu xlsx 
+library(openxlsx)  # otwarcie pakietu "openxlsx"
+dane2 <- read.xlsx("~/Desktop/kwiaty.xlsx", sheet = "dane"")
+dane2
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,warning=FALSE,comment=NA,prompt=TRUE}
+# Przykład 3.1 - Greń (1975, s. 161)
+# czytanie pliku typu xlsx 
+library(openxlsx)  # otwarcie pakietu "openxlsx"
+dane2 <- read.xlsx("~/Desktop/kwiaty.xlsx", sheet = "dane")
+dane2
+```
+
+**Uwaga**
+
+Jeśli mamy zapisany plik w excelu w formacie ".xls", to należy plik ten zapisać w formacie ".xlsx" i następnie zastosować funkcję \texttt{read.xlsx()} z pakietu \texttt{openxlsx}.
+
+\vspace{0.8cm}
+**Przydatne funkcje**
+
+\texttt{rm(list=ls())} - usuwanie wszystkich obiektów z pamięci
+
+\texttt{setwd("D://abc")} - ustanowienie aktualnej ścieżki dostępu do folderu "abc" znajdującego się na dysku D. Oznacza to, że zamiast np. funkcji 
+
+\begin{center}
+\texttt{read.table("D://abc/kwiaty.txt", header=TRUE)}
+\end{center}
+
+możemy wykorzystać funkcję postaci
+
+\begin{center}
+\texttt{read.table("kwiaty.txt", header=TRUE)}
+\end{center}
+
+\vspace{0.8cm}
+
+## Zadania do wykonania
+
+Zad. 1
+
+Pobierz ze strony www.up.poznan.pl/kmmis/R plik "rodziny.txt" i wczytaj go do R. Następnie odpowiedz na następujące pytania:
+
+a) Ile rodzin żyje w mieście, a ile na wsi?
+    
+b) Ile dużych rodzin mieszka w mieście, a ile na wsi?
+    
+c) Ile rodzin ze wsi jedzie na wakacje?
+    
+d) Jaki jest maksymalny dochód dużych rodzin żyjących w mieście?
+
+\vspace{0.8cm}
+Zad. 2
+
+Pobierz ze strony www.up.poznan.pl/R plik "studenci.xlsx" i wczytaj go do R. Następnie odpowiedz na następujące pytania:
+
+a) Ile studentów i studentek studiuje leśnictwo?
+    
+b) Jakie jest średnie  stypendium dla studentów, a jakie dla studentek?
+    
+c) Ile studentek studiuje agroturystykę?
+    
+d) Ile studentów leśnictwa nie ma stypendium?
+
+
+
+
+
+
+
+<!--chapter:end:03-przygotowanie_danych.Rmd-->
+
+# Wizualizacje
+W rozdziale tym przedstawione zostaną podstawowe informacje dotyczące graficznych prezentacji danych oraz wykresów dla przykładowych funkcji.
+
+## Graficzna prezentacja danych
+
+
+<!-- \begin{table}[!ht] -->
+<!-- \centering -->
+<!-- \caption{Podstawowe funkcje do tworzenia wykresów} -->
+<!-- \footnotesize -->
+<!-- \begin{tabular}{lcc} -->
+<!-- \hline -->
+<!-- Nazwa funkcji  & Przykładowe argumenty  & Przykład użycia  \\ \hline -->
+<!-- \textbf{curve} & \begin{tabular}[c]{@{}c@{}} \textbf{expr} - wyrażenie funkcji \\ \textbf{from} - wartość początkowa \\ \textbf{to} - wartość końcowa\end{tabular} &  curve(cos, from = -2*pi, to = 2*pi)     \\ \hline -->
+<!-- \textbf{plot} & \begin{tabular}[c]{@{}c@{}} \textbf{type} - rodzaj linii  \\ \textbf{main} - tytuł wykresu \\ \textbf{col} - kolor wykresu \end{tabular} &   \begin{tabular}[c]{@{}c@{}} plot(log(1:5), type = /"l",\\ main = "Wykres funkcji", col = "blue")   \end{tabular} \\ \hline -->
+<!-- \textbf{hist} & \begin{tabular}[c]{@{}c@{}} \textbf{breaks} - liczba przedziałów klasowych \\ (może być wektor, funkcja, liczba) \\\textbf{freq} - jeżeli 'TRUE' histogram \\wyznaczony jest na podstawie częstości \end{tabular} & \begin{tabular}[c]{@{}c@{}} x <- rchisq(100, df = 4)  \\  hist(x, breaks = 6, freq = FALSE)  \end{tabular}   \\ \hline -->
+<!-- \textbf{boxplot} & \begin{tabular}[c]{@{}c@{}} \textbf{data} - zbiór danych z którego korzystamy \\ \textbf{horizontal} - 'TRUE' oznacza, że będzie w poziomie \\ \textbf{add} - jeśli 'TRUE' dodany zostanie \\boxplot do istniejącego rysunku \end{tabular} & \begin{tabular}[c]{@{}c@{}} boxplot(count \~ spray, horizontal=TRUE,\\ data = InsectSprays) \end{tabular}\\ \hline -->
+<!-- \textbf{barplot} & \begin{tabular}[c]{@{}c@{}} \textbf{height} - wysokość kolumn \\  -->
+<!-- \textbf{width} - szerokość kolumn \end{tabular} &  \begin{tabular}[c]{@{}c@{}} tN <- table(Ni <- rpois(100, \\ lambda = 5)) \\ barplot(tN, col = rainbow(20)) \end{tabular} \\ \hline -->
+<!-- \end{tabular} -->
+<!-- \end{table} -->
+
+ \vspace{0.8cm}
+**Przykład 4.1** (Kala 2005, s. 26)
+
+Obserwowano plonowanie 30 krzaków pomidorów "New Yorker" i otrzymano następujące wielkości plonów (w kg):
+1.52, 1.57, 1.30, 1.62, 1.55, 1.70, 2.05, 1.64, 1.95, 1.80, 1.76, 1.40, 1.92, 2.20, 1.57, 1.59, 1.27, 1.79, 1.29, 1.84, 1.77, 1.72, 1.53, 1.32, 1.69, 1.95, 1.75, 1.08, 1.70, 1.45.
+
+Wyznaczyć podstawowe statystyki dla wielkości plonów przy użyciu funkcji "summary" oraz przedstawić graficznie dane przy użyciu funkcji: barplot, plot, histogram oraz boxplot.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE,tidy=FALSE}
+#  Przykład 4.1 (Kala 2005, s. 26)
+y=c(1.52,1.57,1.30,1.62,1.55,1.70,2.05,1.64,1.95,1.80,1.76,1.40,1.92,2.20,1.57,
+1.59,1.27,1.79,1.29,1.84,1.77,1.72,1.53,1.32,1.69,1.95,1.75,1.08,1.70,1.45)
+summary(y)  # wyznaczenie wybranych statystyk
+barplot(y)  # Rys. 4.1
+plot(y)  # Rys. 4.2
+# xlab - tytuł osi OX, ylab - tytuł osi OY, main - tytuł wykresu
+plot(y,xlab="numery krzakow",ylab="wartosci y w kg", main="Plony pomidorow") # Rys. 4.3
+hist(y)  # Rys. 4.4
+hist(y, main="Plonowanie pomidorow")  # Rys.4.5
+# col - kolory wykresu
+hist(y, col=rainbow(20), xlab="przedzialy", ylab="liczebnosci",
+     main="Plonowanie pomidorow") # Rys. 4.6
+boxplot(y) # Rys. 4.7
+```
+\vspace{0.8cm}
+**Realizacja w R**
+
+```{r Barplot1, echo=TRUE,fig.align='center',highlight=FALSE,fig.cap='Barplot dla danych - Kala (2005, s. 26)', fig.pos='H',out.width='70%'}
+#  Przykład 4.1 (Kala 2005, s. 26)
+y=c(1.52,1.57,1.30,1.62,1.55,1.70,2.05,1.64,1.95,1.80,1.76,1.40,1.92,2.20,1.57,
+1.59,1.27,1.79,1.29,1.84,1.77,1.72,1.53,1.32,1.69,1.95,1.75,1.08,1.70,1.45)
+summary(y)  # wyznaczenie wybranych statystyk
+barplot(y)  # Rys. 4.1
+```
+
+```{r  echo=TRUE,highlight=FALSE,fig.cap='Przykład użycia funkcji plot dla danych - Kala (2005, s. 26)', fig.align='center',fig.pos='H',out.width='70%'}
+plot(y)  # Rys. 4.2
+```
+
+```{r plott2, highlight=FALSE,echo=TRUE,fig.cap='Przykład użycia funkcji plot z tytułami osi dla danych - Kala (2005, s. 26)', fig.align='center',fig.pos='H',out.width='70%',tidy = FALSE, warning = FALSE,dev.args=list(encoding='CP1250')}
+# xlab - tytuł osi OX, ylab - tytuł osi OY, main - tytuł wykresu
+plot(y,xlab="numery krzaków",ylab="wartości y w kg", main="Plony
+     pomidorów") # Rys. 4.3
+```
+
+
+
+```{r plott3, echo=TRUE,highlight=FALSE,fig.cap='Histogram dla danych - Kala (2005, s. 26)', fig.align='center',fig.pos='H',out.width='70%'}
+hist(y)  # Rys. 4.4
+```
+
+```{r plott4, echo=TRUE,highlight=FALSE,fig.cap='Histogram z tytułem dla danych - Kala (2005, s. 26)', fig.align='center',fig.pos='H',out.width='70%',dev.args=list(encoding='CP1250')}
+hist(y, main="Plonowanie pomidorów")  # Rys. 4.5
+```
+
+```{r plott5,highlight=FALSE, warning = FALSE,echo=TRUE,fig.cap='Histogram z tytułami w kolorze dla danych - Kala (2005, s. 26)', fig.align='center',fig.pos='H',out.width='70%',tidy=FALSE, dev.args=list(encoding='CP1250')}
+# col - kolory wykresu
+hist(y, col=rainbow(20), xlab="przedziały", ylab="liczebności",
+     main="Plonowanie pomidorów") # Rys. 4.6
+```
+
+```{r plott6, highlight=FALSE,echo=TRUE,fig.cap='Boxplot dla danych - Kala (2005, s. 26)', fig.align='center',fig.pos='H',out.width='70%'}
+boxplot(y) # Rys. 4.7
+```
+
+
+\newpage
+
+**Przykład 4.2** (Greń 1975, s. 161)
+
+Dla  danych z przykładu 3.1 wykonać wykres typu boxplot.
+
+\vspace{0.8cm}
+
+**Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 4.2 - (Greń 1975, s. 161)
+# przygotowanie danych
+A = c(6.7,7.3,8.0,8.0,7.9,9.2,10.1,9.2,8.3,8.4,8.0,7.9)
+B = c(7.5,7.7,7.7,8.2,8.9,8.9,10.6,10.2,9.4,9.4,8.2,7.8)
+C = c(5.9,6.9,7.0,7.0,9.5,9.6,9.6,10.3,8.1,8.5,8.6,8.8)
+dane=data.frame(A, B, C)  # tworzenie ramki danych o nazwie "dane"
+dane
+boxplot(dane)   # Rys. 4.8
+boxplot(dane, main="ABC")   # Rys. 4.9
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 4.2 - (Greń 1975, s. 161)
+# przygotowanie danych
+A = c(6.7,7.3,8.0,8.0,7.9,9.2,10.1,9.2,8.3,8.4,8.0,7.9)
+B = c(7.5,7.7,7.7,8.2,8.9,8.9,10.6,10.2,9.4,9.4,8.2,7.8)
+C = c(5.9,6.9,7.0,7.0,9.5,9.6,9.6,10.3,8.1,8.5,8.6,8.8)
+dane=data.frame(A, B, C)  # tworzenie ramki danych o nazwie "dane"
+dane
+```
+
+```{r plott7, highlight=FALSE,echo=TRUE,fig.cap='Boxplot dla danych - Greń (1975, s. 161)', fig.align='center',fig.pos='H',out.width='57%'}
+boxplot(dane) # Rys. 4.8
+```
+
+```{r plott8, highlight=FALSE,echo=TRUE,fig.cap='Boxplot z tytułem wykresu - Greń (1975, s. 161)', fig.align='center',fig.pos='H',out.width='57%'}
+boxplot(dane,main="ABC") # Rys. 4.9
+```
+
+## Wykresy dla przykładowych funkcji
+\vspace{0.8cm}
+**Przykład 4.3**
+
+Narysować wykres funkcji $y=x^3$ dla $x \in \langle -10;10 \rangle$ z osiami współrzędnych.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 4.3
+x = -10:10  # ustalenie wartości x
+x # wyświetlenie zawartości x
+y=x^3  # obliczenie wartości y
+plot(x, y)  # Rys. 4.10
+# pch - określenie znaków (symboli) na wykresie
+plot(x, y, pch = 1:20) # zmiana wartości argumentu 'pch'  -  Rys. 4.11
+lines(x,y)  # dodanie linii łączących x i y  - Rys. 4.12
+abline(h=0)  # dodanie linii poziomej y=0, czyli osi OX
+abline(v=0, col="red") # dodanie czerwonej linii pionowej x=0 (oś OY)  - Rys. 4.13
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 4.3
+x = -10:10  # ustalenie wartości x
+x # wyświetlenie zawartości x
+y=x^3  # obliczenie wartości y
+
+```
+
+
+
+```{r plott9, highlight=FALSE,echo=TRUE,fig.cap='Wykres funkcji $y=x^3$', fig.align='center',fig.pos='H',out.width='70%'}
+plot(x, y)  # Rys. 4.10
+```
+
+```{r plott9a,highlight=FALSE, echo=TRUE,fig.cap='Wykres funkcji $y=x^3$ ze zmianą wartości pch', fig.align='center',fig.pos='H',out.width='70%'}
+# pch - określenie znaków (symboli) na wykresie
+plot(x, y, pch = 1:20) # zmiana wartości argumentu 'pch' -  Rys. 4.11
+```
+
+
+\newpage
+
+```{r highlight=FALSE,eval=FALSE,echo=TRUE}
+lines(x,y)  # dodanie linii łączących x i y -  Rys. 4.12
+```
+
+
+```{r  highlight=FALSE,echo=FALSE,fig.cap='Wykres funkcji $y=x^3$ z liniami łączącymi', fig.align='center',fig.pos='H',out.width='70%'}
+plot(x, y, pch = 1:20) # zmiana wartości argumentu 'pch' 
+lines(x,y)  # dodanie linii łączących x i y
+```
+
+```{r highlight=FALSE,echo=TRUE,eval=FALSE}
+abline(h=0)  # dodanie linii poziomej y=0, czyli osi OX
+abline(v=0, col="red") # dodanie czerwonej linii pionowej x=0 (oś OY)  - Rys. 4.13
+```
+```{r  highlight=FALSE,echo=FALSE,fig.cap='Wykres funkcji $y=x^3$ z osiami OX i OY', fig.align='center',fig.pos='H',out.width='70%'}
+plot(x, y)  # wykres x i y
+lines(x,y)  # dodanie linii łączących x i y.
+abline(h=0)  # dodanie linii poziomej y=0, czyli osi OX
+abline(v=0, col="red") # dodanie czerwonej linii pionowej x=0 (oś OY)  - Rys. 4.13
+```
+
+
+
+**Przykład 4.4**
+
+Narysować w jednym „oknie” wykresy funkcji $y=sin(x)$ oraz $y=cos(x)$ dla $x \in \langle -3 \pi;3 \pi \rangle$.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE,tidy.opts=list(width.cutoff=37)}
+# Przykład 4.4
+# ustalamy wartości x
+x = seq(-3*pi, 3*pi, by=0.3)
+# rysujemy funkcję sin(x) - type='l' oznacza linię
+plot(x, sin(x), type="l", main="Wykres funkcji sin(x) i cos(x)", col="red")  # Rys. 4.14
+# dorysowujemy funkcję cos(x) i nadajemy tytuł osi OY
+lines(x, cos(x),  col="blue", type="l", ylab='wartości funkcji')  # Rys. 4.15
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 4.4
+# ustalamy wartości x
+x = seq(-3*pi, 3*pi, by=0.3)
+```
+
+```{r  echo=TRUE,highlight=FALSE,fig.cap='Wykres funkcji $y=sin(x)$', fig.align = 'center',fig.pos='H',out.width='70%',tidy=TRUE,tidy.opts=list(width.cutoff=37)}
+# rysujemy funkcję sin(x) - type='l' oznacza linię
+plot(x, sin(x), type="l", main="Wykres funkcji sin(x) i cos(x)", col="red") # Rys. 4.14
+```
+```{r  eval=FALSE,highlight=FALSE,echo=TRUE,fig.cap='plot13', fig.align='center',fig.pos='H',out.width='70%'}
+# dorysowujemy funkcję cos(x) i nadajemy tytuł osi OY
+lines(x, cos(x),  col="blue", type="l", ylab='wartości funkcji')  # Rys. 4.15
+```
+
+```{r lines, highlight=FALSE,echo=FALSE,fig.cap='Wykresy funkcji $y=sin(x)$ oraz $y=cos(x)$ przy pomocy funkcji plot i lines', fig.align='center',fig.pos='H',out.width='70%'}
+plot(x, sin(x), type="l", main="Wykres funkcji sin(x) i cos(x)", col="red")
+lines(x, cos(x),  col="blue", type="l")
+```
+
+\vspace{0.8cm}
+**Przykład 4.5**
+
+Narysować w jednym 'oknie' wykresy funkcji $y=sin(x)$ oraz $y=cos(x)$ dla $x \in \langle -3 \pi;3 \pi \rangle$ przy pomocy funkcji 'curve'.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,tidy=TRUE,highlight=FALSE}
+# Przykład 4.5 - funkcja 'curve'
+# Rys. 4.16
+curve(sin, from = -3*pi, to = 3*pi, type = "l", col = "red", xlab="argumenty funkcji", 
+      ylab = "wartości funkcji") 
+curve(cos, from = -3*pi, to = 3*pi, type = "b", col = "blue", add = T)
+title(main="Wykres funkcji y=sin(x) i y=cos(x)")
+```
+
+\newpage
+
+**Realizacja w R**
+```{r echo=TRUE,warning=FALSE,highlight=FALSE,fig.cap='Wykresy funkcji $y=sin(x)$ oraz $y=cos(x)$ przy pomocy funkcji curve', fig.align='center',tidy=TRUE,fig.pos='H',out.width='70%'}
+# Przykład 4.5 - funkcja 'curve'
+# Rys. 4.16
+curve(sin, from = -3*pi, to = 3*pi, type = "l", col = "red", xlab="argumenty funkcji", 
+      ylab = "wartości funkcji") 
+curve(cos, from = -3*pi, to = 3*pi, type = "b", col = "blue", add = T)
+title(main="Wykres funkcji y=sin(x) i y=cos(x)")
+```
+
+
+
+## Zadania do wykonania
+
+Zad. 1 
+
+Wczytaj dane "Studenci.xlsx" i wykonaj wykres funkcją \texttt{plot} typu punktowego, gdzie na osi X znajdować się będzie wiek studentów, a na osi Y wysokość stypendium. Zaznacz kolorem czerwonym kobiety, a niebieskim mężczyzn.
+
+\newpage
+
+Zad. 2 
+
+Na jednym wykresie narysuj w przedziale $[-5, 5]$ następujące funkcje: $y = x^2$; $y = (x-2)^2$; $y = (x-2)^2+3$; $y = x^2+3$; $y = (x+1)^2-2$.
+Dodaj linie $x = 0$ w kolorze czarnym. Każda funkcja niech będzie narysowana innym kolorem. Nadaj tytuł: "Wykresy funkcji przesuniętych".
+
+\vspace{0.8cm}
+Zad. 3
+
+Narysuj histogram dla wysokości stypendium dla danych z pliku "Studenci.xlsx".
+
+<!--chapter:end:04-wizualizacje.Rmd-->
+
+
+# Testowanie
+
+## Wprowadzenie
+
+Niech dane będą 2 populacje, dla których chcemy zweryfikować interesujące nas przypuszczenie. Na przykład, dane jest 200 ha pole z pszenżytem odmiany A oraz 150 ha pole z pszenżytem odmiany B. Chcemy porównać ciężar nasion w kłosie dla obu odmian. Oczywiście, najlepszym sposobem postępowania jest zważenie nasion wszystkich kłosów z obu pól. Jak wiadomo, taka czynność nie jest wykonywana. Powinniśmy losowo wybrać kilkanaście lub kilkadziesiąt kłosów z pierwszego pola (próba A) i drugiego pola (próba B). Tak więc mamy populacje oraz mamy próby, gdzie najczęściej stosowane oznaczenia wybranych parametrów przedstawia Tablica \@ref(testowanie).
+
+\begin{table}[H]
+\centering
+\caption{Podstawowe parametry dla populacji oraz próby}
+\label{testowanie}
+\begin{tabular}{cc}
+\hline
+populacja & próba                                     \\ \hline
+$\mu$ – średnia cechy w populacji                & $\bar{x}$ – średnia cechy w próbie               \\
+$\sigma^2$ – wariancja cechy w populacji             & $s^2$ – wariancja cechy w próbie             \\
+$\sigma$ – odchylenie standardowe cechy w populacji & $s$ – odchylenie standardowe cechy w próbie \\ \hline
+\end{tabular}
+\end{table}
+
+Testowanie jest to weryfikacja przypuszczeń. W opracowaniu tym rozpatrujemy testy parametryczne, czyli testy dotyczące parametrów populacji (np. średnia, wariancja). Przypuszczenia określone są przy pomocy dwóch hipotez: hipotezy zerowej $H_0$ oraz hipotezy alternatywnej $H_1$. Po wybraniu właściwej statystyki, wyliczamy wartość tej statystyki dla wylosowanych prób oraz tzw. $p$-wartość ($p$-value) i podejmujemy decyzję: albo odrzucamy hipotezę zerową i przyjmujemy hipotezę alternatywną, albo stwierdzamy brak podstaw do odrzucenia hipotezy zerowej (w praktyce często przyjmuje się hipotezę zerową). Porównując rzeczywistość z naszą decyzją możemy mieć sytuacje przedstawione w Tablicy \@ref(decyzje). Prawdopodobieństwo odrzucenia hipotezy prawdziwej jest błędem pierwszego rodzaju oznaczanym przez $\alpha$ oraz nazywanym poziomem istotności. Natomiast prawdopodobieństwo przyjęcia hipotezy nieprawdziwej jest błędem drugiego rodzaju oznaczanym przez  $\beta$.
+\begin{table}[H]
+\centering
+\caption{Możliwe decyzji podczas testowania}
+\label{decyzje}
+\begin{tabular}{cc|c|c|}
+\cline{3-4}
+\multicolumn{2}{c}{\multirow{2}{*}{}}                                       & \multicolumn{2}{|c|}{Decyzja} \\ \cline{3-4} 
+\multicolumn{2}{c|}{}                                                        & $H_0$ nie odrzucamy  & $H_0$ odrzucamy \\ \hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{Rzeczywistość}} & $H_0$ jest prawdziwa          & OK             & $\alpha$          \\ \cline{2-4} 
+\multicolumn{1}{|c|}{}                               & $H_0$ nie jest prawdziwa & $\beta$              & OK          \\ \hline
+\end{tabular}
+\end{table}
+
+Reguły postępowania podczas testowania hipotez:
+
+1.	Mamy dane populacje w ramach których chcemy wykonać testowanie.
+2.	Formułujemy problem badawczy. 
+3.	Ustalamy poziom istotności $\alpha$, np. w tym manuskrypcie $\alpha$ = 0.05.
+4.	Formułujemy hipotezę zerową $H_0$ oraz hipotezę alternatywną $H_1$.
+5.	Losowo wybieramy próby.
+6.	Ustalamy właściwą statystykę (odpowiedni test) do weryfikacji hipotez. 
+7.	Obliczamy wartości wybranej statystki, m.in. $p$-wartość.
+8.	Podejmujemy decyzje: 
+
+    8.1.	jeśli $p$-wartość <0.05 (poziom istotności), to odrzucamy hipotezę zerową i przyjmujemy hipotezę alternatywną,
+    
+    8.2.	jeśli $p$-wartość $\geq$ 0.05, to nie mamy podstaw do odrzucenia $H_0$, co w praktyce często oznacza przyjęcie hipotezy zerowej.
+9.	Dokonujemy interpretacji problemu badawczego.
+
+\begin{table}[H]
+\centering
+\caption{Wybrane testy statystyczne dla wartości średnich}
+\label{testy}
+\begin{tabular}{cc|c |c|}
+\cline{3-4}
+\multicolumn{2}{c|}{}                                                                                                               & Dane z rozkładu normalnego                                                       & \begin{tabular}[c]{@{}c@{}}Dane nie są z rozkładu \\ normalnego\end{tabular}    \\ \hline
+\multicolumn{1}{|c|}{}                                                                                      & 2 grupy              & \begin{tabular}[c]{@{}c@{}}Test t dla grup niezależnych\\ (t.test)*\end{tabular} & \begin{tabular}[c]{@{}c@{}}Test Wilcoxona\\ (Wilcox.test)\end{tabular}          \\ \cline{2-4} 
+\multicolumn{1}{|c|}{\multirow{-2}{*}{Próby niezależne}}                                                    & \textgreater 2 grupy & \begin{tabular}[c]{@{}c@{}}ANOVA\\ (aov)\end{tabular}                            & \begin{tabular}[c]{@{}c@{}}Test Kruskala-Wallisa\\ (kruskal.test)\end{tabular}  \\ \hline
+\multicolumn{1}{|c|}{}                                                                                      & 2 grupy              & \begin{tabular}[c]{@{}c@{}}Test t związany\\ (t.test)\end{tabular}  & \begin{tabular}[c]{@{}c@{}}Test Wilcoxona związany\\ (wilcox.test)\end{tabular} \\  \cline{2-4} 
+\multicolumn{1}{|c|}{\multirow{-2}{*}{\begin{tabular}[c]{@{}c@{}}Próby zależne\\  (związane)\end{tabular}}} & \textgreater 2grupy  & \begin{tabular}[c]{@{}c@{}}ANOVA\\ (aov)\end{tabular}                            & \begin{tabular}[c]{@{}c@{}}Test Friedmana\\ (friedman.test)\end{tabular}        \\ \hline
+\end{tabular}
+\end{table}
+
+$\ast$ w nawiasach podane są nazwy funkcji w R.
+
+Tablica \@ref(testy) wskazuje, że wybór testu zależy od trzech charakterystyk:
+
+1. Czy dane podlegają rozkładowi normalnemu, czy nie podlegają,
+2. Czy próby są niezależne, czy są zależne,
+3. Czy rozpatrujemy dwie próby (grupy), czy więcej niż dwie.
+
+\vspace{0.8cm}
+**Uwaga**
+
+1) Sprawdzenie normalności rozkładu w R można przeprowadzić stosując funkcję \texttt{shapiro.test} - test Shapiro--Wilka.
+
+2) Przed zastosowaniem testu $t$ (\texttt{t.test}) należy sprawdzić, czy założenie o równości wariancji jest spełnione. W R można to wykonać np. przy pomocy funkcji \texttt{var.test}.
+
+
+
+## Testy dwóch wartości średnich z rozkładów normalnych 
+**Założenie**
+
+Mamy dwie próby odpowiednio o liczebności $n_1$ z rozkładu $N(\mu_1, \sigma_1^2)$ oraz o liczebności $n_2$ z rozkładu $N(\mu_2, \sigma_2^2)$.
+
+Możemy rozpatrywać hipotezę dwustronną, hipotezę lewostronną lub hipotezę prawostronną. 
+
+\vspace{0.8cm}
+**Hipotezy**
+
+a) hipoteza dwustronna (test obustronny)
+\vspace{-0.6cm}
+\begin{align}
+		H_0: \mu_1 = \mu_2  \\
+		H_1: \mu_1 \neq \mu_2 \nonumber
+\end{align}
+
+b) hipoteza lewostronna (test lewostronny)
+\vspace{-0.6cm}
+\begin{align}
+		H_0: \mu_1 = \mu_2 \\
+		H_1: \mu_1 < \mu_2 \nonumber
+\end{align}
+	
+c) hipoteza prawostronna (test prawostronny)
+\vspace{-0.6cm}
+\begin{align}
+		H_0: \mu_1 = \mu_2 \\
+		H_1: \mu_1 > \mu_2 \nonumber
+\end{align}
+
+Rozpatrujemy dwie sytuacje: próby są niezależne lub próby są zależne (związane, sprzężone).
+
+### Próby niezależne
+
+\vspace{0.8cm}
+**Przykład 5.1** (Elandt 1964, s. 102)
+
+Dany jest ciężar w gramach 1000 nasion dla dwóch rodów seradeli:
+
+\begin{table}[H]
+\centering
+\caption{Dane - Elandt (1964, s. 102)}
+\label{saradele}
+\begin{tabular}{cc}
+\hline
+Ród A &  Ród B \\ \hline
+3.8   &  3.7          \\
+3.7   &  4.6          \\
+2.9   &  5.4          \\
+3.5   &  6.2          \\
+2.6   &  4.2          \\
+3.3   &  3.5          \\
+      & 5.3          \\
+      & 5.5     \\ \hline     
+\end{tabular}
+\end{table}
+
+Zweryfikować przypuszczenie, że średnie ciężary tych rodów różnią się istotnie.
+
+\vspace{0.8cm}
+**Rozwiązanie**
+
+Niech $\mu_1$ oznacza średni ciężar 1000 nasion rodu A, natomiast $\mu_2$ oznacza średni ciężar 1000 nasion rodu B. Rozpatrujemy hipotezę obustronną postaci (5.1):
+
+\vspace{-0.6cm}
+\begin{align*}
+		H_0: \mu_1 = \mu_2 \\
+		H_1: \mu_1 \neq \mu_2
+\end{align*}
+
+\vspace{0.8cm}
+**Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 5.1 (Elandt 1964, s. 102)
+# tworzenie danych
+rodA=c(3.8, 3.7, 2.9, 3.5, 2.6, 3.3)
+rodB=c(3.7, 4.6, 5.4, 6.2, 4.2, 3.5, 5.3, 5.5)
+# Boxplot - prezentacja graficzna danych
+boxplot(rodA, rodB, names=c("Ród A","Ród B"), main="seradela")
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),comment=NA,highlight=FALSE,prompt=TRUE,fig.pos='H',fig.align='center',out.width='70%',fig.cap='Boxplot dla danych - Elandt (1964, s. 102)'}
+# Przykład 5.1 (Elandt 1964, s. 102)
+# tworzenie danych
+rodA=c(3.8, 3.7, 2.9, 3.5, 2.6, 3.3)
+rodB=c(3.7, 4.6, 5.4, 6.2, 4.2, 3.5, 5.3, 5.5)
+# Boxplot - prezentacja graficzna danych
+boxplot(rodA, rodB, names=c("Ród A","Ród B"), main="seradela")
+```
+
+Sprawdzamy założenie o normalności rozkładów dla rodu A oraz rodu B
+
+
+
+ \hspace*{5cm} $H_0$: rozkład normalny jest spełniony
+
+ \hspace*{5cm} $H_1$: rozkład normalny nie jest spełniony 
+
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# sprawdzenie założeń o normalności rozkładów dla rodu A oraz rodu B
+shapiro.test(rodA)
+shapiro.test(rodB)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),comment=NA,highlight=FALSE,prompt=TRUE}
+# sprawdzenie założeń o normalności rozkładów dla rodu A oraz rodu B
+shapiro.test(rodA)
+shapiro.test(rodB)
+```
+\vspace{0.8cm}
+**Interpretacja**
+
+Po zastosowaniu testu Shapiro--Wilka dla obu rodów otrzymane $p$-wartości są większe od 0.05. Stwierdzamy, że założenia o normalności rozkładów są spełnione. 
+Kolejnym krokiem jest sprawdzenie równości wariancji obu rodów.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+var.test(rodA,rodB)
+```
+
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+var.test(rodA,rodB)
+```
+
+\vspace{0.8cm}
+**Interpretacja**
+
+Testowanie równości wariancji pokazuje, że otrzymana $p$-wartość = 0.1377 > 0.05, zatem nie ma podstaw do odrzucenia hipotezy mówiącej o równości wariancji obu rodów. W tym przypadku wykonując w kolejnym kroku testowanie hipotez (5.1) wykorzystujemy dwustronny test $t$, przy użyciu funkcji \texttt{t.test} z zastosowaniem dodatkowo argumentu \texttt{var.equal=TRUE} oznaczającego równość wariancji. W przeciwnym przypadku ustawiana jest domyślnie wartość \texttt{var.equal=FALSE} (co oznacza, że wariancje nie są równe) oraz stosowane jest przybliżenie Welcha.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# obustronny test t
+t.test(rodA, rodB, var.equal = TRUE)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# obustronny test t
+t.test(rodA, rodB, var.equal = TRUE)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartość = 0.004203 < 0.05, więc stwierdzamy, że ciężar 1000 nasion seradeli rodu A  różni się od rodu B. Ponadto, analizując boxplot (Rys. 5.1) można przypuszczać, że ciężar 1000 nasion dla rodu A seradeli jest mniejszy niż ciężar 1000 nasion dla rodu B seradeli. Wobec tego, zastosujemy lewostronny test $t$ postaci (5.2), czyli:
+\vspace{-0.6cm}
+\begin{align*}
+		H_0: \mu_1 = \mu_2 \\
+		H_1: \mu_1 < \mu_2
+\end{align*}
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# lewostronny test t
+t.test(rodA, rodB, alternative="less", var.equal = TRUE)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# lewostronny test t
+t.test(rodA, rodB, alternative="less", var.equal = TRUE)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartość = 0.002101 < 0.05, więc stwierdzamy, że ciężar 1000 nasion rodu A seradeli jest mniejszy niż rodu B.
+
+### Próby zależne
+
+\vspace{0.8cm}
+**Przykład 5.2** (Elandt 1964, s. 109)
+
+Oznaczono procent tłuszczu w 18 próbkach mleka za pomocą dwóch metod: metody Gerbera (metoda G) i metody Burata (metoda B) - patrz Tablica \@ref(mleko). 
+\begin{table}[!ht]
+\centering
+\caption{Dane - Elandt (1964, s. 109)}
+\label{mleko}
+\begin{tabular}{ccc|ccc}
+\hline
+Lp. & Metoda G & Metoda B & Lp. & Metoda G & Metoda B \\ \hline
+1   & 2.73     & 2.88     & 10  & 3.07     & 3.23     \\
+2   & 2.84     & 2.93     & 11  & 2.66     & 2.81     \\
+3   & 3.18     & 3.38     & 12  & 2.78     & 2.94     \\
+4   & 2.79     & 2.99     & 13  & 3.62     & 3.59     \\
+5   & 3.05     & 3.30     & 14  & 3.31     & 3.41     \\
+6   & 3.03     & 3.19     & 15  & 2.71     & 2.88     \\
+7   & 3.10     & 3.34     & 16  & 2.80     & 2.99     \\
+8   & 2.88     & 3.08     & 17  & 2.95     & 3.16     \\
+9   & 3.00     & 3.20     & 18  & 3.52     & 3.66    \\ \hline
+\end{tabular}
+\end{table}
+
+Czy metody te dają takie same wyniki?
+
+
+
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 5.2 (Elandt 1964, s. 109)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+metodaG=c(2.73, 2.84, 3.18, 2.79, 3.05, 3.03, 3.10, 2.88, 3.00, 3.07,
+          2.66, 2.78, 3.62, 3.31, 2.71, 2.80, 2.95, 3.52)
+metodaB=c(2.88, 2.93, 3.38, 2.99, 3.30, 3.19, 3.34, 3.08, 3.20, 3.23,
+          2.81, 2.94, 3.59, 3.41, 2.88, 2.99, 3.16, 3.66)
+dane=data.frame(metodaG,metodaB)
+# prezentacja graficzna danych - boxplot
+boxplot(metodaG, metodaB, main="Procent tłuszczu")
+# Sprawdzamy założenia o normalności rozkładów
+shapiro.test(metodaG)
+shapiro.test(metodaB)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,warning=FALSE,comment=NA,prompt=TRUE,fig.cap='Boxplot dla danych - Elandt (1964, s. 109)',fig.pos='H',fig.align='center',out.width='70%', dev.args=list(encoding='CP1250')}
+# Przykład 5.2 (Elandt 1964, s. 109)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+metodaG=c(2.73, 2.84, 3.18, 2.79, 3.05, 3.03, 3.10, 2.88, 3.00, 3.07,
+          2.66, 2.78, 3.62, 3.31, 2.71, 2.80, 2.95, 3.52)
+metodaB=c(2.88, 2.93, 3.38, 2.99, 3.30, 3.19, 3.34, 3.08, 3.20, 3.23,
+          2.81, 2.94, 3.59, 3.41, 2.88, 2.99, 3.16, 3.66)
+dane=data.frame(metodaG,metodaB)
+# prezentacja graficzna danych - boxplot
+boxplot(dane, main="Procent tłuszczu")
+# Sprawdzamy założenia o normalności rozkładów
+shapiro.test(metodaG)
+shapiro.test(metodaB)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartości dla obu metod są > 0.05, zatem dla obu prób spełnione jest założenie o normalności rozkładów. Następnie sprawdzamy równość wariancji.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+var.test(metodaG, metodaB)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+var.test(metodaG, metodaB)
+```
+
+\vspace{0.8cm}
+**Interpretacja**
+
+Testowanie równości wariancji pokazuje, że otrzymana $p$-wartość = 0.7238 > 0.05, zatem nie ma podstaw do odrzucenia hipotezy zerowej o równości wariancji dla obu metod.
+W kolejnym kroku wykonamy test $t$ z parametrem \texttt{var.equal=TRUE}.
+
+\vspace{0.8cm}
+**Uwaga**
+
+Ponieważ te same obiekty badane są dwa razy - należy zastosować \textcolor{red}{test t dla par zależnych} - w tym celu w funkcji \texttt{t.test} używamy argumentu \texttt{paired = TRUE}. Analiza boxplotu (Rys. 5.2) sugeruje, aby zastosować w dalszych analizach lewostronny test $t$ dla par zależnych.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# lewostronny test t dla par zależnych
+t.test(metodaG, metodaB, alternative="less", paired = TRUE, var.equal = TRUE)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# lewostronny test t dla par zależnych
+t.test(metodaG, metodaB, alternative="less", paired = TRUE, var.equal = TRUE)
+```
+
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartość < 0.0001 ($2.326e$-$09=2.326*10^{-9}=0.000000002326$), więc należy stwierdzić, że metoda Gerbera daje mniejszy procent tłuszczu w badanym mleku niż metoda Burata. 
+
+## Testy dwóch wartości średnich z dowolnych rozkładów
+
+**Założenie** 
+
+Co najmniej jedna próba nie podlega rozkładowi normalnemu.
+
+\vspace{0.8cm}
+
+**Przykład 5.3** 
+
+Zasadzono równocześnie młode drzewka w mieście przy ulicy oraz w części zielonej w parku. Po pewnym czasie zmierzono ich wysokości (w cm). Wyniki przedstawia Tablica \@ref(przyklad5)
+
+\begin{table}[H]
+\centering
+\caption{Dane do przykładu 5.3}
+\label{przyklad5}
+\begin{tabular}{ccccccccccc}
+ulica & 98& 116& 100& 103& 104& 102& 105& 99& 106& 101 \\ \hline
+park  & 109& 118& 121& 108& 115& 111& 110& 113& 107& 117 \\ 
+\end{tabular}
+\end{table}
+
+Czy lokalizacja drzewka ma istotny wpływ na jego wysokość?
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 5.3 
+# tworzymy dane
+ulica = c(98, 116, 100, 103, 104, 102, 105, 99, 106, 101)
+park = c(109, 118, 121, 108, 115, 111, 110, 113, 107, 117)
+# sprawdzamy normalność rozkładów
+shapiro.test(ulica)
+shapiro.test(park)
+
+```
+
+\newpage
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 5.3 
+# tworzymy dane
+ulica = c(98, 116, 100, 103, 104, 102, 105, 99, 106, 101)
+park = c(109, 118, 121, 108, 115, 111, 110, 113, 107, 117)
+# sprawdzamy normalność rozkładów
+shapiro.test(ulica)
+shapiro.test(park)
+```
+
+**Uwaga**
+
+Ponieważ jedna z prób (ulica) nie spełnia warunku rozkładu normalnego, więc nie możemy skorzystać z testu $t$. Zastosujemy test Wilcoxona (patrz Tablica \@ref(testy)).
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# test wilcoxona
+wilcox.test(ulica, park, alternative="less")
+```
+
+\newpage
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# test wilcoxona
+wilcox.test(ulica, park, alternative="less")
+```
+
+\vspace{0.8cm}
+**Interpretacja:** 
+
+Ponieważ $p$-wartość dla testu Wilcoxona jest mniejsza od 0.05 zatem wnioskujemy, że wysokość drzewek rosnących przy ulicy jest istotnie mniejsza niż wysokość drzewek rosnących w parku.
+
+\vspace{0.8cm}
+**Przykład 5.4**
+
+Na teście wstępnym oceniono 9 studentów oraz 8 studentek pod względem zdolności matematycznych w celu weryfikacji przypuszczenia, że studenci są pod tym względem lepsi od studentek. Wyniki testu są następujące (Tablica \@ref(studenci)):
+
+\begin{table}[H]
+\centering
+\caption{Wyniki z matematyki}
+\label{studenci}
+\begin{tabular}{cccccccccc}
+studenci  & 15 & 21 & 22 & 24 & 18 & 19 & 23 & 19 & 23 \\ \hline
+studentki & 15 & 19 & 23 & 25 & 10 & 15 & 22 & 21 &   \\ 
+\end{tabular}
+\end{table}
+Przy pomocy odpowiedniego testu zweryfikować hipotezę mówiącą o tym, że studenci są pod względem zdolności matematycznych lepsi od studentek.
+
+\newpage
+
+**Rozwiązanie**
+
+Zastosujemy test prawostronny postaci (5.3):
+\vspace{-0.6cm}
+\begin{align*}
+		H_0: \mu_1 = \mu_2 \\
+		H_1: \mu_1 > \mu_2
+\end{align*}
+
+**Uwagi**
+
+1) Otrzymane wyniki są liczbami naturalnymi, zatem populacje nie mogą spełniać warunku o normalności rozkładów – rozkład normalny jest rozkładem ciągłym, a my mamy rozkład dyskretny.
+
+2) Nie zastosujemy testu $t$, tylko test Wilcoxona.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 5.4
+studenci = c(15, 21, 22, 24, 18, 19, 23, 19, 23)
+studentki = c(15, 19, 23, 25, 10, 15, 22, 21)
+wilcox.test(studenci,studentki, alternative="greater")
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE,warning=FALSE}
+# Przykład 5.4
+studenci = c(15, 21, 22, 24, 18, 19, 23, 19, 23)
+studentki = c(15, 19, 23, 25, 10, 15, 22, 21)
+wilcox.test(studenci,studentki, alternative="greater")
+```
+\vspace{0.8cm}
+**Interpretacja**
+
+Ponieważ $p$-wartość = 0.2967, więc nie ma podstaw do odrzucenia hipotezy $H_0$. Wnioskujemy zatem, że zdolności matematyczne ocenianych studentów i studentek zdających testy wstępne są takie same.
+
+## Analiza wariancji - ANOVA
+
+Mamy $r > 2$ populacji. Z każdej losowo pobieramy po jednej próbie.
+
+\vspace{0.8cm}
+
+**Założenia ANOVY**
+
+1. Niezależność - próby zostały pobrane niezależnie z każdej z $r$ populacji. 
+2. Normalność - w każdej z $r$ populacji rozkład badanej cechy jest normalny 
+
+ \hspace*{5cm} $H_0$: rozkład normalny jest spełniony
+
+ \hspace*{5cm} $H_1$: rozkład normalny nie jest spełniony 
+
+
+3. Jednorodność wariancji - wariancje rozkładu badanej cechy są takie same w $r$ populacjach
+
+ \hspace*{5cm} $H_0$: $\sigma_1^2 = \sigma_2^2 = ... = \sigma_r^2$ 
+ 
+ \hspace*{5cm} $H_1$: $\neg H_0$
+
+
+**Uwagi** 
+
+1) Jednorodność wariancji oprócz testu \texttt{var.test} można również zweryfikować testem Bartletta (\texttt{bartlett.test}).
+
+2) Analizę wariancji wykonamy przy użyciu funkcji \texttt{aov}.
+
+\newpage
+
+**Przykład 5.5** (Greń 1975, s. 161)
+
+Wylosowano po 12 pędów żyta trzech różnych gatunków i otrzymano dla nich następujące długości kłosów żyta (w cm):
+
+\begin{table}[H]
+\centering
+\caption{Dane - Greń (1975, s. 161)}
+\label{klosy}
+\begin{tabular}{ccc|ccc}
+\hline
+\multicolumn{6}{c}{Gatunek}  \\ \hline
+A       & B       & C       & A       & B       & C       \\
+6.7     & 7.5     & 5.9     & 10.1    & 10.6    & 9.6     \\
+7.3     & 7.7     & 6.9     & 9.2     & 10.2    & 10.3    \\
+8.0     & 7.7     & 7.0     & 8.3     & 9.4     & 8.1     \\
+8.0     & 8.2     & 7.0     & 8.4     & 9.4     & 8.5     \\
+7.9     & 8.9     & 9.5     & 8.0     & 8.2     & 8.6     \\
+9.2     & 8.9     & 9.6     & 7.9     & 7.8     & 8.8    \\ \hline
+\end{tabular}
+\end{table}
+
+Czy długości kłosów badanych gatunków są różne?
+\vspace{0.8cm}
+
+**Rozwiązanie**
+
+Należy zweryfikować następujące hipotezy:
+ 
+ \hspace*{5cm} $H_0$: $\mu_A = \mu_B = \mu_C$
+ 
+ \hspace*{5cm} $H_1$: $\neg H_0$
+ 
+
+gdzie $\mu_K$ oznacza średnią długość kłosów gatunku K.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 5.5 (Greń 1975, s. 161)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+A = c(6.7,7.3,8.0,8.0,7.9,9.2,10.1,9.2,8.3,8.4,8.0,7.9)
+B = c(7.5,7.7,7.7,8.2,8.9,8.9,10.6,10.2,9.4,9.4,8.2,7.8)     
+C = c(5.9,6.9,7.0,7.0,9.5,9.6,9.6,10.3,8.1,8.5,8.6,8.8) 
+# sprawdzanie założenia o normalności rozkładów 
+shapiro.test(A)
+shapiro.test(B)
+shapiro.test(C)
+# przygotowanie danych w formie ramki danych
+zyto=data.frame(Dlugosc=c(A, B, C), Gat=c(rep(c("A","B","C"), c(12,12,12))))
+head(zyto)
+# weryfikacja założenia o jednorodności wariancji - test Bartleta
+bartlett.test(zyto$Dlugosc,zyto$Gat)
+# ANOVA
+model=aov(Dlugosc~Gat, data=zyto)
+summary(model)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 5.5 (Greń 1975, s. 161)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+A = c(6.7,7.3,8.0,8.0,7.9,9.2,10.1,9.2,8.3,8.4,8.0,7.9)
+B = c(7.5,7.7,7.7,8.2,8.9,8.9,10.6,10.2,9.4,9.4,8.2,7.8)     
+C = c(5.9,6.9,7.0,7.0,9.5,9.6,9.6,10.3,8.1,8.5,8.6,8.8) 
+# sprawdzanie założenia o normalności rozkładów 
+shapiro.test(A)
+shapiro.test(B)
+shapiro.test(C)
+```
+\vspace{0.8cm}
+
+**Interpretacja** 
+
+Wszystkie $p$-wartości > 0.05, więc $H_0$ nie odrzucamy co oznacza, że próby pochodzą z rozkładu normalnego.
+
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE,dev.args=list(encoding='CP1250')}
+# przygotowanie danych w formie ramki danych
+zyto=data.frame(Dlugosc=c(A, B, C), Gat=c(rep(c("A","B","C"), c(12,12,12))))
+head(zyto)
+# weryfikacja założenia o jednorodności wariancji - test Bartleta
+bartlett.test(zyto$Dlugosc,zyto$Gat)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartość = 0.388 > 0.05, więc nie odrzucamy $H_0$, a to oznacza, że założenie o jednorodności wariancji jest spełnione - możemy zatem wykonać analizę wariancji ANOVA.
+
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# ANOVA
+model=aov(Dlugosc~Gat, data=zyto)
+summary(model)
+```
+\vspace{0.8cm}
+
+**Interpretacja**
+
+Ponieważ $Pr(>F)=p$-wartość=0.559 > 0.05, więc nie odrzucamy $H_0$, czyli długości kłosów badanych trzech gatunków żyta nie różnią się istotnie statystycznie.
+
+\vspace{0.8cm}
+
+**Uwaga**
+
+W takiej sytuacji nie wykonuje się porównań wielokrotnych (patrz Rozdział 5.5).
+
+
+\newpage
+
+**Przykład 5.6** (Kala 2005, s. 163)
+
+Porównano długości kłosów czterech odmian uprawnych D, A, J i N pewnej trawy. Uzyskano następujące obserwacje (w cm):
+
+D: 24.7, 26.6, 23.7, 18.8, 23.4, 20.6, 26.0, 27.9, 25.6
+
+A: 19.2, 24.2, 14.2, 19.2, 18.1, 21.2, 19.0, 16.8, 15.0, 14.6
+
+J: 22.7, 18.5, 23.6, 21.9, 20.0, 23.5, 17.0, 18.0
+
+N: 19.9, 13.7, 16.8, 18.6, 23.0, 16.3, 15.2, 14.1, 16.9, 13.7
+
+Dokonać porównań odmian.
+
+\vspace{0.8cm}
+
+**Rozwiązanie**
+
+Formułujemy następujące hipotezy:
+
+ \hspace*{5cm} $H_0$: długości kłosów nie różnią się, 
+		
+ \hspace*{5cm} $H_1$: długości kłosów różnią się.
+
+
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 5.6 (Kala 2005, s. 163)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+D = c(24.7,26.6,23.7,18.8,23.4,20.6,26,27.9,25.6)
+A = c(19.2,24.2,14.2,19.2,18.1,21.2,19,16.8,15,14.6)
+J = c(22.7,18.5,23.6,21.9,20,23.5,17,18)
+N = c(19.9,13.7,16.8,18.6,23,16.3,15.2,14.1,16.9,13.7)
+B=c(rep("D",9), rep("A",10), rep("J",8), rep("N",10))
+B
+trawa=data.frame(Dlugosc=c(D,A,J,N), Odmiany=B)
+head(trawa)
+```
+
+```{r tidy=TRUE,tidy.opts=list(width.cutoff=37),eval=FALSE,echo=TRUE,highlight=FALSE}
+boxplot(split(trawa$Dlugosc, trawa$Odmiany),main="Zależność długości kłosów od odmian", xlab="Odmiany", ylab="Długości kłosów", col=c("green","red","blue","gold"))
+# sprawdzamy założenie o normalności rozkładów dla odmian
+shapiro.test(D)
+shapiro.test(A)
+shapiro.test(J)
+shapiro.test(N)
+```
+
+
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# weryfikacja założenia o jednorodności wariancji
+bartlett.test(trawa$Dlugosc,trawa$Odmiany)
+# ANOVA
+model = aov(Dlugosc~Odmiany, trawa)
+summary(model)
+```
+
+**Realizacja w R**
+```{r tidy=TRUE,comment=NA,prompt=TRUE,highlight=FALSE,warning=FALSE,fig.align='center',fig.cap='Boxploty dla zależność długości kłosów od odmian',fig.pos='H',out.width='70%',dev.args=list(encoding='CP1250')}
+# Przykład 5.6 (Kala 2005, s. 163)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+D = c(24.7,26.6,23.7,18.8,23.4,20.6,26,27.9,25.6)
+A = c(19.2,24.2,14.2,19.2,18.1,21.2,19,16.8,15,14.6)
+J = c(22.7,18.5,23.6,21.9,20,23.5,17,18)
+N = c(19.9,13.7,16.8,18.6,23,16.3,15.2,14.1,16.9,13.7)
+B=c(rep("D",9), rep("A",10), rep("J",8), rep("N",10))
+B
+trawa=data.frame(Dlugosc=c(D,A,J,N), Odmiany=B)
+head(trawa)
+```
+
+```{r tidy=TRUE,tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE,warning=FALSE,fig.align='center',fig.cap='Boxploty dla zależność długości kłosów od odmian',fig.pos='H',out.width='70%',dev.args=list(encoding='CP1250')}
+boxplot(split(trawa$Dlugosc, trawa$Odmiany),main="Zależność długości kłosów od odmian", xlab="Odmiany", ylab="Długości kłosów", col=c("green","red","blue","gold"))
+# sprawdzamy założenie o normalności rozkładów dla odmian
+shapiro.test(D)
+shapiro.test(A)
+shapiro.test(J)
+shapiro.test(N)
+```
+\vspace{0.8cm}
+
+**Interpretacja** 
+
+Ponieważ dla wszystkich odmian $p$-wartości testu Shapiro--Wilka (\texttt{shapiro.test}) są większe od 0.05, więc nie odrzucamy hipotezy $H_0$, czyli wnioskujemy, że spełniony jest warunek o normalności rozkładów dla odmian D, A, J i N.
+
+\vspace{0.8cm}
+
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# weryfikacja założenia o jednorodności wariancji
+bartlett.test(trawa$Dlugosc,trawa$Odmiany)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartość = 0.969, zatem warunek jednorodności wariancji jest spełniony. Możemy wykonać analizę wariancji.
+
+\vspace{0.8cm}
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# ANOVA
+model = aov(Dlugosc~Odmiany, trawa)
+summary(model)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartość < 0.05, więc odrzucamy hipotezę $H_0$ i przyjmujemy $H_1$. 
+Długości kłosów czterech odmian uprawnych D, A, J i N badanej trawy różnią się statystycznie istotnie.
+
+\newpage
+
+**Uwaga**
+
+Ponieważ odrzuciliśmy hipotezę zerową $H_0$ i przyjęliśmy hipotezę alternatywną $H_1$, więc możemy zastosować testy wielokrotne, np. test Tukeya, aby zbadać istotność różnic wszystkich możliwych par badanych odmian.
+
+
+## Testy wielokrotne
+
+Najczęściej stosowane testy wielokrotne:
+
+1.	Test HSD Tukeya (Honestly Significant Differences)
+2.	Test LSD Fishera (Least Significant Differences) – NIR: Najmniejsza Istotna Różnica
+3.	Test Scheffego
+4.	Test Duncana
+5.	Test Newmana-Keulsa
+6.  Test Dunnetta
+
+
+\vspace{0.8cm}
+**Uwagi**
+
+1. Test Tukeya jest bardziej konserwatywny (ostrożny, rzadziej odrzuca $H_0$) niż test Fishera, a test Fishera jest bardziej konserwatywny niż test Scheffego.
+
+2. Test Tukeya jest preferowany i najczęściej stosowany, ponieważ mamy zagwarantowany poziom istotności $\alpha$ dla wszystkich porównywanych par.
+
+W manuskrypcie zostanie zastosowany test Tukeya.
+
+\vspace{0.8cm}
+
+**Kod w R**
+
+```{r echo=TRUE, eval=FALSE, tidy=TRUE,highlight=FALSE}
+# cd. przykładu 5.6 
+# testowanie szczegółowe - test wielokrotny Tukeya
+library(agricolae)  # aktywowanie pakietu agricolae
+a=HSD.test(model,"Odmiany")  # funkcja z pakietu agricolae
+a
+# mała litera oznacza grupę odmian podobnych tj. do tej samej grupy 
+# należy odmiana D i J, innej grupy J i A oraz kolejnej A i N
+TukeyHSD(model,"Odmiany", ordered = TRUE)  # funkcja z pakietu stats
+plot(TukeyHSD(model,"Odmiany")) # Rys. 5.4
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r comment=NA,prompt=TRUE,highlight=FALSE,fig.cap='Graficzne przedstawienie porównań wielokrotnych.',tidy=TRUE,fig.align='center',fig.pos='H',out.width='70%'}
+# cd. przykładu 5.6 
+# testowanie szczegółowe - test wielokrotny Tukeya
+library(agricolae)  # aktywowanie pakietu agricolae
+a=HSD.test(model,"Odmiany")  # funkcja z pakietu agricolae
+a
+# mała litera oznacza grupę odmian podobnych tj. do tej samej grupy 
+# należy odmiana D i J, innej grupy J i A oraz kolejnej A i N
+TukeyHSD(model,"Odmiany", ordered = TRUE)  # funkcja z pakietu stats
+plot(TukeyHSD(model,"Odmiany")) # Rys. 5.4
+```
+
+Rysunek 5.4 przedstawia porównania odmian parami. Dla odmian, które nie różnią się istotnie statystycznie odcinki na wykresie przechodzą przez punkt zero, natomiast dla odmian różniących się istotnie statystycznie odcinki nie przechodzą przez punkt zero. 
+
+
+Poniżej w formie tabel (patrz Tablica \@ref(pwartosci)) przedstawione są trzy sposoby prezentacji porównań wielokrotnych.
+
+\begin{table}[H]
+\centering
+\caption{Porównania pomiędzy odmianami (p-wartości)}
+\label{pwartosci}
+\begin{tabular}{cccc}
+  & A                                & J         & N                                \\ \hline
+D & {\color[HTML]{FE0000} 0.0005319} & 0.0879854 & {\color[HTML]{FE0000} 0.0000304} \\
+A &                                  & 0.2948589 & 0.7438813                        \\
+J &                                  &           & {\color[HTML]{FE0000} 0.0455162} \\ \hline
+\end{tabular}
+\end{table}
+
+lub
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+  & A                                & J         & N                                \\ \hline
+D & {\color[HTML]{FE0000} x} & ns & {\color[HTML]{FE0000} x} \\
+A &                                  & ns & ns                        \\
+J &                                  &           & {\color[HTML]{FE0000} x} \\ \hline
+\end{tabular}
+\end{table}
+
+\textcolor{red}{x} - statystycznie istotna różnica, ns – nie ma różnicy
+
+lub
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cc}
+Odmiany & Średnie* \\ \hline
+D       & $24.14^a$  \\
+J       & $20.65^{ab}$  \\
+A       & $18.25^{bc}$  \\
+N       & $16.82^c$   \\ \hline
+\end{tabular}
+\end{table}
+
+$\ast$ mała litera (indeks górny) oznacza grupę odmian podobnych.
+
+\newpage
+
+**Przykład 5.7** (Greń 1975, s. 105)
+
+Ceny jednego kwiatu róży ogrodowej na trzech różnych targowiskach były następujące (w zł):
+
+\begin{table}[H]
+\centering
+\caption{Dane - Greń (1975, s. 105)}
+\label{gren105}
+\begin{tabular}{ccc}
+\hline
+\multicolumn{3}{c}{Miasto} \\ \hline
+A        & B      & C      \\ \hline
+10       & 3      & 2      \\
+7        & 4      & 8      \\
+3        & 2      & 5      \\
+11       & 4      & 6      \\
+9        & 5      & 3      \\
+10       &       & 6      \\
+15       &       &       \\
+5        &       &      \\ \hline
+\end{tabular}
+\end{table}
+
+Zweryfikować hipotezę, że targowiska we wszystkich trzech miastach nie różnią się średnimi cenami kwiatu róży.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 5.7 (Greń 1975, s. 105)
+# wprowadzamy dane
+A = c(10,7,3,11,9,10,15,5)
+B = c(3,4,2,4,5)
+C = c(2,8,5,6,3,6)
+# sprawdzamy założenie o normalności rozkładów 
+shapiro.test(A)
+shapiro.test(B)
+shapiro.test(C)
+# przygotowanie danych w formie ramki danych
+kwiat=data.frame(Ceny=c(A, B, C), Miasto=c(rep('A',8),rep('B',5),rep('C',6)))
+head(kwiat)
+# weryfikacja założenia o jednorodności wariancji - test Bartleta
+bartlett.test(kwiat$Ceny,kwiat$Miasto)
+# ANOVA
+model=aov(Ceny~Miasto, data=kwiat)
+summary(model)
+```
+\vspace{0.8cm}
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 5.7 (Greń 1975, s. 105)
+# wprowadzamy dane
+A = c(10,7,3,11,9,10,15,5)
+B = c(3,4,2,4,5)
+C = c(2,8,5,6,3,6)
+# sprawdzamy założenie o normalności rozkładów 
+shapiro.test(A)
+shapiro.test(B)
+shapiro.test(C)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Wszystkie $p$-wartości > 0.05, więc $H_0$ nie odrzucamy co oznacza, że próby pochodzą z rozkładu normalnego.
+
+\vspace{0.8cm}
+
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# przygotowanie danych w formie ramki danych
+kwiat=data.frame(Ceny=c(A, B, C), Miasto=c(rep('A',8),rep('B',5),rep('C',6)))
+head(kwiat)
+# weryfikacja założenia o jednorodności wariancji - test Bartleta
+bartlett.test(kwiat$Ceny,kwiat$Miasto)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartość = 0.07036 > 0.05, więc nie odrzucamy $H_0$, a to oznacza, że założenie o jednorodności wariancji jest spełnione - możemy zatem wykonać analizę wariancji ANOVA.
+
+\vspace{0.8cm}
+
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# ANOVA
+model=aov(Ceny~Miasto, data=kwiat)
+summary(model)
+```
+\vspace{0.8cm}
+**Interpretacja**
+
+Ponieważ $p$-wartość = 0.0116 < 0.05, więc odrzucamy $H_0$ i przyjmujemy $H_1$, czyli  we wszystkich trzech miastach ceny kwiatu róży różnią się.
+Następnie stosujemy test Tukeya, aby zbadać istotność różnic pomiędzy średnimi cenami kwiatu róży we wszystkich miastach.
+\vspace{0.8cm}
+
+**Kod w R**
+
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# testowanie szczegółowe - test wielokrotny Tukeya
+a=HSD.test(model,"Miasto")
+a
+TukeyHSD(model,"Miasto", ordered = TRUE)  
+plot(TukeyHSD(model,"Miasto")) # Rys. 5.5
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),comment=NA,highlight=FALSE,prompt=TRUE,fig.cap='Graficzne przedstawienie porównań wielokrotnych',fig.align='center',fig.pos='H',out.width='70%'}
+# testowanie szczegółowe - test wielokrotny Tukeya
+a=HSD.test(model,"Miasto")
+a
+TukeyHSD(model,"Miasto", ordered = TRUE)  
+plot(TukeyHSD(model,"Miasto")) # Rys. 5.5
+```
+
+**Interpretacja**
+
+Dla porównania pomiędzy miastami A i B $p$-wartość = 0.0142703 i jest ona mniejsza od 0.05, zatem  dla tych miast wykazano istotne różnice w średnich cenach kwiatu róży. Ten sam wniosek wynika z analizy wykresu 5.5, gdzie tylko dla porównania odmian A i B odcinki na wykresie nie przechodzą przez punkt zero, co oznacza, że różnią się istotnie.
+
+
+## Zadania do wykonania
+
+**Testy dwóch wartości średnich z rozkładów normalnych - próby zależne**
+
+Zad. 1 (Elandt 1964, str. 104) 
+
+Dane są średnie wyniki długości technicznej słomy lnianej 4 odmian lnu włóknistego odpowiednio w latach 1948 i 1949 w tej samej miejscowości. Czy można stwierdzić wpływ warunków meteorologicznych na długość słomy lnianej?
+\begin{table}[H]
+\centering
+\caption{Dane - Elandt (1964, str. 104)}
+\label{elandt104}
+\begin{tabular}{ccc}
+\hline
+Odmiana/Lata & 1948 ($x_1$) & 1949 ($x_2$) \\ \hline
+1            & 68.9      & 64.5      \\
+2            & 52.6      & 54.8      \\
+3            & 59.5      & 57.9      \\
+4            & 60.3      & 57.2      \\ \hline
+\end{tabular}
+\end{table}
+
+Zad. 2 (Dobek, Szwaczkowski 2007, str. 90) 
+
+Badano wpływ sposobu rozmnażania pewnej rośliny uprawnej na długość pędów. W tym celu na każdym z ośmiu poletek umieszczono rośliny samopylne i pochodzące z krzyżowania, uzyskując następujące wyniki:
+\begin{table}[H]
+\centering
+\caption{Dane - Dobek, Szwaczkowski (2007, str. 90)}
+\label{Dobek90}
+\begin{tabular}{ccccccccc}
+\hline
+Nr poletka  & 1   & 2   & 3   & 4   & 5  & 6  & 7   & 8   \\ \hline
+Krzyżowanie & 188 & 101 & 156 & 197 & 97 & 94 & 120 & 178 \\
+Samopylność & 150 & 97  & 134 & 139 & 95 & 91 & 118 & 161 \\ \hline
+\end{tabular}
+\end{table}
+Zauważmy, że każda grupa roślin z danego poletka ma identyczne warunki glebowe, stąd możemy przyjąć zależność obydwu grup roślin. Zweryfikować hipotezę zerową mówiącą o tym, że różnice między wysokością roślin z poszczególnych poletek są takie same.
+
+\vspace{0.8cm}
+
+**Analiza wariancji - ANOVA**
+
+Zad. 1 (Elandt 1964, str. 155)
+
+Zastosowano 4 terminy cięcia łubinu białego na zielonkę. Doświadczenie przeprowadzono na polu gospodarczym wycinając w różnych miejscach po 8 poletek wielkości 9 $m^2$. Wyniki zestawiono w Tablicy \@ref(elandt155).
+
+\begin{table}[H]
+\centering
+\caption{Dane - Elandt (1964, str. 155)}
+\label{elandt155}
+\begin{tabular}{ccccc}
+\hline
+\multirow{2}{*}{Powtórzenia} & \multicolumn{4}{c}{Terminy}   \\ 
+                             & I     & II    & III   & IV    \\ \hline
+1                            & 290   & 445   & 520   & 370   \\
+2                            & 286   & 450   & 470   & 405   \\
+3                            & 266   & 413   & 516   & 412   \\
+4                            & 270   & 448   & 530   & 403   \\
+5                            & 301   & 454   & 475   & 384   \\
+6                            & 270   & 442   & 508   & 410   \\
+7                            & 264   & 430   & 485   & 415   \\
+8                            & 277   & 438   & 480   & 377   \\  \hline
+\end{tabular}
+\end{table}
+Sprawdź, czy istnieje wpływ terminu w którym cięty był łubin biały na plon zielonki łubinu.
+
+\vspace{0.8cm}
+Zad. 2 (Kala 2005, s. 158) 
+
+W doświadczeniu z czterema odmianami kukurydzy S, L, A, D określono masę tysiąca ziaren (w g):
+
+\begin{table}[H]
+\centering
+\caption{Dane - Kala (2005, s. 158)}
+\label{kala158}
+\begin{tabular}{ccccc}
+\hline
+& \multicolumn{4}{c}{Replikacja}   \\  \hline
+S & 214.6 & 193.1 & 189.1 & 177.7 \\
+L & 262.3 & 235.9 & 216.5 & 219.1 \\
+A & 221.4 & 236.8 & 227.9 & 234.1 \\
+D & 248.0 & 255.0 & 229.6 & 242.8 \\ \hline
+\end{tabular}
+\end{table}
+
+Czy badane odmiany różni przeciętna masa tysiąca ziaren? Przyjąć, że $\alpha$ = 0.05.
+
+\vspace{0.8cm}
+
+**Testy wielokrotne**
+
+Zad. 1 (Dobek, Szwaczkowski 2007, s. 124) 
+
+Badano zawartość fenolu (w mg/litr wody) w siedmiu jeziorach zróżnicowanych pod względem położenia względem ośrodka przemysłowego. Pierwsze z jezior (L1) leży w jego bezpośrednim sąsiedztwie. Kolejne jeziora (L2, L3,..., L7) leżą średnio w odległości co ok. 2 km od poprzedniego, w stronę przeciwną do centrum przemysłowego. Z każdego ze zbiorników pobrano pięć próbek wody w pięciu kolejnych miesiącach, uzyskując następujące wyniki:
+
+\begin{table}[H]
+\centering
+\caption{Dane - Dobek, Szwaczkowski (2007, s. 124)}
+\label{dobek124}
+\begin{tabular}{cccccc}
+\hline
+\multirow{2}{*}{Jezioro} & \multicolumn{5}{c}{Replikacja}   \\
+                         & 1    & 2    & 3    & 4    & 5    \\ \hline
+L1                       & 0.26 & 0.28 & 0.27 & 0.25 & 0.19 \\
+L2                       & 0.30 & 0.27 & 0.26 & 0.22 & 0.19 \\
+L3                       & 0.26 & 0.25 & 0.24 & 0.22 & 0.20 \\
+L4                       & 0.25 & 0.23 & 0.21 & 0.22 & 0.21 \\
+L5                       & 0.23 & 0.22 & 0.22 & 0.21 & 0.20 \\
+L6                       & 0.21 & 0.21 & 0.20 & 0.20 & 0.20 \\
+L7                       & 0.24 & 0.22 & 0.21 & 0.20 & 0.18 \\ \hline
+\end{tabular}
+\end{table}
+
+Spawdzić, czy słuszne jest przypuszczenie, że stężenie fenolu zależy od miejsca położenia jeziora.
+
+\vspace{0.8cm}
+Zad. 2 (Kala 2005, s. 167) 
+
+Badając w doświadczeniu wazonowym wpływ nawożenia mineralnego na plon olejku w zielu cząbru ogrodowego, uzyskano dla 6 kombinacji nawozowych i kontroli następujące obserwacje (w ml/wazon):
+
+\begin{table}[H]
+\centering
+\caption{Dane - (Kala 2005, s. 167)}
+\label{Kala167}
+\begin{tabular}{ccccccc}
+\hline
+K    & N1   & N2   & N3   & N4   & N5   & N6   \\ \hline
+0.16 & 0.18 & 0.62 & 0.62 & 0.29 & 0.39 & 0.61 \\
+0.23 & 0.28 & 0.38 & 0.68 & 0.24 & 0.37 & 0.65 \\
+0.39 & 0.39 & 0.63 & 0.63 & 0.20 & 0.49 & 0.57 \\
+0.34 & 0.16 & 0.52 & 0.52 & 0.26 & 0.44 & 0.67 \\
+0.23 & 0.48 & 0.61 & 0.61 & 0.18 & 0.47 & 0.69 \\
+0.38 & 0.44 & 0.57 & 0.57 & 0.19 & 0.53 & 0.65 \\ \hline
+\end{tabular}
+\end{table}
+Czy wszystkie badane kombinacje nawozowe zapewniają taki sam plon olejku?
+
+<!--chapter:end:05-testowanie.Rmd-->
+
+# Badanie zależności cech
+
+## Korelacje
+
+Korelacja wskazuje siłę i kierunek zależności pomiędzy dwiema cechami. Korelacja dla próby wyrażona jest za pomocą współczynnika korelacji $r$, gdzie $r \in \langle -1; 1 \rangle$.
+
+\vspace{0.8cm}
+
+Interpretacja współczynnika korelacji $r$:
+
+$|r| = 0$ - brak korelacji, 
+
+$0,0 < |r| \leq 0,1$ - korelacja nikła, 
+
+$0,1 < |r| \leq 0,3$ - korelacja słaba, 
+
+$0,3 < |r| \leq 0,5$ - korelacja przeciętna, 
+
+$0,5 < |r| \leq 0,7$ - korelacja wysoka,
+
+$0,7 < |r| \leq 0,9$ - korelacja bardzo wysoka, 
+
+$0,9 < |r| < 1,0$ - korelacja niemal pełna (silna), 
+
+$|r| = 1$ - korelacja pełna (bardzo silny związek liniowy). 
+
+\vspace{0.8cm}
+
+Jeśli wartość współczynnika korelacji $r$ jest dodatnia to mamy zależność liniową dodatnią. Oznacza to, że wraz ze wzrostem wartości jednej cechy rosną wartości drugiej cechy. Natomiast, jeśli wartość współczynnika korelacji $r$ jest ujemna to mamy zależność liniową ujemną, tzn. wraz ze wzrostem wartości jednej cechy maleją wartości drugiej cechy.
+
+\vspace{0.8cm}
+
+**Uwaga**
+
+Oprócz wyznaczania wartości współczynnika korelacji $r$ dla próby, należy zawsze zbadać czy współczynnik korelacji dla populacji jest istotny. Weryfikację hipotez o istotności współczynnika korelacji dla populacji możemy wykonać przy pomocy funkcji \texttt{cor.test(x, y, method='aaa')}, gdzie 'aaa'='pearson' lub 'kendall' lub 'spearman' oraz domyślnie 'aaa'='pearson'.
+
+
+### Cechy ilościowe
+
+Cecha ilościowa (mierzalna) jest to cecha, która przyjmuje wartości liczbowe. Dla cech ilościowych (np. cechy x i cechy y) wyznacza się współczynnik  korelacji $r$ Pearsona stosując funkcję \texttt{cor(x, y)}. Natomiast istotność współczynnika korelacji testujemy funkcją \texttt{cor.test(x, y)} lub \texttt{cor.test(x, y, method='pearson')}.
+
+
+\vspace{0.8cm}
+**Przykład 6.1** (Dobek, Szwaczkowski 2007, s. 153)
+
+Badano zależność pomiędzy długością pędu (cm) a długością kłosa (cm) pewnej odmiany pszenicy. Z poletka wybrano losowo 25 roślin, u których dokonano pomiaru obydwu cech. Wyniki zaprezentowano w Tablicy \@ref(Dobek).
+
+\begin{table}[!ht]
+\centering
+\caption{Dane - Dobek, Szwaczkowski (2007, s. 153)}
+\label{Dobek}
+\begin{tabular}{ccc|ccc}
+\hline
+\begin{tabular}[c]{@{}c@{}}numer \\ rośliny\end{tabular} & \begin{tabular}[c]{@{}c@{}}długość pędu \\ (cm)\end{tabular} & \begin{tabular}[c]{@{}c@{}}długość kłosa \\ (cm)\end{tabular} & \begin{tabular}[c]{@{}c@{}}numer \\ rośliny\end{tabular} & \begin{tabular}[c]{@{}c@{}}długość pędu\\  (cm)\end{tabular} & \begin{tabular}[c]{@{}c@{}}długość kłosa\\  (cm)\end{tabular} \\ \hline
+nr & dp   & dk   & nr & dp  & dk   \\ \hline
+1 & 105  & 5.6   & 14 & 107 & 6.6  \\
+2  & 103  & 6.2  & 15 & 106 & 6.4  \\
+3  & 101  & 4.8  & 16 & 102 & 5.0  \\
+4 & 107  & 6.5  & 17  & 100 & 4.9  \\
+5 & 103 & 5.4 & 18  & 100   & 5.0   \\
+6  & 102  & 5.0  & 19  & 106  & 6.0  \\
+7  & 104  & 5.6  & 20  & 105  & 4.9   \\
+8 & 103  & 6.0  & 21  & 105  & 4.8   \\
+9  & 102 & 4.9   & 22  & 101  & 5.2   \\
+10  & 106 & 6.3  & 23  & 105  & 4.8   \\
+11 & 105  & 5.2  & 24  & 101 & 5.1  \\
+12  & 101  & 4.9  & 25  & 101  & 5.0  \\
+13  & 103  & 5.3  &  &   &  \\ \hline                         
+\end{tabular}
+\end{table}
+
+Czy korelacja między badanymi cechami jest istotna?
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE, echo=TRUE,highlight=FALSE}
+# Przykład 6.1 (Dobek, Szwaczkowski 2007, s. 153)
+# usuwanie wszystkich zmiennych z przestrzeni roboczej
+rm(list=ls()) 
+# tworzenie danych
+pszenica=read.table("~/Desktop/Dobek_153.txt",header=T)
+head(pszenica)
+# funkcja round wyświetla wyniki z zaokrągleniem do 2 miejsc po przecinku
+round(cor(pszenica$dk,pszenica$dp),2)  
+# testowanie istotności korelacji
+cor.test(pszenica$dk,pszenica$dp)
+```
+
+\newpage
+
+**Realizacja w R**
+```{r comment=NA,highlight=FALSE,highlight=FALSE,prompt=TRUE}
+# Przykład 6.1 (Dobek, Szwaczkowski 2007, s. 153)
+# usuwanie wszystkich zmiennych z przestrzeni roboczej
+rm(list=ls()) 
+# tworzenie danych
+pszenica=read.table("~/Desktop/Dobek_153.txt", header=T)
+head(pszenica)
+# funkcja round wyświetla wyniki z zaokrągleniem do 2 miejsc po przecinku
+round(cor(pszenica$dk,pszenica$dp),2)  
+# testowanie istotności korelacji
+cor.test(pszenica$dk,pszenica$dp)
+```
+
+\vspace{0.8cm}
+**Interpretacja**
+
+Wartość współczynnika  korelacji $r$ Pearsona wynosi 0,66, więc korelacja jest wysoka. Ponadto, ponieważ $p$-wartość = 0,0003, więc odrzucamy hipotezę zerową i przyjmujemy hipotezę alternatywną stwierdzając, że zależność pomiędzy długością pędu a długością kłosa pewnej odmiany pszenicy jest istotna.
+
+
+### Cechy jakościowe
+
+Cecha jakościowa (niemierzalna) jest to cecha, która ma charakter opisowy lub podlega kategoryzacji.
+Współczynnik korelacji $r_S$ Spearmana używamy w przypadku gdy:
+
+1. choć jedna z badanych cech jest cechą jakościową (niemierzalną), ale istnieje możliwość uporządkowania (ponumerowania) wariantów każdej z cech, 
+
+2. cechy mają charakter ilościowy (mierzalny), ale liczebność zbiorowości jest mała (n<30).
+
+
+
+\vspace{0.8cm}
+**Przykład 6.2** (Dobek, Szwaczkowski 2007, s. 163)
+
+Dwaj eksperci niezależnie oceniali stopień porażenia ziarniaków w skali od 1 do 20. Uzyskali następujące wyniki:
+
+ekspert 1: 5, 7, 34, 9, 12, 16, 9, 13, 18, 6, 17
+
+ekspert  2: 6, 6, 3, 10, 8, 18, 10, 11, 16, 8, 15
+
+Czy oceny obu ekspertów są skorelowane?
+
+\newpage
+
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 6.2 (Dobek, Szwaczkowski 2007, s. 153)
+eksp1=c(5, 7, 34, 9, 12, 16, 9, 13, 18, 6, 17)
+eksp2=c(6, 6, 3, 10, 8, 18, 10, 11, 16, 8, 15)
+cor.test(eksp1, eksp2, method = "spearman")
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE,warning=FALSE}
+# Przykład 6.2 (Dobek, Szwaczkowski 2007, s. 153)
+eksp1=c(5, 7, 34, 9, 12, 16, 9, 13, 18, 6, 17)
+eksp2=c(6, 6, 3, 10, 8, 18, 10, 11, 16, 8, 15)
+cor.test(eksp1, eksp2, method = "spearman")
+```
+
+\vspace{0.8cm}
+**Interpretacja** 
+
+Wartość współczynnika korelacji Spearmana $r_S=0,408$, więc korelacja jest przeciętna. Ponadto, ponieważ $p$-wartość=0,2126, więc nie odrzucamy hipotezy zerowej i stwierdzamy, że współczynnik korelacji Spearmana nie różni się istotnie od zera. Oznacza to, że oceniani eksperci niezależnie ocenili stopień porażenia ziarniaków.
+
+
+
+## Tablice kontyngencji
+
+Tablica kontyngencji przedstawia liczebności dwóch cech (zmiennych) jakościowych (niemierzalnych). Najczęściej interesujące są następujące hipotezy:
+
+ \hspace*{5cm} $H_0$: cechy $X$ i $Y$ są niezależne 
+
+ \hspace*{5cm} $H_1$: cechy $X$ i $Y$ są zależne \hfill (6.1)
+
+Weryfikację hipotez (6.1) wykonuje się stosując test $\chi^2$ (\texttt{chisq.test}). Jeśli conajmniej jedna liczebność ma wartość 5 lub mniej, to należy zastosować dokładny test Fishera (\texttt{fisher.test}).
+
+
+\vspace{0.8cm}
+**Przykład 6.3** (Kala 2005, s. 87)
+
+Badając jakość jabłek oceniono owoce ze względu na uszkodzenia spowodowane przez owocówkę jabłkóweczkę (U - owoce uszkodzone, N - owoce nieuszkodzone) oraz porażone parchem jabłoniowym (C - owoce czyste, P - owoce z plamami). W wyniku klasyfikacji owoców uzyskano następujące liczebności:
+
+
+\begin{table}[H]
+\centering
+\caption{Dane - Kala (2005, s. 87)}
+\label{Kala}
+\begin{tabular}{ccc}
+\hline
+\multirow{2}{*}{Parch} & \multicolumn{2}{c}{Owocówka} \\
+& U            & N             \\ \hline
+C      & 29           & 194           \\
+P      & 17           & 68      \\ \hline     
+\end{tabular}
+\end{table}
+
+Czy na poziomie istotności 0,01 można uznać, że badane zmienne są niezależne?
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 6.3 (Kala 2005, s. 87)
+# analiza tablicy kontyngencji
+x = matrix(c(29, 17, 194, 68), ncol = 2)
+x
+chisq.test(x)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 6.3 (Kala 2005, s. 87)
+# analiza tablicy kontyngencji
+x = matrix(c(29, 17, 194, 68), ncol = 2)
+x
+chisq.test(x)
+```
+\vspace{0.8cm}
+**Interpretacja**
+
+Ponieważ $p$-wartość = 0.1736, więc nie odrzucamy hipotezy $H_0$ i stwierdzamy, że badane zmienne są niezależne.
+
+
+\vspace{0.8cm}
+**Przykład 6.4** (Hanusz, Tarasińska 2006, s. 84)
+
+W celu sprawdzenia, czy przy ocenie stanu technicznego pewnego urządzenia można się posługiwać łatwym do wyznaczenia pomiarem, wybrano losowo 100 urządzeń i zanotowano następujące dane:
+
+\begin{table}[H]
+\centering
+\caption{Dane - Hanusz, Tarasińska (2006, s. 84)}
+\label{hanusz}
+\begin{tabular}{cccc}
+\hline
+\multirow{2}{*}{Stan urządzenia} &  \multicolumn{3}{c}{Wartość pomiaru} \\
+ & niska     & średnia     & wysoka    \\ \hline
+dobry        & 37        & 22          & 11 \\
+zły         & 6         & 9           & 15   \\ \hline    
+\end{tabular}
+\end{table}
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 6.4 (Hanusz, Tarasińska 2006, s. 84)
+x = matrix(c(37, 6, 22, 9, 11, 15), ncol = 3)
+x
+chisq.test(x)
+```
+
+
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 6.4 (Hanusz, Tarasińska 2006, s. 84)
+x = matrix(c(37, 6, 22, 9, 11, 15), ncol = 3)
+x
+chisq.test(x)
+```
+
+\vspace{0.8cm}
+**Interpretacja**
+
+Ponieważ $p$-wartość $= 0.0006172$, więc odrzucamy hipotezę $H_0$ i przyjmujemy hipotezę $H_1$. Stwierdzamy, że ocena stanu badanego urządzenia zależy od wartości pomiaru.
+
+\vspace{0.8cm}
+**Przykład 6.5** 
+
+Wysunięto hipotezę, że wadliwość produkcji luksusowych samochodów nie zależy od metody produkcji. Wylosowano niezależnie próbę 296 aut i otrzymano następujące wyniki badania jakości dla poszczególnych metod:
+\begin{table}[H]
+\centering
+\caption{Dane do przykładu 6.5}
+\label{dane6.4}
+\begin{tabular}{cccc}
+\hline
+\multirow{2}{*}{Jakość} &  \multicolumn{3}{c}{Metoda produkcji} \\
+ & I     & II    & III    \\ \hline
+dobra        & 5 & 67  & 75 \\
+zła         & 4  & 96  & 49   \\ \hline    
+\end{tabular}
+\end{table}
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 6.5
+x = matrix(c(5,4,67,96,75,49), ncol = 3)
+x
+fisher.test(x)
+```
+
+
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 6.5
+x = matrix(c(5,4,67,96,75,49), ncol = 3)
+x
+fisher.test(x)
+```
+
+\vspace{0.8cm}
+**Interpretacja**
+
+Ponieważ $p$-wartość=0.004014, więc odrzucamy hipotezę $H_0$ i przyjmujemy hipotezę $H_1$. Stwierdzamy, że wadliwość produkcji luksusowych samochodów nie zależy od metody produkcji.
+
+
+## Zadania do wykonania
+
+**Korelacje**
+
+Zad. 1 (Dobek, Szwaczkowski 2007, s. 163)
+
+U dziewięciu losowo wybranych koni półkrwi dokonano pomiaru wysokości w kłębie (cm) i obwodu nadpęcia (cm), uzyskując następujące wyniki:
+
+wysokość w kłębie: 163, 170, 158, 156, 161, 159, 161, 168, 177
+
+obwód nadpęcia: 21, 24, 22, 19, 24, 26, 26, 27, 28
+
+Sprawdź, czy cechy te są skorelowane.
+
+\vspace{0.8cm}
+Zad. 2 (Dobek, Szwaczkowski 2007, s. 163) 
+
+W badaniach nad strukturą plonu pszenżyta, przy gęstości wysiewu 400 ziaren/$m^2$, oznaczono masę 1000 ziaren i plon ziarna. Uzyskano następujące obserwacje:
+
+masa 1000 ziaren: 44.1, 45.6, 45.2, 46.8, 43.3, 47.1, 46.8, 45.7
+
+plon: 4.68, 4.76, 4.71, 4.87, 4.31, 4.97, 4.82, 4.72
+
+Czy korelacja między badanymi cechami jest istotna?
+
+\vspace{0.8cm}
+
+**Tablice kontyngencji**
+
+Zad. 1 (Greń 1975, s. 138) 
+
+W pewnym doświadczeniu farmakologicznym otrzymano na 120 badanych szczurów, którym podano pewien preparat, 57 takich, które doszły do pokarmu w labiryncie doświadczalnym w czasie do 1 minuty. Natomiast na 100 szczurów, którym nie podano tego preparatu, 71 wykonało to zadanie w tym samym czasie. Sporządzono następującą tablicę wyników badania farmakologicznego:
+\begin{table}[H]
+\centering
+\caption{Dane - Greń (1975, s. 138)}
+\label{gren138}
+\begin{tabular}{ccc}
+\hline
+liczba szczurów      & z preparatem & bez preparatu \\ \hline
+wykonały zadanie     & 57           & 71            \\
+nie wykonały zadania & 63           & 19            \\ \hline
+\end{tabular}
+\end{table}
+Zweryfikuj hipotezę o otępiającym działaniu badanego preparatu.
+
+\vspace{0.8cm}
+Zad. 2 (Greń 1975, s. 135)
+
+Wysunięto hipotezę medyczną, że pacjenci z objawem klinicznym niewydolności oddechowej charaktarezują się istotnie zawyżonym poziomem aktywności pewnego enzymu. Losowa próba 49 pacjentów z niewydolnością oddechową i 208 pacjentów bez objawów tej niewydolności dały wyniki zestawione w Tablicy \@ref(gren135). Na poziomie istotności 0.01 zweryfikować hipotezę o niezależności aktywności badanego enzymu w organiźmie chorych od posiadania objawu klinicznego niewydolności oddechowej.
+
+\begin{table}[H]
+\centering
+\caption{Dane - Greń (1975, s. 135)}
+\label{gren135}
+\begin{tabular}{ccc}
+\hline
+\multirow{2}{*}{Niewydolność oddechowa} & \multicolumn{2}{c}{Aktywność enzymu w organiźmie} \\
+& powyżej normy            & poniżej normy            \\ \hline
+ma      & 18         & 31          \\
+nie ma      & 25          & 183  \\ \hline        
+\end{tabular}
+\end{table}
+
+
+
+
+
+
+<!--chapter:end:06-korelacja.Rmd-->
+
+
+
+# Regresja liniowa i wielokrotna
+
+## Regresja liniowa
+
+Mamy dane dwie zmienne (cechy) $x$ i $y$. Chcemy określić zależność liniową pomiędzy tymi zmiennymi, tzn. wyznaczyć liniowy wpływ zmiennej $x$ na zmienną $y$.  W tym celu wyznaczymy linię prostą zwaną regresją liniową postaci
+\begin{equation}
+y = a+bx
+\end{equation}
+gdzie
+
+$y$ - zmienna zależna, objaśniana (the response variable)
+
+$x$ - zmienna niezależna, objaśniająca (the predyctor variable)
+
+$a$  - wyraz wolny (intercept)
+
+$b$ - współczynnik regresji.
+
+\vspace{0.8cm}
+Miarą dopasowania regresji liniowej do danych jest współczynnik determinacji $R^2$.
+
+
+W R wyznaczenie regresji liniowej oraz testowanie istotności wyrazu wolnego $a$ i współczynnika regresji $b$ można wykonać przy pomocy funkcji postaci \texttt{$lm(y \sim  x)$} lub \texttt{$lm(y \sim x, dane)$}.
+
+\newpage
+
+**Przykład 7.1** (Greń 1975,  s. 176) 
+
+Badając zależność między wielkością produkcji X pewnego wyrobu, a zużyciem Y pewnego surowca zużywanego w produkcji tego wyrobu otrzymano dla losowej próby 7 obserwacji następujące wyniki ($x_i$ w tys. sztuk, $y_i$ w tonach):
+
+\begin{table}[H]
+\centering
+\caption{Dane - Greń (1975, s. 176)}
+\label{gren}
+\begin{tabular}{lllllllll}
+sztuki (x) & 1 & 2  & 3  & 4  & 5  & 6  & 7  \\ \hline
+surowiec (y) & 8 & 13 & 14 & 17 & 18 & 20 & 22
+\end{tabular}
+\end{table}
+
+Wyznaczyć równanie regresji liniowej.
+
+\vspace{0.4cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 7.1 (Greń 1975,  s. 176)
+# usuwanie wszystkich zmiennych z przestrzeni roboczej
+rm(list=ls()) 
+# tworzenie danych
+sztuki = c(1, 2, 3, 4, 5, 6, 7)
+sztuki
+surowiec=c(8, 13, 14, 17, 18, 20, 22)
+surowiec
+# wykres danych
+plot(sztuki, surowiec, main="Dane - Greń (1975, s. 176)")   # Rys. 7.1
+# model: y = a + bx
+# model: surowiec=a+b*sztuki
+# a = (Intercept), czyli wyraz wolny, b = współczynnik regresji
+# wyznaczanie równania regresji liniowej
+model1=lm(surowiec~sztuki)
+summary(model1)
+# na wykresie danych wyznaczana jest prosta regresji
+abline(model1)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,fig.align='center',comment=NA,fig.cap='Zależność między wielkością produkcji pewnego wyrobu, a zużyciem pewnego surowca',warning=FALSE,prompt=TRUE,fig.align='center',fig.pos='H',out.width='70%',dev.args=list(encoding='CP1250')}
+# Przykład 7.1 (Greń 1975,  s. 176)
+# usuwanie wszystkich zmiennych z przestrzeni roboczej
+rm(list=ls()) 
+# tworzenie danych
+sztuki = c(1, 2, 3, 4, 5, 6, 7)
+sztuki
+surowiec=c(8, 13, 14, 17, 18, 20, 22)
+surowiec
+# wykres danych
+plot(sztuki, surowiec, main="Dane - Greń (1975, s. 176)")   # Rys. 7.1
+# model: y = a + bx
+# model: surowiec=a+b*sztuki
+# a = (Intercept), czyli wyraz wolny, b = współczynnik regresji
+# wyznaczanie równania regresji liniowej
+model1=lm(surowiec~sztuki)
+summary(model1)
+```
+
+```{r  eval=FALSE,fig.cap='Prosta regresji liniowej dla zależności między wielkością produkcji pewnego wyrobu, a zużyciem pewnego surowca', fig.align='center',fig.pos='H',out.width='70%', dev.args=list(encoding='CP1250')}
+abline(model1)  # Rys. 7.2
+```
+
+```{r  echo=FALSE, fig.cap='Prosta regresji liniowej dla zależności między wielkością produkcji pewnego wyrobu, a zużyciem pewnego surowca', fig.align='center',out.width='70%', dev.args=list(encoding='CP1250'),warning=FALSE,}
+plot(sztuki, surowiec, main="Dane - Greń (1975, s. 176)")  
+abline(model1)
+```
+
+\vspace{0.8cm}
+**Interpretacja**
+
+Ponieważ $p$-wartości dla wyrazu wolnego a (Intercept) oraz dla współczynnika kierunkowego b są mniejsze od 0,05, więc odrzucamy hipotezy zerowe i przyjmujemy hipotezy alternatywne.
+Wyraz wolny $a$ (Intercept) oraz współczynnik kierunkowy $b$ są istotne statystycznie ($p$-wartość = 0.000384 oraz $p$-wartość = 0.000114, odpowiednio) dla równania regresji liniowej $y =a+bx$. Wartość $R^2=0.9595$ oznacza, że stopień dopasowania prostej regresji do danych wynosi 96 \%. Oszacowanie równania regresji liniowej jest postaci:
+$\widehat{surowiec} = 7.4286 + 2.1429 * \textrm{sztuki}$.
+
+\vspace{0.8cm}
+**Przykład 7.2** (Kala 2005, s. 94) 
+
+W badaniach nad szybkością oddawania wody przez blaszki liściowe pewnego gatunku trawy poszukiwano w szczególności związku pomiędzy masą początkową blaszek liściowych bezpośrednio po zerwaniu oraz ich masą po trzech godzinach przechowywania bez dostępu wody. Dla 10 blaszek uzyskano obserwacje (w g):
+
+0h: 0.25, 0.33, 0.39, 0.23, 0.19, 0.51, 0.31, 0.24, 0.33, 0.41
+
+3h: 0.09, 0.15, 0.23, 0.10, 0.08, 0.28, 0.17, 0.11, 0.19, 0.24
+
+Wyznaczyć regresję liniową masy blaszki liściowej po trzech godzinach przechowywania w zależności od masy początkowej.
+
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE,tidy=TRUE}
+# Przykład 7.2 (Kala 2005, s. 94) 
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+h0=c(0.25, 0.33, 0.39, 0.23, 0.19, 0.51, 0.31, 0.24, 0.33, 0.41)
+h3=c(0.09, 0.15, 0.23, 0.10, 0.08, 0.28, 0.17, 0.11, 0.19, 0.24)
+# wykres danych
+plot(h0,h3, main="Dane - Kala (2005, s. 94)",xlab='masa początkowa blaszek 
+     liściowych', ylab='masa po 3 h blaszek liściowych')  # Rys. 7.3
+# wyznaczanie równania regresji liniowej
+model2=lm(h3~h0)
+summary(model2)
+# na wykresie danych wyznaczana jest prosta regresji
+abline(model2)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=47),highlight=FALSE,fig.align='center',comment=NA,fig.cap='Masa blaszki liściowej po trzech godzinach przechowywania w zależności od masy początkowej',warning=FALSE,prompt=TRUE,fig.pos='H',out.width='70%', dev.args=list(encoding='CP1250'),tidy=TRUE}
+# Przykład 7.2 (Kala 2005, s. 94) 
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+h0=c(0.25, 0.33, 0.39, 0.23, 0.19, 0.51, 0.31, 0.24, 0.33, 0.41)
+h3=c(0.09, 0.15, 0.23, 0.10, 0.08, 0.28, 0.17, 0.11, 0.19, 0.24)
+```
+
+```{r eval=TRUE, highlight=FALSE,tidy.opts=list(width.cutoff=47),fig.align='center',comment=NA,fig.cap='Masa blaszki liściowej po trzech godzinach przechowywania w zależności od masy początkowej',warning=FALSE,prompt=TRUE,fig.pos='H',out.width='70%', dev.args=list(encoding='CP1250'),tidy=TRUE}
+# wykres danych
+plot(h0,h3, main="Dane - Kala (2005, s. 94)",xlab='masa początkowa blaszek liściowych', 
+     ylab='masa po 3 h blaszek liściowych')   # Rys. 7.3
+# wyznaczanie równania regresji liniowej
+model2=lm(h3~h0)
+summary(model2)
+```
+
+```{r eval=FALSE, fig.align='center',highlight=FALSE,comment=NA,fig.cap='Masa blaszki liściowej po trzech godzinach przechowywania w zależności od masy początkowej',warning=FALSE,prompt=TRUE,fig.pos='H',out.width='70%', dev.args=list(encoding='CP1250')}
+# na wykresie danych wyznaczana jest prosta regresji
+abline(model2)
+```
+
+
+```{r echo=FALSE, tidy.opts=list(width.cutoff=47),highlight=FALSE,fig.align='center',comment=NA,fig.cap='Masa blaszki liściowej po trzech godzinach przechowywania w zależności od masy początkowej',warning=FALSE,prompt=TRUE,fig.pos='H',out.width='70%', dev.args=list(encoding='CP1250'),tidy=TRUE}
+plot(h0,h3, main="Dane - Kala (2005, s. 94)",xlab='masa początkowa blaszek liściowych', 
+     ylab='masa po 3 h blaszek liściowych')   # Rys. 7.3
+abline(model2)
+```
+
+\vspace{0.8cm}
+
+**Interpretacja** 
+
+Ponieważ $p$-wartości dla wyrazu wolnego a (Intercept) oraz dla współczynnika kierunkowego b są mniejsze od 0,05, więc odrzucamy hipotezy zerowe i przyjmujemy hipotezy alternatywne.
+Wyraz wolny $a$ (Intercept) oraz współczynnik kierunkowy $b$ są istotne statystycznie dla równania regresji liniowej $y =a+bx$ oraz stopień dopasowania prostej regresji do danych wynosi 94 \%.
+
+Oszacowanie prostej regresji jest postaci:
+$\hat{y}= -0.058 + 0.697x$.
+
+
+## Regresja wielokrotna
+
+Mamy dane zmienne niezależne (cechy) $x_1, x_2, ..., x_n$ i zmienną zależną $y$. Chcemy określić zależność liniową pomiędzy zmienną y a zmiennymi $x_1, x_2, ..., x_n$, tzn. wyznaczyć liniowy wpływ zmiennych $x_1, x_2, ..., x_n$ na zmienną $y$.  W tym celu wyznaczymy regresję wielokrotną postaci
+$y = b_0 + b_1*x_1 + b_2*x_2 + b_3*x_3 + ... + b_n*x_n$
+gdzie:
+
+$y$ - zmienna zależna, objaśniana (the response variable),
+$x_1, x_2, ..., x_n$ - zmienne niezależne, objaśniające (the predyctor variables),
+$b_0$  - wyraz wolny (Intercept),
+$b_1, ..., b_n$ - współczynniki regresji.
+
+\vspace{0.8cm}
+Miarą dopasowania regresji wielokrotnej do danych jest współczynnik determinacji $R^2$.
+
+
+W R wyznaczenie regresji wielokrotnej, tak jak regresji liniowej, można wykonać za pomocą funkcji postaci \texttt{$lm(y \sim x_1+x_2+...+x_n)$} lub \texttt{$lm(y \sim x_1+x_2+...+x_n, dane)$}.
+
+
+\vspace{0.8cm}
+**Przykład 7.3** (Elandt 1964, s. 441)
+
+Badano cztery cechy słomy konopi: ciężar włókna  (g), długość łodygi (cm), grubość łodygi (mm) oraz ciężar łodygi  (g) (Tablica \@ref(elandt)). Znaleźć równanie regresji wielokrotnej liniowej określającej zależność ciężaru włókna  od długości, grubości oraz ciężaru łodygi.
+
+
+\begin{table}[H]
+\centering
+\caption{Ciężar włókna  (g), długość łodygi (cm), grubość łodygi (mm) oraz ciężar łodygi  (g) konopi}
+\label{elandt}
+\begin{tabular}{ccccc|ccccc}
+\hline
+\multirow{2}{*}{Lp.} & \begin{tabular}[c]{@{}c@{}}ciężar \\ włókna\end{tabular} & \begin{tabular}[c]{@{}c@{}}długość \\ łodygi\end{tabular} & \begin{tabular}[c]{@{}c@{}}grubość\\  łodygi\end{tabular} & \begin{tabular}[c]{@{}c@{}}ciężar\\  łodygi\end{tabular} & \multirow{2}{*}{Lp.} & \begin{tabular}[c]{@{}c@{}}ciężar \\ włókna\end{tabular} & \begin{tabular}[c]{@{}c@{}}długość\\  łodygi\end{tabular} & \begin{tabular}[c]{@{}c@{}}grubość\\  łodygi\end{tabular} & \begin{tabular}[c]{@{}c@{}}ciężar\\  łodygi\end{tabular} \\ \hline
+ & y    & x1    & x2  & x3  &                      & y                                                        & x1                                                        & x2                                                        & x3                                                       \\ \hline
+1                    & 7.4                                                      & 251                                                       & 9.25                                                      & 47.5                                                     & 26                   & 8.3                                                      & 248                                                       & 8.75                                                      & 51.2                                                     \\
+2                    & 9.2                                                      & 255                                                       & 10.50                                                     & 57.7                                                     & 27                   & 8.5                                                      & 248                                                       & 9.50                                                      & 46.1                                                     \\
+3                    & 9.6                                                      & 253                                                       & 9.50                                                      & 47.1                                                     & 28                   & 8.9                                                      & 256                                                       & 9.50                                                      & 46.1                                                     \\
+4                    & 6.7                                                      & 242                                                       & 8.50                                                      & 38.8                                                     & 29                   & 6.7                                                      & 246                                                       & 9.00                                                      & 40.1                                                     \\
+5                    & 7.8                                                      & 246                                                       & 9.50                                                      & 45.2                                                     & 30                   & 7.6                                                      & 247                                                       & 9.00                                                      & 42.9                                                     \\
+6                    & 7.8                                                      & 246                                                       & 10.25                                                     & 49.8                                                     & 31                   & 4.6                                                      & 242                                                       & 8.25                                                      & 34.1                                                     \\
+7                    & 6.3                                                      & 243                                                       & 8.75                                                      & 43.4                                                     & 32                   & 6.2                                                      & 247                                                       & 9.00                                                      & 38.8                                                     \\
+8                    & 7.6                                                      & 246                                                       & 9.00                                                      & 50.8                                                     & 33                   & 7.0                                                      & 250                                                       & 9.25                                                      & 41.5                                                     \\
+9                    & 6.4                                                      & 249                                                       & 9.00                                                      & 41.5                                                     & 34                   & 8.9                                                      & 280                                                       & 10.25                                                     & 69.2                                                     \\
+10                   & 7.0                                                      & 247                                                       & 9.50                                                      & 38.8                                                     & 35                   & 6.9                                                      & 240                                                       & 9.25                                                      & 43.8                                                     \\
+11                   & 6.6                                                      & 237                                                       & 9.75                                                      & 47.1                                                     & 36                   & 8.7                                                      & 243                                                       & 9.25                                                      & 48.9                                                     \\
+12                   & 8.2                                                      & 246                                                       & 9.50                                                      & 51.2                                                     & 37                   & 8.5                                                      & 229                                                       & 9.00                                                      & 44.3                                                     \\
+13                   & 8.2                                                      & 257                                                       & 9.50                                                      & 52.6                                                     & 38                   & 10.4                                                     & 271                                                       & 9.50                                                      & 52.6                                                     \\
+14                   & 7.0                                                      & 250                                                       & 8.75                                                      & 46.1                                                     & 39                   & 8.5                                                      & 266                                                       & 10.50                                                     & 54.5                                                     \\
+15                   & 6.8                                                      & 235                                                       & 8.00                                                      & 36.0                                                     & 40                   & 9.8                                                      & 267                                                       & 9.25                                                      & 52.6                                                     \\
+16                   & 6.8                                                      & 247                                                       & 10.00                                                     & 44.8                                                     & 41                   & 7.8                                                      & 260                                                       & 8.75                                                      & 51.7                                                     \\
+17                   & 9.7                                                      & 234                                                       & 9.50                                                      & 47.1                                                     & 42                   & 7.3                                                      & 247                                                       & 8.75                                                      & 41.5                                                     \\
+18                   & 9.3                                                      & 259                                                       & 10.50                                                     & 68.3                                                     & 43                   & 7.0                                                      & 242                                                       & 8.50                                                      & 49.4                                                     \\
+19                   & 12.0                                                     & 255                                                       & 10.25                                                     & 62.8                                                     & 44                   & 9.8                                                      & 254                                                       & 10.50                                                     & 59.1                                                     \\
+20                   & 8.4                                                      & 264                                                       & 8.50                                                      & 45.7                                                     & 45                   & 8.9                                                      & 262                                                       & 9.50                                                      & 51.7                                                     \\
+21                   & 9.5                                                      & 261                                                       & 10.75                                                     & 60.9                                                     & 46                   & 10.2                                                     & 260                                                       & 10.50                                                     & 63.2                                                     \\
+22                   & 9.0                                                      & 242                                                       & 9.50                                                      & 45.2                                                     & 47                   & 8.7                                                      & 254                                                       & 8.50                                                      & 51.2                                                     \\
+23                   & 6.8                                                      & 240                                                       & 8.25                                                      & 37.8                                                     & 48                   & 6.8                                                      & 249                                                       & 8.75                                                      & 39.7                                                     \\
+24                   & 7.3                                                      & 235                                                       & 10.25                                                     & 48.0                                                     & 49                   & 7.5                                                      & 244                                                       & 9.00                                                      & 44.3                                                     \\
+25                   & 7.0                                                      & 245                                                       & 8.75                                                      & 44.3                                                     &                      &                                                          &                                                           &                                                           &   \\ \hline                                                      
+\end{tabular}
+\end{table}
+
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 7.3 (Elandt 1964, s. 441)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+sloma=read.table("~/Desktop/Elandt-441-regresja-wielokrotna.txt", header=T)
+head(sloma)
+# korelacje
+round(cor(sloma),2)
+# regresja liniowa wielokrotna
+regresja=lm(ciezwlokna~dluglodygi+grublodygi+ciezlodygi, data=sloma)
+summary(regresja)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 7.3 (Elandt 1964, s. 441)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+sloma=read.table("~/Desktop/Elandt-441-regresja-wielokrotna.txt", header=T)
+head(sloma)
+# korelacje
+round(cor(sloma),2)
+```
+\vspace{0.8cm}
+
+**Interpretacja**
+
+Powyżej przedstawione są współczynniki korelacji pomiędzy analizowanymi zmiennymi tzn. ciężarem włókna, długością łodygi, grubością łodygi i ciężarem łodygi.
+
+\vspace{0.8cm}
+```{r tidy.opts=list(width.cutoff=37),comment=NA,prompt=TRUE}
+# regresja liniowa wielokrotna
+regresja=lm(ciezwlokna~dluglodygi+grublodygi+ciezlodygi, data=sloma)
+summary(regresja)
+```
+\vspace{0.4cm}
+
+**Interpretacja**
+
+Oszacowanie równania regresji liniowej wielokrotnej jest postaci:
+
+$\widehat{ciezar wlokna} = -0.856+0.008*\textrm{dlugosc lodygi} + 0.16*\textrm{grubosc lodygi}+0.113*\textrm{ciezar lodygi}$
+
+Współczynnik determinacji wynosi $R^2=0,569$.
+
+
+## Selekcja zmiennych
+
+Analizując przykład 7.3, po wyznaczeniu równania regresji liniowej wielokrotnej i otrzymaniu charakterystyk współczynników regresji należy zauważyć, że p-wartości dla wyrazu wolnego, długości i grubości łodygi są większe od 0,05 (0.8465882, 0.664498 oraz 0.577321, odpowiednio). Oznacza to, że długość i grubość łodygi nie mają istotnego wpływu na ciężar włókna. Skoro tak, to zmienne te (zmienne nieistotne) można nie uwzględniać w wyznaczaniu równania regresji liniowej wielokrotnej. Obecnie wyznaczymy równania regresji uwzględniającej tylko ciężar łodygi jako zmienną niezależną, czyli wyznaczymy równania regresji liniowej. Takie postępowanie jest jedną z metod selekcji zmiennych. Drugą metodą jest automatyczna selekcja zmiennych przy pomocy funkcji \texttt{step}. 
+Program sam dokona selekcji zmiennych. Jest to tzw. selekcja zstępująca.
+
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# cd. przykładu 7.3
+regresja1=lm(ciezwlokna~ciezlodygi, data=sloma)
+summary(regresja1)
+# step()
+modelstep=step(regresja)
+summary(modelstep)
+```
+
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# cd. przykładu 7.3
+regresja1=lm(ciezwlokna~ciezlodygi, data=sloma)
+summary(regresja1)
+```
+\vspace{0.8cm}
+**Interpretacja**
+
+Równanie regresji liniowej wielokrotnej jest postaci:
+
+$\textrm{ciężar włókna} = 1.74744 + 0.12994*\textrm{ciężar łodygi}$.
+
+Współczynnik determinacji jest równy $R^2=0.5647$.
+
+\vspace{0.8cm}
+**Realizacja w R (c.d.)**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# step()
+modelstep=step(regresja)
+summary(modelstep)
+```
+
+\vspace{0.8cm}
+**Interpretacja**
+
+Najlepiej dopasowanym równaniem regresji do analizowanych danych jest równanie z najmniejszą wartością współczynnika Akaike (AIC). Z powyższych danych wynika, że jest to ostatnie równanie, czyli równanie regresji liniowej postaci:
+
+$\textrm{ciężar włókna} = 1.74744 + 0.12994*\textrm{ciężar łodygi}$
+
+Ponadto, dla tego równania wyraz wolny oraz współczynnik kierunkowy są istotne statystycznie. Współczynnik determinacji jest równy $R^2=0.5647$.
+
+
+\newpage
+
+## Zadania do wykonania
+
+**Regresja liniowa**
+
+Zad. 1 (Greń 1975, s. 179) 
+
+Dokonano w pewnej miejscowości 6 pomiarów temperatury dla różnych głębokości pod powierzchnią ziemi. Otrzymano następujące wyniki ($x_i$ głębokość w m, $y_i$ temperatura w stopniach C):
+
+$x_i$: 200, 400, 600, 800, 1000, 1200
+
+$y_i$: 10, 15, 23, 26, 33, 37
+
+Znaleźć równanie regresji liniowej określającej zależność temperatury od głębokości.
+
+\vspace{0.8cm}
+**Regresja wielokrotna**
+
+Zad. 1 (Greń 1975, s. 210) 
+
+W pewnym eksperymencie rolniczym zastosowano różne dawki dwu nawozów na poletkach doświadczalnych i otrzymano następujące dane dotyczące wysokości uzyskanych plonów (w q/ha) pewnej rośliny uprawnej ($X_1$ dawki nawozu A, $X_2$ dawki nawozu B, $Y$ wielkość plonu):
+\begin{table}[H]
+\centering
+\caption{Dane - Greń (1975, s. 210)}
+\label{gren210}
+\begin{tabular}{ccc}
+X1 & X2 & Y  \\
+1  & 0  & 3  \\
+0  & 1  & 7  \\
+1  & 1  & 8  \\
+2  & 1  & 11 \\
+1  & 2  & 14 \\
+2  & 2  & 16
+\end{tabular}
+\end{table}
+
+Oszacować współczynniki regresji wielokrotnej oraz współczynnik korelacji wielorakiej.
+
+\vspace{0.8cm}
+**Selekcja zmiennych**
+
+Zad. 1  (Kala 2005, s. 113)
+
+Badając pewien ród pszenżyta jarego, zmierzono u 10 roślin następujące cechy: długość kłosa głównego (w cm), liczbę ziarniaków w kłosie głównym (w szt.), masę ziarniaków z całej rośliny (w g). Uzyskano pomiary: 
+
+długość: 10.8, 11.7, 10.3, 11.2, 10, 10.8, 10.6, 10.7, 9.8, 11.5
+
+ziarniaki: 39, 56, 46, 48, 36, 36, 40, 42, 38, 42
+
+masa: 6.7, 7.3, 6, 6.6, 5.4, 6, 5.8, 6.4, 6.1, 6.9
+
+Wyznaczyć równanie regresji wielokrotnej dla masy w zależności od długości i liczby ziarniaków kłosa głównego oraz wykonać selekcję zmiennych. 
+
+<!--chapter:end:07-regresja.Rmd-->
+

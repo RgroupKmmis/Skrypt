@@ -1,0 +1,32 @@
+\select@language {polish}
+\contentsline {chapter}{\numberline {1}Wprowadzenie}{5}{chapter.1}
+\contentsline {section}{\numberline {1.1}Cel ksi\IeC {\k a}\IeC {\.z}ki}{5}{section.1.1}
+\contentsline {section}{\numberline {1.2}Co to jest R}{5}{section.1.2}
+\contentsline {section}{\numberline {1.3}Zalety R}{6}{section.1.3}
+\contentsline {section}{\numberline {1.4}Instalacja R i RStudio}{6}{section.1.4}
+\contentsline {section}{\numberline {1.5}Pakiety}{8}{section.1.5}
+\contentsline {section}{\numberline {1.6}Dokumentacja i szukanie pomocy}{8}{section.1.6}
+\contentsline {chapter}{\numberline {2}Obliczenia w R}{9}{chapter.2}
+\contentsline {section}{\numberline {2.1}Proste obliczenia matematyczne}{9}{section.2.1}
+\contentsline {section}{\numberline {2.2}Zmienne}{13}{section.2.2}
+\contentsline {section}{\numberline {2.3}Wektory, macierze oraz ramki danych}{14}{section.2.3}
+\contentsline {chapter}{\numberline {3}Przygotowanie danych}{33}{chapter.3}
+\contentsline {chapter}{\numberline {4}Wizualizacje}{39}{chapter.4}
+\contentsline {section}{\numberline {4.1}Graficzna prezentacja danych}{39}{section.4.1}
+\contentsline {section}{\numberline {4.2}Wykresy dla przyk\IeC {\l }adowych funkcji}{42}{section.4.2}
+\contentsline {chapter}{\numberline {5}Testowanie}{45}{chapter.5}
+\contentsline {section}{\numberline {5.1}Wprowadzenie}{45}{section.5.1}
+\contentsline {section}{\numberline {5.2}Testy istotno\IeC {\'s}ci dw\IeC {\'o}ch warto\IeC {\'s}ci \IeC {\'s}rednich dla pr\IeC {\'o}b z rozk\IeC {\l }ad\IeC {\'o}w normalnych}{47}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Pr\IeC {\'o}by niezale\IeC {\.z}ne}{48}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Pr\IeC {\'o}by zale\IeC {\.z}ne}{52}{subsection.5.2.2}
+\contentsline {section}{\numberline {5.3}Testy istotno\IeC {\'s}ci dla dw\IeC {\'o}ch warto\IeC {\'s}ci \IeC {\'s}rednich z dowolnych rozk\IeC {\l }ad\IeC {\'o}w}{55}{section.5.3}
+\contentsline {section}{\numberline {5.4}Analiza wariancji - ANOVA}{59}{section.5.4}
+\contentsline {section}{\numberline {5.5}Testy wielokrotne}{66}{section.5.5}
+\contentsline {chapter}{\numberline {6}Badanie zale\IeC {\.z}no\IeC {\'s}ci cech}{69}{chapter.6}
+\contentsline {section}{\numberline {6.1}Korelacje}{69}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Cechy ilo\IeC {\'s}ciowe}{70}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Cechy jako\IeC {\'s}ciowe}{71}{subsection.6.1.2}
+\contentsline {section}{\numberline {6.2}Tablice kontyngencji}{73}{section.6.2}
+\contentsline {chapter}{\numberline {7}Regresja liniowa i wielokrotna}{79}{chapter.7}
+\contentsline {section}{\numberline {7.1}Regresja liniowa}{79}{section.7.1}
+\contentsline {section}{\numberline {7.2}Regresja wielokrotna}{81}{section.7.2}

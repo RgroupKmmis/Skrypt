@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statystyka dla przyrodników w R</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statystyka dla przyrodników w R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/cover.png" />
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="zjanna/Skrypt" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statystyka dla przyrodników w R" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:image" content="images/cover.png" />
+
+<meta name="author" content="Idzi Siatkowski">
+<meta name="author" content="Joanna Zyprych-Walczak">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="obliczenia-w-r.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Placeholder</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Wprowadzenie</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#cel-ksiazki"><i class="fa fa-check"></i><b>2.1</b> Cel książki</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#co-to-jest-r"><i class="fa fa-check"></i><b>2.2</b> Co to jest R</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#zalety-r"><i class="fa fa-check"></i><b>2.3</b> Zalety R</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#instalacja-r-i-rstudio"><i class="fa fa-check"></i><b>2.4</b> Instalacja R i RStudio</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#pakiety"><i class="fa fa-check"></i><b>2.5</b> Pakiety</a></li>
+<li class="chapter" data-level="2.6" data-path="intro.html"><a href="intro.html#dokumentacja-i-szukanie-pomocy"><i class="fa fa-check"></i><b>2.6</b> Dokumentacja i szukanie pomocy</a></li>
+<li class="chapter" data-level="2.7" data-path="intro.html"><a href="intro.html#zadania-do-wykonania"><i class="fa fa-check"></i><b>2.7</b> Zadania do wykonania</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="obliczenia-w-r.html"><a href="obliczenia-w-r.html"><i class="fa fa-check"></i><b>3</b> Obliczenia w R</a></li>
+<li class="chapter" data-level="4" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html"><i class="fa fa-check"></i><b>4</b> Przygotowanie danych</a></li>
+<li class="chapter" data-level="5" data-path="wizualizacje.html"><a href="wizualizacje.html"><i class="fa fa-check"></i><b>5</b> Wizualizacje</a></li>
+<li class="chapter" data-level="6" data-path="testowanie.html"><a href="testowanie.html"><i class="fa fa-check"></i><b>6</b> Testowanie</a></li>
+<li class="chapter" data-level="7" data-path="badanie-zaleznosci-cech.html"><a href="badanie-zaleznosci-cech.html"><i class="fa fa-check"></i><b>7</b> Badanie zależności cech</a></li>
+<li class="chapter" data-level="8" data-path="regresja-liniowa-i-wielokrotna.html"><a href="regresja-liniowa-i-wielokrotna.html"><i class="fa fa-check"></i><b>8</b> Regresja liniowa i wielokrotna</a></li>
+<li class="chapter" data-level="9" data-path="odpowiedzi-do-zadan.html"><a href="odpowiedzi-do-zadan.html"><i class="fa fa-check"></i><b>9</b> Odpowiedzi do zadań</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statystyka dla przyrodników w R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="intro" class="section level1">
+<h1><span class="header-section-number">Rozdział 2</span> Wprowadzenie</h1>
+<div id="cel-ksiazki" class="section level2">
+<h2><span class="header-section-number">2.1</span> Cel książki</h2>
+<p>Prezentowana książka przeznaczona jest dla wszystkich początkujących, nie znających R, a chcących poznać podstawowe możliwości obliczeniowe i graficzne oprogramowania R w zakresie zastosowań statystyki. Celem książki jest zapoznanie czytelnika z podstawami składni języka R oraz zastosowaniem R w podstawowych obliczeniach statystycznych. Dlatego książka ta zawiera przykłady wraz z programami (kodami, skryptami) napisanymi w R. Przykłady dotyczą zagadnień przyrodniczych i pochodzą z podręczników, w których znajduje się teoria statystyczna (, , , , ). Po wykonaniu przedstawionych przykładów czytelnik powinien potrafić samodzielnie rozwiązywać problemy statystyczne związane z testowaniem, regresją, badaniem zależności cech oraz wykonywać wykresy lub rysunki.</p>
+</div>
+<div id="co-to-jest-r" class="section level2">
+<h2><span class="header-section-number">2.2</span> Co to jest R</h2>
+<p>R  jest narzędziem (programem, pakietem, środowiskiem) przeznaczonym m.in. do wykonywania zarówno prostych, jak i tych bardziej złożonych obliczeń i analiz statystycznych, a także do tworzenia wysokiej jakości grafiki. Oznacza to, że w R możemy wykonywać podstawowe obliczenia takie jak np.: na kalkulatorze oraz możemy stosować go do zaawansowanych metod statystycznych, obliczeń symulacyjnych oraz optymalizacyjnych. Ponadto, przy jego pomocy możliwe jest tworzenie różnego rodzaju wykresów.</p>
+</div>
+<div id="zalety-r" class="section level2">
+<h2><span class="header-section-number">2.3</span> Zalety R</h2>
+<ul>
+<li>Darmowy do wszelkich zastosowań (licencja GPL GNU)</li>
+<li>Możliwość korzystania z 10958 pakietów (lipiec 2017)</li>
+<li>Możliwość tworzenia wykresów oraz rysunków</li>
+<li>Wykonywanie funkcji z bibliotek napisanych w różnych językach programowania (Fortran, C, C++, S)</li>
+<li>Pozwala na tworzenie i używanie własnych programów</li>
+<li>Działa w różnych systemach operacyjnych (np. Windows, Linux, Mac)</li>
+<li>R jest elastyczny, nie jest “czarną skrzynką” tzn. na każdym etapie dostępny jest kod wykonywanych poleceń</li>
+<li>R jest wykorzystywany w uczelniach, instytutach badawczych, bankach, małych i dużych firmach analizujących różne typy danych oraz wykonujących wszelkie analizy statystyczne.</li>
+</ul>
+</div>
+<div id="instalacja-r-i-rstudio" class="section level2">
+<h2><span class="header-section-number">2.4</span> Instalacja R i RStudio</h2>
+<p><strong>Instalacja R</strong></p>
+W pierwszej kolejności należy skopiować na swój komputer plik instalacyjny R, np. plik “R-3.3.3-win.exe” ze strony internetowej
+
+<p>czyli:</p>
+<ol style="list-style-type: decimal">
+<li>uruchamiamy stronę internetową “www.r-project.org”</li>
+<li>wybieramy “download R”</li>
+<li>wybieramy np. “<a href="https://cloud.r-project.org/" class="uri">https://cloud.r-project.org/</a>”</li>
+<li>wybieramy “Download R for Windows” (działamy pod windows’em)</li>
+<li>wybieramy “install R for the first time”</li>
+<li>wybieramy “Download R 3.3.3 for Windows”</li>
+<li>zapisujemy plik instalacyjny “R-3.3.3-win.exe” na swoim komputerze.</li>
+</ol>
+<p>Następnie należy uruchomić skopiowany plik instalacyjny i postępować zgodnie ze wskazówkami.</p>
+<p><strong>Instalacja RStudio</strong></p>
+Po instalacji R proponujemy zainstalować edytor (interfejs) RStudio  dla łatwiejszego korzystania z R. W niniejszej książce ograniczymy się do programu RStudio z kilku ważnych powodów. Jednym z nich jest darmowość i ogólnodostępność tego edytora oraz możliwość instalacji zarówno w systemie Windows, Mac, Linux, jak i jego bezpośrednie użycie ze strony internetowej korzystając z serwera RStudio. Kolejnymi ułatwieniami dla użytkownika jest między innymi: podświetlanie tekstu w celu podpowiedzi składni funkcji, uzupełnianie kodu, nazw zmiennych, łatwe zarządzanie wieloma katalogami za pomocą projektów, szybkie instalowanie pakietów, ukazywanie podpowiedzi dotyczących funkcji i ich argumentów oraz zmiennych otrzymanych po jej zastosowaniu, podgląd danych oraz wykresów w oddzielnym oknie. Aby zainstalować RStudio należy skopiować na swój komputer darmową wersję programu instalacyjnego RStudio ze strony internetowej:
+
+<p>czyli np. plik “RStudio-1.0.136.exe”. Uruchamiając ten plik dokonujemy instalacji edytora RStudio. Po zainstalowaniu uruchamiamy RStudio i ukazuje się nam ekran komputera np. tak jak na Rysunku 1.1.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
+<img src="images/RStudio.png" alt="Przykładowy ekran RStudio"  />
+<p class="caption">
+Figure 2.1: Przykładowy ekran RStudio
+</p>
+</div>
+<p>Interfejs RStudio składa się z czterech okien. Lewe dolne okno jest konsolą. Po znaku zachęty “&gt;” możemy napisać polecenie (komendę, skrypt) i po naciśnięciu klawisza “enter” polecenie to zostanie wykonane, a wynik zostanie wyświetlony poniżej. Okno lewe górne (okno edycji) służy do edycji skryptów, które można tworzyć, zmieniać, zapisywać oraz wykonywać klikając na polecenie “run”. Wyniki realizacji poleceń wyświetlane są w lewym dolnym oknie, czyli oknie konsoli. Okno prawe górne jest oknem zawierającym historię działania w RStudio oraz przedstawiającym informacje o wprowadzonych danych. Natomiast w prawym dolnym oknie znajdują się informacje o pakietach, plikach, wyświetlane są rysunki oraz pomoc.</p>
+<p><strong>Przydatne skróty klawiszowe w RStudio</strong></p>
+<ul>
+<li><p>uzupełnianie nazw funkcji i obiektów - ‘tab’</p></li>
+<li><p>wyświetlanie kodu funkcji - klawisz F2</p></li>
+<li><p>wyświetlanie pomocy na temat funkcji - klawisz F1</p></li>
+<li><p>zamknięcie programu - ctrl+q</p></li>
+<li><p>zamknięcie skryptu - ctrl+w</p></li>
+</ul>
+<p><strong>Uwaga</strong></p>
+<p>Należy najpierw zainstalować R, a następnie RStudio. Uruchamiamy tylko RStudio.</p>
+</div>
+<div id="pakiety" class="section level2">
+<h2><span class="header-section-number">2.5</span> Pakiety</h2>
+<p>Podczas instalacji R, instalowane są także systemowe pakiety obliczeniowe (‘system library’). W każdym momencie możemy zainstalować dowolny pakiet korzystając z prawego dolnego okna RStudio. Należy w zakładce “Packages” uruchomić polecenie “Install” i wpisać nazwę pakietu. Natomiast informacje dotyczące pakietów można uzyskać na dwa sposoby. Po pierwsze, w RStudio w prawym dolnym oknie wybierając “Packages” mamy spis wszystkich zainstalowanych pakietów. Drugi sposób, to kolejno uruchamiamy:</p>
+<ol style="list-style-type: decimal">
+<li>www.r-project.org</li>
+<li>CRAN</li>
+<li>np. “<a href="https://cloud.r-project.org/" class="uri">https://cloud.r-project.org/</a>”</li>
+<li>“Packages”.</li>
+</ol>
+<p>Po zainstalowaniu pakietu, można z niego korzystać (czyli stosować polecenia w nim zawarte) dopiero po aktywowaniu pakietu poleceniem library(), gdzie w nawiasach wpisana jest nazwa pakietu.</p>
+</div>
+<div id="dokumentacja-i-szukanie-pomocy" class="section level2">
+<h2><span class="header-section-number">2.6</span> Dokumentacja i szukanie pomocy</h2>
+<p>Materiały dotyczące R, dla początkujących, a także zaawansowanych użytkowników, wykorzystanie R w podstawowej oraz zaawansowanej statystyce, a także zastosowanie R w tworzeniu wykresów znajdują się na różnych stronach internetowych, szczególnie na stronie “www.r-project.org”. Są to artykuły, raporty oraz książki - także w języku polskim. Natomiast pomoc najłatwiej można uzyskać wpisując w oknie konsoli hasło poprzedzone znakiem zapytania lub wpisując polecenie help(), gdzie w nawiasach wpisana jest nazwa hasła. Treść pomocy wyświetlona zostanie w prawym dolnym oknie.</p>
+</div>
+<div id="zadania-do-wykonania" class="section level2">
+<h2><span class="header-section-number">2.7</span> Zadania do wykonania</h2>
+<p>Zad. 1</p>
+<p>Zainstaluj pakiet ‘agricolae’, przedstaw własności funkcji ‘correlation’.</p>
+<p>Zad. 2</p>
+<p>Zainstaluj pakiet ‘agridat’ i opisz dane ‘yates.oats’.</p>
+<p>Zad. 3</p>
+<p>Zainstaluj pakiet ‘openxlsx’, przedstaw informacje o funkcji ‘read.xlsx’.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="obliczenia-w-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-wprowadzenie.Rmd",
+"text": "Edit"
+},
+"download": ["bookdown-ksiazka.pdf", "bookdown-ksiazka.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

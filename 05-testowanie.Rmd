@@ -1,0 +1,1101 @@
+
+# Testowanie
+
+## Wprowadzenie
+
+Niech dane będą 2 populacje, dla których chcemy zweryfikować interesujące nas przypuszczenie. Na przykład, dane jest 200 ha pole z pszenżytem odmiany A oraz 150 ha pole z pszenżytem odmiany B. Chcemy porównać ciężar nasion w kłosie dla obu odmian. Oczywiście, najlepszym sposobem postępowania jest zważenie nasion wszystkich kłosów z obu pól. Jak wiadomo, taka czynność nie jest wykonywana. Powinniśmy losowo wybrać kilkanaście lub kilkadziesiąt kłosów z pierwszego pola (próba A) i drugiego pola (próba B). Tak więc mamy populacje oraz mamy próby, gdzie najczęściej stosowane oznaczenia wybranych parametrów przedstawia Tablica \@ref(testowanie).
+
+\begin{table}[H]
+\centering
+\caption{Podstawowe parametry dla populacji oraz próby}
+\label{testowanie}
+\begin{tabular}{cc}
+\hline
+populacja & próba                                     \\ \hline
+$\mu$ – średnia cechy w populacji                & $\bar{x}$ – średnia cechy w próbie               \\
+$\sigma^2$ – wariancja cechy w populacji             & $s^2$ – wariancja cechy w próbie             \\
+$\sigma$ – odchylenie standardowe cechy w populacji & $s$ – odchylenie standardowe cechy w próbie \\ \hline
+\end{tabular}
+\end{table}
+
+Testowanie jest to weryfikacja przypuszczeń. W opracowaniu tym rozpatrujemy testy parametryczne, czyli testy dotyczące parametrów populacji (np. średnia, wariancja). Przypuszczenia określone są przy pomocy dwóch hipotez: hipotezy zerowej $H_0$ oraz hipotezy alternatywnej $H_1$. Po wybraniu właściwej statystyki, wyliczamy wartość tej statystyki dla wylosowanych prób oraz tzw. $p$-wartość ($p$-value) i podejmujemy decyzję: albo odrzucamy hipotezę zerową i przyjmujemy hipotezę alternatywną, albo stwierdzamy brak podstaw do odrzucenia hipotezy zerowej (w praktyce często przyjmuje się hipotezę zerową). Porównując rzeczywistość z naszą decyzją możemy mieć sytuacje przedstawione w Tablicy \@ref(decyzje). Prawdopodobieństwo odrzucenia hipotezy prawdziwej jest błędem pierwszego rodzaju oznaczanym przez $\alpha$ oraz nazywanym poziomem istotności. Natomiast prawdopodobieństwo przyjęcia hipotezy nieprawdziwej jest błędem drugiego rodzaju oznaczanym przez  $\beta$.
+\begin{table}[H]
+\centering
+\caption{Możliwe decyzji podczas testowania}
+\label{decyzje}
+\begin{tabular}{cc|c|c|}
+\cline{3-4}
+\multicolumn{2}{c}{\multirow{2}{*}{}}                                       & \multicolumn{2}{|c|}{Decyzja} \\ \cline{3-4} 
+\multicolumn{2}{c|}{}                                                        & $H_0$ nie odrzucamy  & $H_0$ odrzucamy \\ \hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{Rzeczywistość}} & $H_0$ jest prawdziwa          & OK             & $\alpha$          \\ \cline{2-4} 
+\multicolumn{1}{|c|}{}                               & $H_0$ nie jest prawdziwa & $\beta$              & OK          \\ \hline
+\end{tabular}
+\end{table}
+
+Reguły postępowania podczas testowania hipotez:
+
+1.	Mamy dane populacje w ramach których chcemy wykonać testowanie.
+2.	Formułujemy problem badawczy. 
+3.	Ustalamy poziom istotności $\alpha$, np. w tym manuskrypcie $\alpha$ = 0.05.
+4.	Formułujemy hipotezę zerową $H_0$ oraz hipotezę alternatywną $H_1$.
+5.	Losowo wybieramy próby.
+6.	Ustalamy właściwą statystykę (odpowiedni test) do weryfikacji hipotez. 
+7.	Obliczamy wartości wybranej statystki, m.in. $p$-wartość.
+8.	Podejmujemy decyzje: 
+
+    8.1.	jeśli $p$-wartość <0.05 (poziom istotności), to odrzucamy hipotezę zerową i przyjmujemy hipotezę alternatywną,
+    
+    8.2.	jeśli $p$-wartość $\geq$ 0.05, to nie mamy podstaw do odrzucenia $H_0$, co w praktyce często oznacza przyjęcie hipotezy zerowej.
+9.	Dokonujemy interpretacji problemu badawczego.
+
+\begin{table}[H]
+\centering
+\caption{Wybrane testy statystyczne dla wartości średnich}
+\label{testy}
+\begin{tabular}{cc|c |c|}
+\cline{3-4}
+\multicolumn{2}{c|}{}                                                                                                               & Dane z rozkładu normalnego                                                       & \begin{tabular}[c]{@{}c@{}}Dane nie są z rozkładu \\ normalnego\end{tabular}    \\ \hline
+\multicolumn{1}{|c|}{}                                                                                      & 2 grupy              & \begin{tabular}[c]{@{}c@{}}Test t dla grup niezależnych\\ (t.test)*\end{tabular} & \begin{tabular}[c]{@{}c@{}}Test Wilcoxona\\ (Wilcox.test)\end{tabular}          \\ \cline{2-4} 
+\multicolumn{1}{|c|}{\multirow{-2}{*}{Próby niezależne}}                                                    & \textgreater 2 grupy & \begin{tabular}[c]{@{}c@{}}ANOVA\\ (aov)\end{tabular}                            & \begin{tabular}[c]{@{}c@{}}Test Kruskala-Wallisa\\ (kruskal.test)\end{tabular}  \\ \hline
+\multicolumn{1}{|c|}{}                                                                                      & 2 grupy              & \begin{tabular}[c]{@{}c@{}}Test t związany\\ (t.test)\end{tabular}  & \begin{tabular}[c]{@{}c@{}}Test Wilcoxona związany\\ (wilcox.test)\end{tabular} \\  \cline{2-4} 
+\multicolumn{1}{|c|}{\multirow{-2}{*}{\begin{tabular}[c]{@{}c@{}}Próby zależne\\  (związane)\end{tabular}}} & \textgreater 2grupy  & \begin{tabular}[c]{@{}c@{}}ANOVA\\ (aov)\end{tabular}                            & \begin{tabular}[c]{@{}c@{}}Test Friedmana\\ (friedman.test)\end{tabular}        \\ \hline
+\end{tabular}
+\end{table}
+
+$\ast$ w nawiasach podane są nazwy funkcji w R.
+
+Tablica \@ref(testy) wskazuje, że wybór testu zależy od trzech charakterystyk:
+
+1. Czy dane podlegają rozkładowi normalnemu, czy nie podlegają,
+2. Czy próby są niezależne, czy są zależne,
+3. Czy rozpatrujemy dwie próby (grupy), czy więcej niż dwie.
+
+\vspace{0.8cm}
+**Uwaga**
+
+1) Sprawdzenie normalności rozkładu w R można przeprowadzić stosując funkcję \texttt{shapiro.test} - test Shapiro--Wilka.
+
+2) Przed zastosowaniem testu $t$ (\texttt{t.test}) należy sprawdzić, czy założenie o równości wariancji jest spełnione. W R można to wykonać np. przy pomocy funkcji \texttt{var.test}.
+
+
+
+## Testy dwóch wartości średnich z rozkładów normalnych 
+**Założenie**
+
+Mamy dwie próby odpowiednio o liczebności $n_1$ z rozkładu $N(\mu_1, \sigma_1^2)$ oraz o liczebności $n_2$ z rozkładu $N(\mu_2, \sigma_2^2)$.
+
+Możemy rozpatrywać hipotezę dwustronną, hipotezę lewostronną lub hipotezę prawostronną. 
+
+\vspace{0.8cm}
+**Hipotezy**
+
+a) hipoteza dwustronna (test obustronny)
+\vspace{-0.6cm}
+\begin{align}
+		H_0: \mu_1 = \mu_2  \\
+		H_1: \mu_1 \neq \mu_2 \nonumber
+\end{align}
+
+b) hipoteza lewostronna (test lewostronny)
+\vspace{-0.6cm}
+\begin{align}
+		H_0: \mu_1 = \mu_2 \\
+		H_1: \mu_1 < \mu_2 \nonumber
+\end{align}
+	
+c) hipoteza prawostronna (test prawostronny)
+\vspace{-0.6cm}
+\begin{align}
+		H_0: \mu_1 = \mu_2 \\
+		H_1: \mu_1 > \mu_2 \nonumber
+\end{align}
+
+Rozpatrujemy dwie sytuacje: próby są niezależne lub próby są zależne (związane, sprzężone).
+
+### Próby niezależne
+
+\vspace{0.8cm}
+**Przykład 5.1** (Elandt 1964, s. 102)
+
+Dany jest ciężar w gramach 1000 nasion dla dwóch rodów seradeli:
+
+\begin{table}[H]
+\centering
+\caption{Dane - Elandt (1964, s. 102)}
+\label{saradele}
+\begin{tabular}{cc}
+\hline
+Ród A &  Ród B \\ \hline
+3.8   &  3.7          \\
+3.7   &  4.6          \\
+2.9   &  5.4          \\
+3.5   &  6.2          \\
+2.6   &  4.2          \\
+3.3   &  3.5          \\
+      & 5.3          \\
+      & 5.5     \\ \hline     
+\end{tabular}
+\end{table}
+
+Zweryfikować przypuszczenie, że średnie ciężary tych rodów różnią się istotnie.
+
+\vspace{0.8cm}
+**Rozwiązanie**
+
+Niech $\mu_1$ oznacza średni ciężar 1000 nasion rodu A, natomiast $\mu_2$ oznacza średni ciężar 1000 nasion rodu B. Rozpatrujemy hipotezę obustronną postaci (5.1):
+
+\vspace{-0.6cm}
+\begin{align*}
+		H_0: \mu_1 = \mu_2 \\
+		H_1: \mu_1 \neq \mu_2
+\end{align*}
+
+\vspace{0.8cm}
+**Kod w R**
+```{r,eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 5.1 (Elandt 1964, s. 102)
+# tworzenie danych
+rodA=c(3.8, 3.7, 2.9, 3.5, 2.6, 3.3)
+rodB=c(3.7, 4.6, 5.4, 6.2, 4.2, 3.5, 5.3, 5.5)
+# Boxplot - prezentacja graficzna danych
+boxplot(rodA, rodB, names=c("Ród A","Ród B"), main="seradela")
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),comment=NA,highlight=FALSE,prompt=TRUE,fig.pos='H',fig.align='center',out.width='70%',fig.cap='Boxplot dla danych - Elandt (1964, s. 102)'}
+# Przykład 5.1 (Elandt 1964, s. 102)
+# tworzenie danych
+rodA=c(3.8, 3.7, 2.9, 3.5, 2.6, 3.3)
+rodB=c(3.7, 4.6, 5.4, 6.2, 4.2, 3.5, 5.3, 5.5)
+# Boxplot - prezentacja graficzna danych
+boxplot(rodA, rodB, names=c("Ród A","Ród B"), main="seradela")
+```
+
+Sprawdzamy założenie o normalności rozkładów dla rodu A oraz rodu B
+
+
+
+ \hspace*{5cm} $H_0$: rozkład normalny jest spełniony
+
+ \hspace*{5cm} $H_1$: rozkład normalny nie jest spełniony 
+
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# sprawdzenie założeń o normalności rozkładów dla rodu A oraz rodu B
+shapiro.test(rodA)
+shapiro.test(rodB)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),comment=NA,highlight=FALSE,prompt=TRUE}
+# sprawdzenie założeń o normalności rozkładów dla rodu A oraz rodu B
+shapiro.test(rodA)
+shapiro.test(rodB)
+```
+\vspace{0.8cm}
+**Interpretacja**
+
+Po zastosowaniu testu Shapiro--Wilka dla obu rodów otrzymane $p$-wartości są większe od 0.05. Stwierdzamy, że założenia o normalności rozkładów są spełnione. 
+Kolejnym krokiem jest sprawdzenie równości wariancji obu rodów.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+var.test(rodA,rodB)
+```
+
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+var.test(rodA,rodB)
+```
+
+\vspace{0.8cm}
+**Interpretacja**
+
+Testowanie równości wariancji pokazuje, że otrzymana $p$-wartość = 0.1377 > 0.05, zatem nie ma podstaw do odrzucenia hipotezy mówiącej o równości wariancji obu rodów. W tym przypadku wykonując w kolejnym kroku testowanie hipotez (5.1) wykorzystujemy dwustronny test $t$, przy użyciu funkcji \texttt{t.test} z zastosowaniem dodatkowo argumentu \texttt{var.equal=TRUE} oznaczającego równość wariancji. W przeciwnym przypadku ustawiana jest domyślnie wartość \texttt{var.equal=FALSE} (co oznacza, że wariancje nie są równe) oraz stosowane jest przybliżenie Welcha.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# obustronny test t
+t.test(rodA, rodB, var.equal = TRUE)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# obustronny test t
+t.test(rodA, rodB, var.equal = TRUE)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartość = 0.004203 < 0.05, więc stwierdzamy, że ciężar 1000 nasion seradeli rodu A  różni się od rodu B. Ponadto, analizując boxplot (Rys. 5.1) można przypuszczać, że ciężar 1000 nasion dla rodu A seradeli jest mniejszy niż ciężar 1000 nasion dla rodu B seradeli. Wobec tego, zastosujemy lewostronny test $t$ postaci (5.2), czyli:
+\vspace{-0.6cm}
+\begin{align*}
+		H_0: \mu_1 = \mu_2 \\
+		H_1: \mu_1 < \mu_2
+\end{align*}
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# lewostronny test t
+t.test(rodA, rodB, alternative="less", var.equal = TRUE)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# lewostronny test t
+t.test(rodA, rodB, alternative="less", var.equal = TRUE)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartość = 0.002101 < 0.05, więc stwierdzamy, że ciężar 1000 nasion rodu A seradeli jest mniejszy niż rodu B.
+
+### Próby zależne
+
+\vspace{0.8cm}
+**Przykład 5.2** (Elandt 1964, s. 109)
+
+Oznaczono procent tłuszczu w 18 próbkach mleka za pomocą dwóch metod: metody Gerbera (metoda G) i metody Burata (metoda B) - patrz Tablica \@ref(mleko). 
+\begin{table}[!ht]
+\centering
+\caption{Dane - Elandt (1964, s. 109)}
+\label{mleko}
+\begin{tabular}{ccc|ccc}
+\hline
+Lp. & Metoda G & Metoda B & Lp. & Metoda G & Metoda B \\ \hline
+1   & 2.73     & 2.88     & 10  & 3.07     & 3.23     \\
+2   & 2.84     & 2.93     & 11  & 2.66     & 2.81     \\
+3   & 3.18     & 3.38     & 12  & 2.78     & 2.94     \\
+4   & 2.79     & 2.99     & 13  & 3.62     & 3.59     \\
+5   & 3.05     & 3.30     & 14  & 3.31     & 3.41     \\
+6   & 3.03     & 3.19     & 15  & 2.71     & 2.88     \\
+7   & 3.10     & 3.34     & 16  & 2.80     & 2.99     \\
+8   & 2.88     & 3.08     & 17  & 2.95     & 3.16     \\
+9   & 3.00     & 3.20     & 18  & 3.52     & 3.66    \\ \hline
+\end{tabular}
+\end{table}
+
+Czy metody te dają takie same wyniki?
+
+
+
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 5.2 (Elandt 1964, s. 109)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+metodaG=c(2.73, 2.84, 3.18, 2.79, 3.05, 3.03, 3.10, 2.88, 3.00, 3.07,
+          2.66, 2.78, 3.62, 3.31, 2.71, 2.80, 2.95, 3.52)
+metodaB=c(2.88, 2.93, 3.38, 2.99, 3.30, 3.19, 3.34, 3.08, 3.20, 3.23,
+          2.81, 2.94, 3.59, 3.41, 2.88, 2.99, 3.16, 3.66)
+dane=data.frame(metodaG,metodaB)
+# prezentacja graficzna danych - boxplot
+boxplot(metodaG, metodaB, main="Procent tłuszczu")
+# Sprawdzamy założenia o normalności rozkładów
+shapiro.test(metodaG)
+shapiro.test(metodaB)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,warning=FALSE,comment=NA,prompt=TRUE,fig.cap='Boxplot dla danych - Elandt (1964, s. 109)',fig.pos='H',fig.align='center',out.width='70%', dev.args=list(encoding='CP1250')}
+# Przykład 5.2 (Elandt 1964, s. 109)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+metodaG=c(2.73, 2.84, 3.18, 2.79, 3.05, 3.03, 3.10, 2.88, 3.00, 3.07,
+          2.66, 2.78, 3.62, 3.31, 2.71, 2.80, 2.95, 3.52)
+metodaB=c(2.88, 2.93, 3.38, 2.99, 3.30, 3.19, 3.34, 3.08, 3.20, 3.23,
+          2.81, 2.94, 3.59, 3.41, 2.88, 2.99, 3.16, 3.66)
+dane=data.frame(metodaG,metodaB)
+# prezentacja graficzna danych - boxplot
+boxplot(dane, main="Procent tłuszczu")
+# Sprawdzamy założenia o normalności rozkładów
+shapiro.test(metodaG)
+shapiro.test(metodaB)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartości dla obu metod są > 0.05, zatem dla obu prób spełnione jest założenie o normalności rozkładów. Następnie sprawdzamy równość wariancji.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+var.test(metodaG, metodaB)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+var.test(metodaG, metodaB)
+```
+
+\vspace{0.8cm}
+**Interpretacja**
+
+Testowanie równości wariancji pokazuje, że otrzymana $p$-wartość = 0.7238 > 0.05, zatem nie ma podstaw do odrzucenia hipotezy zerowej o równości wariancji dla obu metod.
+W kolejnym kroku wykonamy test $t$ z parametrem \texttt{var.equal=TRUE}.
+
+\vspace{0.8cm}
+**Uwaga**
+
+Ponieważ te same obiekty badane są dwa razy - należy zastosować \textcolor{red}{test t dla par zależnych} - w tym celu w funkcji \texttt{t.test} używamy argumentu \texttt{paired = TRUE}. Analiza boxplotu (Rys. 5.2) sugeruje, aby zastosować w dalszych analizach lewostronny test $t$ dla par zależnych.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# lewostronny test t dla par zależnych
+t.test(metodaG, metodaB, alternative="less", paired = TRUE, var.equal = TRUE)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# lewostronny test t dla par zależnych
+t.test(metodaG, metodaB, alternative="less", paired = TRUE, var.equal = TRUE)
+```
+
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartość < 0.0001 ($2.326e$-$09=2.326*10^{-9}=0.000000002326$), więc należy stwierdzić, że metoda Gerbera daje mniejszy procent tłuszczu w badanym mleku niż metoda Burata. 
+
+## Testy dwóch wartości średnich z dowolnych rozkładów
+
+**Założenie** 
+
+Co najmniej jedna próba nie podlega rozkładowi normalnemu.
+
+\vspace{0.8cm}
+
+**Przykład 5.3** 
+
+Zasadzono równocześnie młode drzewka w mieście przy ulicy oraz w części zielonej w parku. Po pewnym czasie zmierzono ich wysokości (w cm). Wyniki przedstawia Tablica \@ref(przyklad5)
+
+\begin{table}[H]
+\centering
+\caption{Dane do przykładu 5.3}
+\label{przyklad5}
+\begin{tabular}{ccccccccccc}
+ulica & 98& 116& 100& 103& 104& 102& 105& 99& 106& 101 \\ \hline
+park  & 109& 118& 121& 108& 115& 111& 110& 113& 107& 117 \\ 
+\end{tabular}
+\end{table}
+
+Czy lokalizacja drzewka ma istotny wpływ na jego wysokość?
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 5.3 
+# tworzymy dane
+ulica = c(98, 116, 100, 103, 104, 102, 105, 99, 106, 101)
+park = c(109, 118, 121, 108, 115, 111, 110, 113, 107, 117)
+# sprawdzamy normalność rozkładów
+shapiro.test(ulica)
+shapiro.test(park)
+
+```
+
+\newpage
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 5.3 
+# tworzymy dane
+ulica = c(98, 116, 100, 103, 104, 102, 105, 99, 106, 101)
+park = c(109, 118, 121, 108, 115, 111, 110, 113, 107, 117)
+# sprawdzamy normalność rozkładów
+shapiro.test(ulica)
+shapiro.test(park)
+```
+
+**Uwaga**
+
+Ponieważ jedna z prób (ulica) nie spełnia warunku rozkładu normalnego, więc nie możemy skorzystać z testu $t$. Zastosujemy test Wilcoxona (patrz Tablica \@ref(testy)).
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# test wilcoxona
+wilcox.test(ulica, park, alternative="less")
+```
+
+\newpage
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# test wilcoxona
+wilcox.test(ulica, park, alternative="less")
+```
+
+\vspace{0.8cm}
+**Interpretacja:** 
+
+Ponieważ $p$-wartość dla testu Wilcoxona jest mniejsza od 0.05 zatem wnioskujemy, że wysokość drzewek rosnących przy ulicy jest istotnie mniejsza niż wysokość drzewek rosnących w parku.
+
+\vspace{0.8cm}
+**Przykład 5.4**
+
+Na teście wstępnym oceniono 9 studentów oraz 8 studentek pod względem zdolności matematycznych w celu weryfikacji przypuszczenia, że studenci są pod tym względem lepsi od studentek. Wyniki testu są następujące (Tablica \@ref(studenci)):
+
+\begin{table}[H]
+\centering
+\caption{Wyniki z matematyki}
+\label{studenci}
+\begin{tabular}{cccccccccc}
+studenci  & 15 & 21 & 22 & 24 & 18 & 19 & 23 & 19 & 23 \\ \hline
+studentki & 15 & 19 & 23 & 25 & 10 & 15 & 22 & 21 &   \\ 
+\end{tabular}
+\end{table}
+Przy pomocy odpowiedniego testu zweryfikować hipotezę mówiącą o tym, że studenci są pod względem zdolności matematycznych lepsi od studentek.
+
+\newpage
+
+**Rozwiązanie**
+
+Zastosujemy test prawostronny postaci (5.3):
+\vspace{-0.6cm}
+\begin{align*}
+		H_0: \mu_1 = \mu_2 \\
+		H_1: \mu_1 > \mu_2
+\end{align*}
+
+**Uwagi**
+
+1) Otrzymane wyniki są liczbami naturalnymi, zatem populacje nie mogą spełniać warunku o normalności rozkładów – rozkład normalny jest rozkładem ciągłym, a my mamy rozkład dyskretny.
+
+2) Nie zastosujemy testu $t$, tylko test Wilcoxona.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 5.4
+studenci = c(15, 21, 22, 24, 18, 19, 23, 19, 23)
+studentki = c(15, 19, 23, 25, 10, 15, 22, 21)
+wilcox.test(studenci,studentki, alternative="greater")
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE,warning=FALSE}
+# Przykład 5.4
+studenci = c(15, 21, 22, 24, 18, 19, 23, 19, 23)
+studentki = c(15, 19, 23, 25, 10, 15, 22, 21)
+wilcox.test(studenci,studentki, alternative="greater")
+```
+\vspace{0.8cm}
+**Interpretacja**
+
+Ponieważ $p$-wartość = 0.2967, więc nie ma podstaw do odrzucenia hipotezy $H_0$. Wnioskujemy zatem, że zdolności matematyczne ocenianych studentów i studentek zdających testy wstępne są takie same.
+
+## Analiza wariancji - ANOVA
+
+Mamy $r > 2$ populacji. Z każdej losowo pobieramy po jednej próbie.
+
+\vspace{0.8cm}
+
+**Założenia ANOVY**
+
+1. Niezależność - próby zostały pobrane niezależnie z każdej z $r$ populacji. 
+2. Normalność - w każdej z $r$ populacji rozkład badanej cechy jest normalny 
+
+ \hspace*{5cm} $H_0$: rozkład normalny jest spełniony
+
+ \hspace*{5cm} $H_1$: rozkład normalny nie jest spełniony 
+
+
+3. Jednorodność wariancji - wariancje rozkładu badanej cechy są takie same w $r$ populacjach
+
+ \hspace*{5cm} $H_0$: $\sigma_1^2 = \sigma_2^2 = ... = \sigma_r^2$ 
+ 
+ \hspace*{5cm} $H_1$: $\neg H_0$
+
+
+**Uwagi** 
+
+1) Jednorodność wariancji oprócz testu \texttt{var.test} można również zweryfikować testem Bartletta (\texttt{bartlett.test}).
+
+2) Analizę wariancji wykonamy przy użyciu funkcji \texttt{aov}.
+
+\newpage
+
+**Przykład 5.5** (Greń 1975, s. 161)
+
+Wylosowano po 12 pędów żyta trzech różnych gatunków i otrzymano dla nich następujące długości kłosów żyta (w cm):
+
+\begin{table}[H]
+\centering
+\caption{Dane - Greń (1975, s. 161)}
+\label{klosy}
+\begin{tabular}{ccc|ccc}
+\hline
+\multicolumn{6}{c}{Gatunek}  \\ \hline
+A       & B       & C       & A       & B       & C       \\
+6.7     & 7.5     & 5.9     & 10.1    & 10.6    & 9.6     \\
+7.3     & 7.7     & 6.9     & 9.2     & 10.2    & 10.3    \\
+8.0     & 7.7     & 7.0     & 8.3     & 9.4     & 8.1     \\
+8.0     & 8.2     & 7.0     & 8.4     & 9.4     & 8.5     \\
+7.9     & 8.9     & 9.5     & 8.0     & 8.2     & 8.6     \\
+9.2     & 8.9     & 9.6     & 7.9     & 7.8     & 8.8    \\ \hline
+\end{tabular}
+\end{table}
+
+Czy długości kłosów badanych gatunków są różne?
+\vspace{0.8cm}
+
+**Rozwiązanie**
+
+Należy zweryfikować następujące hipotezy:
+ 
+ \hspace*{5cm} $H_0$: $\mu_A = \mu_B = \mu_C$
+ 
+ \hspace*{5cm} $H_1$: $\neg H_0$
+ 
+
+gdzie $\mu_K$ oznacza średnią długość kłosów gatunku K.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 5.5 (Greń 1975, s. 161)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+A = c(6.7,7.3,8.0,8.0,7.9,9.2,10.1,9.2,8.3,8.4,8.0,7.9)
+B = c(7.5,7.7,7.7,8.2,8.9,8.9,10.6,10.2,9.4,9.4,8.2,7.8)     
+C = c(5.9,6.9,7.0,7.0,9.5,9.6,9.6,10.3,8.1,8.5,8.6,8.8) 
+# sprawdzanie założenia o normalności rozkładów 
+shapiro.test(A)
+shapiro.test(B)
+shapiro.test(C)
+# przygotowanie danych w formie ramki danych
+zyto=data.frame(Dlugosc=c(A, B, C), Gat=c(rep(c("A","B","C"), c(12,12,12))))
+head(zyto)
+# weryfikacja założenia o jednorodności wariancji - test Bartleta
+bartlett.test(zyto$Dlugosc,zyto$Gat)
+# ANOVA
+model=aov(Dlugosc~Gat, data=zyto)
+summary(model)
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 5.5 (Greń 1975, s. 161)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+A = c(6.7,7.3,8.0,8.0,7.9,9.2,10.1,9.2,8.3,8.4,8.0,7.9)
+B = c(7.5,7.7,7.7,8.2,8.9,8.9,10.6,10.2,9.4,9.4,8.2,7.8)     
+C = c(5.9,6.9,7.0,7.0,9.5,9.6,9.6,10.3,8.1,8.5,8.6,8.8) 
+# sprawdzanie założenia o normalności rozkładów 
+shapiro.test(A)
+shapiro.test(B)
+shapiro.test(C)
+```
+\vspace{0.8cm}
+
+**Interpretacja** 
+
+Wszystkie $p$-wartości > 0.05, więc $H_0$ nie odrzucamy co oznacza, że próby pochodzą z rozkładu normalnego.
+
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE,dev.args=list(encoding='CP1250')}
+# przygotowanie danych w formie ramki danych
+zyto=data.frame(Dlugosc=c(A, B, C), Gat=c(rep(c("A","B","C"), c(12,12,12))))
+head(zyto)
+# weryfikacja założenia o jednorodności wariancji - test Bartleta
+bartlett.test(zyto$Dlugosc,zyto$Gat)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartość = 0.388 > 0.05, więc nie odrzucamy $H_0$, a to oznacza, że założenie o jednorodności wariancji jest spełnione - możemy zatem wykonać analizę wariancji ANOVA.
+
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# ANOVA
+model=aov(Dlugosc~Gat, data=zyto)
+summary(model)
+```
+\vspace{0.8cm}
+
+**Interpretacja**
+
+Ponieważ $Pr(>F)=p$-wartość=0.559 > 0.05, więc nie odrzucamy $H_0$, czyli długości kłosów badanych trzech gatunków żyta nie różnią się istotnie statystycznie.
+
+\vspace{0.8cm}
+
+**Uwaga**
+
+W takiej sytuacji nie wykonuje się porównań wielokrotnych (patrz Rozdział 5.5).
+
+
+\newpage
+
+**Przykład 5.6** (Kala 2005, s. 163)
+
+Porównano długości kłosów czterech odmian uprawnych D, A, J i N pewnej trawy. Uzyskano następujące obserwacje (w cm):
+
+D: 24.7, 26.6, 23.7, 18.8, 23.4, 20.6, 26.0, 27.9, 25.6
+
+A: 19.2, 24.2, 14.2, 19.2, 18.1, 21.2, 19.0, 16.8, 15.0, 14.6
+
+J: 22.7, 18.5, 23.6, 21.9, 20.0, 23.5, 17.0, 18.0
+
+N: 19.9, 13.7, 16.8, 18.6, 23.0, 16.3, 15.2, 14.1, 16.9, 13.7
+
+Dokonać porównań odmian.
+
+\vspace{0.8cm}
+
+**Rozwiązanie**
+
+Formułujemy następujące hipotezy:
+
+ \hspace*{5cm} $H_0$: długości kłosów nie różnią się, 
+		
+ \hspace*{5cm} $H_1$: długości kłosów różnią się.
+
+
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 5.6 (Kala 2005, s. 163)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+D = c(24.7,26.6,23.7,18.8,23.4,20.6,26,27.9,25.6)
+A = c(19.2,24.2,14.2,19.2,18.1,21.2,19,16.8,15,14.6)
+J = c(22.7,18.5,23.6,21.9,20,23.5,17,18)
+N = c(19.9,13.7,16.8,18.6,23,16.3,15.2,14.1,16.9,13.7)
+B=c(rep("D",9), rep("A",10), rep("J",8), rep("N",10))
+B
+trawa=data.frame(Dlugosc=c(D,A,J,N), Odmiany=B)
+head(trawa)
+```
+
+```{r tidy=TRUE,tidy.opts=list(width.cutoff=37),eval=FALSE,echo=TRUE,highlight=FALSE}
+boxplot(split(trawa$Dlugosc, trawa$Odmiany),main="Zależność długości kłosów od odmian", xlab="Odmiany", ylab="Długości kłosów", col=c("green","red","blue","gold"))
+# sprawdzamy założenie o normalności rozkładów dla odmian
+shapiro.test(D)
+shapiro.test(A)
+shapiro.test(J)
+shapiro.test(N)
+```
+
+
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# weryfikacja założenia o jednorodności wariancji
+bartlett.test(trawa$Dlugosc,trawa$Odmiany)
+# ANOVA
+model = aov(Dlugosc~Odmiany, trawa)
+summary(model)
+```
+
+**Realizacja w R**
+```{r tidy=TRUE,comment=NA,prompt=TRUE,highlight=FALSE,warning=FALSE,fig.align='center',fig.cap='Boxploty dla zależność długości kłosów od odmian',fig.pos='H',out.width='70%',dev.args=list(encoding='CP1250')}
+# Przykład 5.6 (Kala 2005, s. 163)
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+# tworzenie danych
+D = c(24.7,26.6,23.7,18.8,23.4,20.6,26,27.9,25.6)
+A = c(19.2,24.2,14.2,19.2,18.1,21.2,19,16.8,15,14.6)
+J = c(22.7,18.5,23.6,21.9,20,23.5,17,18)
+N = c(19.9,13.7,16.8,18.6,23,16.3,15.2,14.1,16.9,13.7)
+B=c(rep("D",9), rep("A",10), rep("J",8), rep("N",10))
+B
+trawa=data.frame(Dlugosc=c(D,A,J,N), Odmiany=B)
+head(trawa)
+```
+
+```{r tidy=TRUE,tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE,warning=FALSE,fig.align='center',fig.cap='Boxploty dla zależność długości kłosów od odmian',fig.pos='H',out.width='70%',dev.args=list(encoding='CP1250')}
+boxplot(split(trawa$Dlugosc, trawa$Odmiany),main="Zależność długości kłosów od odmian", xlab="Odmiany", ylab="Długości kłosów", col=c("green","red","blue","gold"))
+# sprawdzamy założenie o normalności rozkładów dla odmian
+shapiro.test(D)
+shapiro.test(A)
+shapiro.test(J)
+shapiro.test(N)
+```
+\vspace{0.8cm}
+
+**Interpretacja** 
+
+Ponieważ dla wszystkich odmian $p$-wartości testu Shapiro--Wilka (\texttt{shapiro.test}) są większe od 0.05, więc nie odrzucamy hipotezy $H_0$, czyli wnioskujemy, że spełniony jest warunek o normalności rozkładów dla odmian D, A, J i N.
+
+\vspace{0.8cm}
+
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# weryfikacja założenia o jednorodności wariancji
+bartlett.test(trawa$Dlugosc,trawa$Odmiany)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartość = 0.969, zatem warunek jednorodności wariancji jest spełniony. Możemy wykonać analizę wariancji.
+
+\vspace{0.8cm}
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# ANOVA
+model = aov(Dlugosc~Odmiany, trawa)
+summary(model)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartość < 0.05, więc odrzucamy hipotezę $H_0$ i przyjmujemy $H_1$. 
+Długości kłosów czterech odmian uprawnych D, A, J i N badanej trawy różnią się statystycznie istotnie.
+
+\newpage
+
+**Uwaga**
+
+Ponieważ odrzuciliśmy hipotezę zerową $H_0$ i przyjęliśmy hipotezę alternatywną $H_1$, więc możemy zastosować testy wielokrotne, np. test Tukeya, aby zbadać istotność różnic wszystkich możliwych par badanych odmian.
+
+
+## Testy wielokrotne
+
+Najczęściej stosowane testy wielokrotne:
+
+1.	Test HSD Tukeya (Honestly Significant Differences)
+2.	Test LSD Fishera (Least Significant Differences) – NIR: Najmniejsza Istotna Różnica
+3.	Test Scheffego
+4.	Test Duncana
+5.	Test Newmana-Keulsa
+6.  Test Dunnetta
+
+
+\vspace{0.8cm}
+**Uwagi**
+
+1. Test Tukeya jest bardziej konserwatywny (ostrożny, rzadziej odrzuca $H_0$) niż test Fishera, a test Fishera jest bardziej konserwatywny niż test Scheffego.
+
+2. Test Tukeya jest preferowany i najczęściej stosowany, ponieważ mamy zagwarantowany poziom istotności $\alpha$ dla wszystkich porównywanych par.
+
+W manuskrypcie zostanie zastosowany test Tukeya.
+
+\vspace{0.8cm}
+
+**Kod w R**
+
+```{r echo=TRUE, eval=FALSE, tidy=TRUE,highlight=FALSE}
+# cd. przykładu 5.6 
+# testowanie szczegółowe - test wielokrotny Tukeya
+library(agricolae)  # aktywowanie pakietu agricolae
+a=HSD.test(model,"Odmiany")  # funkcja z pakietu agricolae
+a
+# mała litera oznacza grupę odmian podobnych tj. do tej samej grupy 
+# należy odmiana D i J, innej grupy J i A oraz kolejnej A i N
+TukeyHSD(model,"Odmiany", ordered = TRUE)  # funkcja z pakietu stats
+plot(TukeyHSD(model,"Odmiany")) # Rys. 5.4
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r comment=NA,prompt=TRUE,highlight=FALSE,fig.cap='Graficzne przedstawienie porównań wielokrotnych.',tidy=TRUE,fig.align='center',fig.pos='H',out.width='70%'}
+# cd. przykładu 5.6 
+# testowanie szczegółowe - test wielokrotny Tukeya
+library(agricolae)  # aktywowanie pakietu agricolae
+a=HSD.test(model,"Odmiany")  # funkcja z pakietu agricolae
+a
+# mała litera oznacza grupę odmian podobnych tj. do tej samej grupy 
+# należy odmiana D i J, innej grupy J i A oraz kolejnej A i N
+TukeyHSD(model,"Odmiany", ordered = TRUE)  # funkcja z pakietu stats
+plot(TukeyHSD(model,"Odmiany")) # Rys. 5.4
+```
+
+Rysunek 5.4 przedstawia porównania odmian parami. Dla odmian, które nie różnią się istotnie statystycznie odcinki na wykresie przechodzą przez punkt zero, natomiast dla odmian różniących się istotnie statystycznie odcinki nie przechodzą przez punkt zero. 
+
+
+Poniżej w formie tabel (patrz Tablica \@ref(pwartosci)) przedstawione są trzy sposoby prezentacji porównań wielokrotnych.
+
+\begin{table}[H]
+\centering
+\caption{Porównania pomiędzy odmianami (p-wartości)}
+\label{pwartosci}
+\begin{tabular}{cccc}
+  & A                                & J         & N                                \\ \hline
+D & {\color[HTML]{FE0000} 0.0005319} & 0.0879854 & {\color[HTML]{FE0000} 0.0000304} \\
+A &                                  & 0.2948589 & 0.7438813                        \\
+J &                                  &           & {\color[HTML]{FE0000} 0.0455162} \\ \hline
+\end{tabular}
+\end{table}
+
+lub
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+  & A                                & J         & N                                \\ \hline
+D & {\color[HTML]{FE0000} x} & ns & {\color[HTML]{FE0000} x} \\
+A &                                  & ns & ns                        \\
+J &                                  &           & {\color[HTML]{FE0000} x} \\ \hline
+\end{tabular}
+\end{table}
+
+\textcolor{red}{x} - statystycznie istotna różnica, ns – nie ma różnicy
+
+lub
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cc}
+Odmiany & Średnie* \\ \hline
+D       & $24.14^a$  \\
+J       & $20.65^{ab}$  \\
+A       & $18.25^{bc}$  \\
+N       & $16.82^c$   \\ \hline
+\end{tabular}
+\end{table}
+
+$\ast$ mała litera (indeks górny) oznacza grupę odmian podobnych.
+
+\newpage
+
+**Przykład 5.7** (Greń 1975, s. 105)
+
+Ceny jednego kwiatu róży ogrodowej na trzech różnych targowiskach były następujące (w zł):
+
+\begin{table}[H]
+\centering
+\caption{Dane - Greń (1975, s. 105)}
+\label{gren105}
+\begin{tabular}{ccc}
+\hline
+\multicolumn{3}{c}{Miasto} \\ \hline
+A        & B      & C      \\ \hline
+10       & 3      & 2      \\
+7        & 4      & 8      \\
+3        & 2      & 5      \\
+11       & 4      & 6      \\
+9        & 5      & 3      \\
+10       &       & 6      \\
+15       &       &       \\
+5        &       &      \\ \hline
+\end{tabular}
+\end{table}
+
+Zweryfikować hipotezę, że targowiska we wszystkich trzech miastach nie różnią się średnimi cenami kwiatu róży.
+
+\vspace{0.8cm}
+**Kod w R**
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# Przykład 5.7 (Greń 1975, s. 105)
+# wprowadzamy dane
+A = c(10,7,3,11,9,10,15,5)
+B = c(3,4,2,4,5)
+C = c(2,8,5,6,3,6)
+# sprawdzamy założenie o normalności rozkładów 
+shapiro.test(A)
+shapiro.test(B)
+shapiro.test(C)
+# przygotowanie danych w formie ramki danych
+kwiat=data.frame(Ceny=c(A, B, C), Miasto=c(rep('A',8),rep('B',5),rep('C',6)))
+head(kwiat)
+# weryfikacja założenia o jednorodności wariancji - test Bartleta
+bartlett.test(kwiat$Ceny,kwiat$Miasto)
+# ANOVA
+model=aov(Ceny~Miasto, data=kwiat)
+summary(model)
+```
+\vspace{0.8cm}
+
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# Przykład 5.7 (Greń 1975, s. 105)
+# wprowadzamy dane
+A = c(10,7,3,11,9,10,15,5)
+B = c(3,4,2,4,5)
+C = c(2,8,5,6,3,6)
+# sprawdzamy założenie o normalności rozkładów 
+shapiro.test(A)
+shapiro.test(B)
+shapiro.test(C)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Wszystkie $p$-wartości > 0.05, więc $H_0$ nie odrzucamy co oznacza, że próby pochodzą z rozkładu normalnego.
+
+\vspace{0.8cm}
+
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# przygotowanie danych w formie ramki danych
+kwiat=data.frame(Ceny=c(A, B, C), Miasto=c(rep('A',8),rep('B',5),rep('C',6)))
+head(kwiat)
+# weryfikacja założenia o jednorodności wariancji - test Bartleta
+bartlett.test(kwiat$Ceny,kwiat$Miasto)
+```
+\vspace{0.8cm}
+**Interpretacja** 
+
+Ponieważ $p$-wartość = 0.07036 > 0.05, więc nie odrzucamy $H_0$, a to oznacza, że założenie o jednorodności wariancji jest spełnione - możemy zatem wykonać analizę wariancji ANOVA.
+
+\vspace{0.8cm}
+
+```{r tidy.opts=list(width.cutoff=37),highlight=FALSE,comment=NA,prompt=TRUE}
+# ANOVA
+model=aov(Ceny~Miasto, data=kwiat)
+summary(model)
+```
+\vspace{0.8cm}
+**Interpretacja**
+
+Ponieważ $p$-wartość = 0.0116 < 0.05, więc odrzucamy $H_0$ i przyjmujemy $H_1$, czyli  we wszystkich trzech miastach ceny kwiatu róży różnią się.
+Następnie stosujemy test Tukeya, aby zbadać istotność różnic pomiędzy średnimi cenami kwiatu róży we wszystkich miastach.
+\vspace{0.8cm}
+
+**Kod w R**
+
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+# testowanie szczegółowe - test wielokrotny Tukeya
+a=HSD.test(model,"Miasto")
+a
+TukeyHSD(model,"Miasto", ordered = TRUE)  
+plot(TukeyHSD(model,"Miasto")) # Rys. 5.5
+```
+\vspace{0.8cm}
+**Realizacja w R**
+```{r tidy.opts=list(width.cutoff=37),comment=NA,highlight=FALSE,prompt=TRUE,fig.cap='Graficzne przedstawienie porównań wielokrotnych',fig.align='center',fig.pos='H',out.width='70%'}
+# testowanie szczegółowe - test wielokrotny Tukeya
+a=HSD.test(model,"Miasto")
+a
+TukeyHSD(model,"Miasto", ordered = TRUE)  
+plot(TukeyHSD(model,"Miasto")) # Rys. 5.5
+```
+
+**Interpretacja**
+
+Dla porównania pomiędzy miastami A i B $p$-wartość = 0.0142703 i jest ona mniejsza od 0.05, zatem  dla tych miast wykazano istotne różnice w średnich cenach kwiatu róży. Ten sam wniosek wynika z analizy wykresu 5.5, gdzie tylko dla porównania odmian A i B odcinki na wykresie nie przechodzą przez punkt zero, co oznacza, że różnią się istotnie.
+
+
+## Zadania do wykonania
+
+**Testy dwóch wartości średnich z rozkładów normalnych - próby zależne**
+
+Zad. 1 (Elandt 1964, str. 104) 
+
+Dane są średnie wyniki długości technicznej słomy lnianej 4 odmian lnu włóknistego odpowiednio w latach 1948 i 1949 w tej samej miejscowości. Czy można stwierdzić wpływ warunków meteorologicznych na długość słomy lnianej?
+\begin{table}[H]
+\centering
+\caption{Dane - Elandt (1964, str. 104)}
+\label{elandt104}
+\begin{tabular}{ccc}
+\hline
+Odmiana/Lata & 1948 ($x_1$) & 1949 ($x_2$) \\ \hline
+1            & 68.9      & 64.5      \\
+2            & 52.6      & 54.8      \\
+3            & 59.5      & 57.9      \\
+4            & 60.3      & 57.2      \\ \hline
+\end{tabular}
+\end{table}
+
+Zad. 2 (Dobek, Szwaczkowski 2007, str. 90) 
+
+Badano wpływ sposobu rozmnażania pewnej rośliny uprawnej na długość pędów. W tym celu na każdym z ośmiu poletek umieszczono rośliny samopylne i pochodzące z krzyżowania, uzyskując następujące wyniki:
+\begin{table}[H]
+\centering
+\caption{Dane - Dobek, Szwaczkowski (2007, str. 90)}
+\label{Dobek90}
+\begin{tabular}{ccccccccc}
+\hline
+Nr poletka  & 1   & 2   & 3   & 4   & 5  & 6  & 7   & 8   \\ \hline
+Krzyżowanie & 188 & 101 & 156 & 197 & 97 & 94 & 120 & 178 \\
+Samopylność & 150 & 97  & 134 & 139 & 95 & 91 & 118 & 161 \\ \hline
+\end{tabular}
+\end{table}
+Zauważmy, że każda grupa roślin z danego poletka ma identyczne warunki glebowe, stąd możemy przyjąć zależność obydwu grup roślin. Zweryfikować hipotezę zerową mówiącą o tym, że różnice między wysokością roślin z poszczególnych poletek są takie same.
+
+\vspace{0.8cm}
+
+**Analiza wariancji - ANOVA**
+
+Zad. 1 (Elandt 1964, str. 155)
+
+Zastosowano 4 terminy cięcia łubinu białego na zielonkę. Doświadczenie przeprowadzono na polu gospodarczym wycinając w różnych miejscach po 8 poletek wielkości 9 $m^2$. Wyniki zestawiono w Tablicy \@ref(elandt155).
+
+\begin{table}[H]
+\centering
+\caption{Dane - Elandt (1964, str. 155)}
+\label{elandt155}
+\begin{tabular}{ccccc}
+\hline
+\multirow{2}{*}{Powtórzenia} & \multicolumn{4}{c}{Terminy}   \\ 
+                             & I     & II    & III   & IV    \\ \hline
+1                            & 290   & 445   & 520   & 370   \\
+2                            & 286   & 450   & 470   & 405   \\
+3                            & 266   & 413   & 516   & 412   \\
+4                            & 270   & 448   & 530   & 403   \\
+5                            & 301   & 454   & 475   & 384   \\
+6                            & 270   & 442   & 508   & 410   \\
+7                            & 264   & 430   & 485   & 415   \\
+8                            & 277   & 438   & 480   & 377   \\  \hline
+\end{tabular}
+\end{table}
+Sprawdź, czy istnieje wpływ terminu w którym cięty był łubin biały na plon zielonki łubinu.
+
+\vspace{0.8cm}
+Zad. 2 (Kala 2005, s. 158) 
+
+W doświadczeniu z czterema odmianami kukurydzy S, L, A, D określono masę tysiąca ziaren (w g):
+
+\begin{table}[H]
+\centering
+\caption{Dane - Kala (2005, s. 158)}
+\label{kala158}
+\begin{tabular}{ccccc}
+\hline
+& \multicolumn{4}{c}{Replikacja}   \\  \hline
+S & 214.6 & 193.1 & 189.1 & 177.7 \\
+L & 262.3 & 235.9 & 216.5 & 219.1 \\
+A & 221.4 & 236.8 & 227.9 & 234.1 \\
+D & 248.0 & 255.0 & 229.6 & 242.8 \\ \hline
+\end{tabular}
+\end{table}
+
+Czy badane odmiany różni przeciętna masa tysiąca ziaren? Przyjąć, że $\alpha$ = 0.05.
+
+\vspace{0.8cm}
+
+**Testy wielokrotne**
+
+Zad. 1 (Dobek, Szwaczkowski 2007, s. 124) 
+
+Badano zawartość fenolu (w mg/litr wody) w siedmiu jeziorach zróżnicowanych pod względem położenia względem ośrodka przemysłowego. Pierwsze z jezior (L1) leży w jego bezpośrednim sąsiedztwie. Kolejne jeziora (L2, L3,..., L7) leżą średnio w odległości co ok. 2 km od poprzedniego, w stronę przeciwną do centrum przemysłowego. Z każdego ze zbiorników pobrano pięć próbek wody w pięciu kolejnych miesiącach, uzyskując następujące wyniki:
+
+\begin{table}[H]
+\centering
+\caption{Dane - Dobek, Szwaczkowski (2007, s. 124)}
+\label{dobek124}
+\begin{tabular}{cccccc}
+\hline
+\multirow{2}{*}{Jezioro} & \multicolumn{5}{c}{Replikacja}   \\
+                         & 1    & 2    & 3    & 4    & 5    \\ \hline
+L1                       & 0.26 & 0.28 & 0.27 & 0.25 & 0.19 \\
+L2                       & 0.30 & 0.27 & 0.26 & 0.22 & 0.19 \\
+L3                       & 0.26 & 0.25 & 0.24 & 0.22 & 0.20 \\
+L4                       & 0.25 & 0.23 & 0.21 & 0.22 & 0.21 \\
+L5                       & 0.23 & 0.22 & 0.22 & 0.21 & 0.20 \\
+L6                       & 0.21 & 0.21 & 0.20 & 0.20 & 0.20 \\
+L7                       & 0.24 & 0.22 & 0.21 & 0.20 & 0.18 \\ \hline
+\end{tabular}
+\end{table}
+
+Spawdzić, czy słuszne jest przypuszczenie, że stężenie fenolu zależy od miejsca położenia jeziora.
+
+\vspace{0.8cm}
+Zad. 2 (Kala 2005, s. 167) 
+
+Badając w doświadczeniu wazonowym wpływ nawożenia mineralnego na plon olejku w zielu cząbru ogrodowego, uzyskano dla 6 kombinacji nawozowych i kontroli następujące obserwacje (w ml/wazon):
+
+\begin{table}[H]
+\centering
+\caption{Dane - (Kala 2005, s. 167)}
+\label{Kala167}
+\begin{tabular}{ccccccc}
+\hline
+K    & N1   & N2   & N3   & N4   & N5   & N6   \\ \hline
+0.16 & 0.18 & 0.62 & 0.62 & 0.29 & 0.39 & 0.61 \\
+0.23 & 0.28 & 0.38 & 0.68 & 0.24 & 0.37 & 0.65 \\
+0.39 & 0.39 & 0.63 & 0.63 & 0.20 & 0.49 & 0.57 \\
+0.34 & 0.16 & 0.52 & 0.52 & 0.26 & 0.44 & 0.67 \\
+0.23 & 0.48 & 0.61 & 0.61 & 0.18 & 0.47 & 0.69 \\
+0.38 & 0.44 & 0.57 & 0.57 & 0.19 & 0.53 & 0.65 \\ \hline
+\end{tabular}
+\end{table}
+Czy wszystkie badane kombinacje nawozowe zapewniają taki sam plon olejku?

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statystyka dla przyrodników w R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statystyka dla przyrodników w R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/cover.png" />
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="zjanna/Skrypt" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statystyka dla przyrodników w R" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:image" content="images/cover.png" />
+
+<meta name="author" content="Idzi Siatkowski">
+<meta name="author" content="Joanna Zyprych-Walczak">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="references.html">
+
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Wprowadzenie</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#cel-ksiazki"><i class="fa fa-check"></i><b>1.1</b> Cel książki</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#co-to-jest-r"><i class="fa fa-check"></i><b>1.2</b> Co to jest R</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#zalety-r"><i class="fa fa-check"></i><b>1.3</b> Zalety R</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#instalacja-r-i-rstudio"><i class="fa fa-check"></i><b>1.4</b> Instalacja R i RStudio</a></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#pakiety"><i class="fa fa-check"></i><b>1.5</b> Pakiety</a></li>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#dokumentacja-i-szukanie-pomocy"><i class="fa fa-check"></i><b>1.6</b> Dokumentacja i szukanie pomocy</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="obliczenia-w-r.html"><a href="obliczenia-w-r.html"><i class="fa fa-check"></i><b>2</b> Obliczenia w R</a><ul>
+<li class="chapter" data-level="2.1" data-path="obliczenia-w-r.html"><a href="obliczenia-w-r.html#proste-obliczenia-matematyczne"><i class="fa fa-check"></i><b>2.1</b> Proste obliczenia matematyczne</a></li>
+<li class="chapter" data-level="2.2" data-path="obliczenia-w-r.html"><a href="obliczenia-w-r.html#zmienne"><i class="fa fa-check"></i><b>2.2</b> Zmienne</a></li>
+<li class="chapter" data-level="2.3" data-path="obliczenia-w-r.html"><a href="obliczenia-w-r.html#wektory-macierze-oraz-ramki-danych"><i class="fa fa-check"></i><b>2.3</b> Wektory, macierze oraz ramki danych</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html"><i class="fa fa-check"></i><b>3</b> Przygotowanie danych</a></li>
+<li class="chapter" data-level="4" data-path="wizualizacje.html"><a href="wizualizacje.html"><i class="fa fa-check"></i><b>4</b> Wizualizacje</a><ul>
+<li class="chapter" data-level="4.1" data-path="wizualizacje.html"><a href="wizualizacje.html#graficzna-prezentacja-danych"><i class="fa fa-check"></i><b>4.1</b> Graficzna prezentacja danych</a></li>
+<li class="chapter" data-level="4.2" data-path="wizualizacje.html"><a href="wizualizacje.html#wykresy-dla-przykadowych-funkcji"><i class="fa fa-check"></i><b>4.2</b> Wykresy dla przykładowych funkcji</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="testowanie.html"><a href="testowanie.html"><i class="fa fa-check"></i><b>5</b> Testowanie</a><ul>
+<li class="chapter" data-level="5.1" data-path="testowanie.html"><a href="testowanie.html#wprowadzenie"><i class="fa fa-check"></i><b>5.1</b> Wprowadzenie</a></li>
+<li class="chapter" data-level="5.2" data-path="testowanie.html"><a href="testowanie.html#testy-istotnosci-dwoch-wartosci-srednich-dla-prob-z-rozkadow-normalnych"><i class="fa fa-check"></i><b>5.2</b> Testy istotności dwóch wartości średnich dla prób z rozkładów normalnych</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="testowanie.html"><a href="testowanie.html#proby-niezalezne"><i class="fa fa-check"></i><b>5.2.1</b> Próby niezależne</a></li>
+<li class="chapter" data-level="5.2.2" data-path="testowanie.html"><a href="testowanie.html#proby-zalezne"><i class="fa fa-check"></i><b>5.2.2</b> Próby zależne</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="testowanie.html"><a href="testowanie.html#testy-istotnosci-dla-dwoch-wartosci-srednich-z-dowolnych-rozkadow"><i class="fa fa-check"></i><b>5.3</b> Testy istotności dla dwóch wartości średnich z dowolnych rozkładów</a></li>
+<li class="chapter" data-level="5.4" data-path="testowanie.html"><a href="testowanie.html#analiza-wariancji---anova"><i class="fa fa-check"></i><b>5.4</b> Analiza wariancji - ANOVA</a></li>
+<li class="chapter" data-level="5.5" data-path="testowanie.html"><a href="testowanie.html#testy-wielokrotne"><i class="fa fa-check"></i><b>5.5</b> Testy wielokrotne</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="badanie-zaleznosci-cech.html"><a href="badanie-zaleznosci-cech.html"><i class="fa fa-check"></i><b>6</b> Badanie zależności cech</a><ul>
+<li class="chapter" data-level="6.1" data-path="badanie-zaleznosci-cech.html"><a href="badanie-zaleznosci-cech.html#korelacje"><i class="fa fa-check"></i><b>6.1</b> Korelacje</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="badanie-zaleznosci-cech.html"><a href="badanie-zaleznosci-cech.html#cechy-ilosciowe"><i class="fa fa-check"></i><b>6.1.1</b> Cechy ilościowe</a></li>
+<li class="chapter" data-level="6.1.2" data-path="badanie-zaleznosci-cech.html"><a href="badanie-zaleznosci-cech.html#cechy-jakosciowe"><i class="fa fa-check"></i><b>6.1.2</b> Cechy jakościowe</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="badanie-zaleznosci-cech.html"><a href="badanie-zaleznosci-cech.html#tablice-kontyngencji"><i class="fa fa-check"></i><b>6.2</b> Tablice kontyngencji</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="7" data-path="regresja-liniowa-i-wielokrotna.html"><a href="regresja-liniowa-i-wielokrotna.html"><i class="fa fa-check"></i><b>7</b> Regresja liniowa i wielokrotna</a><ul>
+<li class="chapter" data-level="7.1" data-path="regresja-liniowa-i-wielokrotna.html"><a href="regresja-liniowa-i-wielokrotna.html#regresja-liniowa"><i class="fa fa-check"></i><b>7.1</b> Regresja liniowa</a></li>
+<li class="chapter" data-level="7.2" data-path="regresja-liniowa-i-wielokrotna.html"><a href="regresja-liniowa-i-wielokrotna.html#regresja-wielokrotna"><i class="fa fa-check"></i><b>7.2</b> Regresja wielokrotna</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statystyka dla przyrodników w R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regresja-liniowa-i-wielokrotna" class="section level1">
+<h1><span class="header-section-number">Rozdział 7</span> Regresja liniowa i wielokrotna</h1>
+<div id="regresja-liniowa" class="section level2">
+<h2><span class="header-section-number">7.1</span> Regresja liniowa</h2>
+<p>Mamy dane dwie zmienne (cechy) x i y. Chcemy określić zależność liniową pomiędzy tymi zmiennymi, tzn. wyznaczyć liniowy wpływ zmiennej x na zmienną y. W tym celu wyznaczymy linię prostą zwaną regresją liniową postaci</p>
+<p><span class="math inline">\(y = ax+b\)</span></p>
+<p>gdzie</p>
+<p><span class="math inline">\(y\)</span> - zmienna zależna, objaśniana (the response variable)</p>
+<p><span class="math inline">\(x\)</span> - zmienna niezależna, objaśniająca (the predyctor variable)</p>
+<p><span class="math inline">\(a\)</span> - współczynnik regresji</p>
+<p><span class="math inline">\(b\)</span> - wyraz wolny (intercept).</p>
+<p>Miarą dopasowania regresji liniowej do danych jest współczynnik determinacji <span class="math inline">\(R^2\)</span>.</p>
+<p>W R wyznaczenie regresji liniowej można wykonać za pomocą funkcji postaci <span class="math inline">\(lm(y~x)\)</span> lub <span class="math inline">\(lm(y~x, dane)\)</span>.</p>
+
+<p><strong>Przykład (Greń 1975, s. 176) </strong> Badając zależność między wielkością produkcji X pewnego wyrobu a zużyciem Y pewnego surowca zużywanego w produkcji tego wyrobu otrzymano dla losowej próby 7 obserwacji następujące wyniki (<span class="math inline">\(x_i\)</span> w tys. sztuk, <span class="math inline">\(y_i\)</span> w tonach):</p>
+
+<p>Wyznaczyć równanie regresji liniowej.</p>
+
+<p><strong>Kod w R</strong></p>
+
+<p><strong>Realizacja w R:</strong></p>
+<p><strong>Decyzje:</strong> Ponieważ <span class="math inline">\(p\)</span>-wartości dla wyrazu wolnego a (Intercept) oraz dla współczynnika kierunkowego b są mniejsze od 0,05 więc odrzucamy hipotezy zerowe i przyjmujemy hipotezy alternatywne.</p>
+<p><strong>Interpretacja:</strong> Wyraz wolny <span class="math inline">\(a\)</span> (Intercept) oraz współczynnik kierunkowy b są istotne dla równania regresji liniowej <span class="math inline">\(y =a+bx\)</span>.</p>
+<p><img src="bookdown-ksiazka_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">abline</span>(model1)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># rysunek danych, równania regresji liniowej oraz przedziały ufności</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">ci.plot</span>(model1)</code></pre></div>
+<p><img src="bookdown-ksiazka_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
+<p>Równanie regresji liniowej jest postaci: </p>
+</div>
+<div id="regresja-wielokrotna" class="section level2">
+<h2><span class="header-section-number">7.2</span> Regresja wielokrotna</h2>
+<p>Mamy dane cechy <span class="math inline">\(x_1, x_2, ..., x_n\)</span> i <span class="math inline">\(y\)</span>. Chcemy określić zależność liniową pomiędzy zmienną y a zmiennymi <span class="math inline">\(x_1, x_2, ..., x_n\)</span>, tzn. wyznaczyć liniowy wpływ zmiennych <span class="math inline">\(x_1, x_2, ..., x_n\)</span> na zmienną <span class="math inline">\(y\)</span>. W tym celu wyznaczymy regresją wielokrotną postaci $y = b_0 + b_1<em>x_1 + b_2</em>x_2 + b_3<em>x_3 + … + b_n</em>x_n $ gdzie <span class="math inline">\(y\)</span> - zmienna zależna, objaśniana (the response variable),</p>
+<p><span class="math inline">\(x_1, x_2, ..., x_n\)</span> - zmienne niezależne, objaśniające (the predyctor variables),</p>
+<p><span class="math inline">\(b_0\)</span> - wyraz wolny (intercept),</p>
+<p><span class="math inline">\(b_1, ..., b_n\)</span> - współczynniki regresji.</p>
+<p>Miarą dopasowania regresji wielokrotnej do danych jest współczynnik determinacji <span class="math inline">\(R^2\)</span>.</p>
+<p>W R wyznaczenie regresji wielokrotnej, tak jak regresji liniowej, można wykonać za pomocą funkcji postaci <span class="math inline">\(lm(y~x_1+x_2+...+x_n)\)</span> lub $lm(y~x_1+x_2+…+x_n, dane) $</p>
+
+<p><strong>Przykład (Elandt 1964, s. 441)</strong></p>
+<p>Badano cztery cechy słomy konopi: ciężar włókna (g), długość łodygi (cm), grubość ło-dygi (mm) oraz ciężar łodygi (g). Znaleźć równanie regresji wielokrotnej liniowej określają-cej zależność ciężaru włókna od długości, grubości oraz ciężaru łodygi.</p>
+
+
+<p><strong>Kod w R</strong></p>
+<pre class="text"><code># Elandt 1964, s.441 - regresja liniowa wielokrotna
+rm(list=ls()) # usuwanie wszystkich zmiennych z przestrzeni roboczej
+setwd(&quot;D://abc&quot;) # ustanowienie aktualnego folderu
+# tworzenie danych
+sloma=read.table(&quot;Elandt-441-regresja-wielokrotna.txt&quot;, header=T)
+sloma
+head(sloma)
+# korelacje cząstkowe
+round(cor(sloma),2)
+# regresja liniowa wielokrotna
+regresja&lt;-lm(ciezwlokna~dluglodygi+grublodygi+ciezlodygi, data=sloma)
+summary(regresja)
+# ANOVA dla regresji
+anova(regresja)</code></pre>
+
+<p><strong>Realizacja w R:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Elandt 1964, s.441 - regresja liniowa wielokrotna</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>()) <span class="co"># usuwanie wszystkich zmiennych z przestrzeni roboczej</span>
+&gt;<span class="st"> </span><span class="kw">setwd</span>(<span class="st">&quot;D://abc&quot;</span>) <span class="co"># ustanowienie aktualnego folderu</span>
+&gt;<span class="st"> </span><span class="co"># tworzenie danych</span>
+<span class="er">&gt;</span><span class="st"> </span>sloma=<span class="kw">read.table</span>(<span class="st">&quot;Elandt-441-regresja-wielokrotna.txt&quot;</span>, <span class="dt">header=</span>T)
+&gt;<span class="st"> </span>sloma
+&gt;<span class="st"> </span><span class="kw">head</span>(sloma)
+&gt;<span class="st"> </span><span class="co"># korelacje cząstkowe</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">round</span>(<span class="kw">cor</span>(sloma),<span class="dv">2</span>)
+&gt;<span class="st"> </span><span class="co"># regresja liniowa wielokrotna</span>
+<span class="er">&gt;</span><span class="st"> </span>regresja&lt;-<span class="kw">lm</span>(ciezwlokna~dluglodygi+grublodygi+ciezlodygi, <span class="dt">data=</span>sloma)
+&gt;<span class="st"> </span><span class="kw">summary</span>(regresja)
+&gt;<span class="st"> </span><span class="co"># ANOVA dla regresji</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">anova</span>(regresja)</code></pre></div>
+<p>AAAAA</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="references.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/07-regresja.Rmd",
+"text": "Edit"
+},
+"download": ["bookdown-ksiazka.pdf", "bookdown-ksiazka.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
