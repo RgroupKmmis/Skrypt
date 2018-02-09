@@ -1,0 +1,26 @@
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{amssymb}
+\usepackage{natbib}
+\usepackage{tabularx} % in the preamble
+ \linespread{1.5} 
+\usepackage{tabulary}
+\usepackage{float}
+\usepackage{etoolbox}
+\apptocmd{\thebibliography}{\csname phantomsection\endcsname\addcontentsline{toc}{chapter}{\bibname}}{}{}
+% \usepackage[MeX,OT4,plmath]{polski}
+\usepackage[utf8]{inputenc} % albo latin2, cp1250
+%\usepackage[OT4]{fontenc}
+\usepackage[polish]{babel}
+\usepackage{graphicx} % wstawianie grafiki
+\usepackage{tikz} 
+\usepackage{subfig}  %zeby obrazy byly obok siebie
+\usepackage{booktabs}
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+

@@ -1,0 +1,323 @@
+# Odpowiedzi do zadań
+
+**Rozdział 1**
+  
+Zad. 1
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+install.packages('agricolae')
+library('agricolae')
+?correlation
+```
+
+
+Zad. 2
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+install.packages('agridat')
+library('agridat')
+??yates.oats
+```
+
+
+Zad. 3
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+install.packages('openxlsx')
+library('openxlsx')
+?read.xlsx
+```
+
+\newpage
+
+**Rozdział 2**
+
+**Wektory**
+
+Zad. 2
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+cc<-rep(1,8)
+d<-rep(0,199)
+```
+
+Zad. 3
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+a)
+sum((100:200)^2)
+b)
+sum(sqrt(log10(10^(0:5)))) 
+```
+
+Zad. 4
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+a)
+rep(1,8)
+b)
+rep(c(1,4),7) 
+c)
+rep(c(3,6),c(8,3))
+d)
+rep(5:1,1:5)
+e)
+rep(c(12,21,43),c(3,1,2)) 
+f)
+rep(c("A","B"),3)
+g)
+rep(c(1,3,5,7,9,11),each=2)
+``` 
+
+\newpage
+
+**Macierze** 
+
+Zad. 1
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+A=matrix(c(1,2,3,0,2,-5,7,1,-3,4,5,6,0,1,-2,-3),4,4)
+B=matrix(c(1,4,3,2,7,2,-1,0),4,2)
+det(A)
+A%*%B
+t(A)
+solve(A)
+```
+
+Zad. 2
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+A =matrix(c(1,4,7,2,5,8,3,68,9),3,3,byrow=T)
+nrow(A)
+ncol(A)
+sum(A)
+colMeans(A)
+sum(A[2,])
+A[1,2]+A[3,3]
+A[,3]
+A[2,]
+```
+
+\vspace{0.4cm}
+**Ramki danych**
+
+Zad. 1
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+data(iris)
+dim(iris)
+by(iris$Sepal.Width,iris$Species,mean)
+by(iris$Sepal.Width,iris$Species,sd)
+virginica<-subset(iris,iris$Species=='virginica')
+virginica.sl<-virginica$Sepal.Length
+table(iris$Species)
+by(iris$Sepal.Length,iris$Species,min)
+```
+
+\vspace{0.8cm}
+**Rozdział 3**
+
+Zad. 1
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+a)
+dane<-read.table('dane.txt', header=T)
+b)
+table(dane$miejsce.zamieszkania)
+c)
+table(dane$miejsce.zamieszkania,dane$wielkość.rodziny)
+d)
+table(dane$miejsce.zamieszkania,dane$jedzie.na.wakacje)
+e)
+max(subset(dane$dochód,dane$wielkość.rodziny=='duże' & 
+             dane$miejsce.zamieszkania=='miasto'))
+```
+
+Zad. 2
+```{r eval=FALSE,echo=TRUE,highlight=FALSE,tidy=TRUE}
+library(openxlsx)
+dane<-read.xlsx('studenci.xlsx')
+a)
+table(dane$`Kierunek studiów`,dane$Płeć)
+b)
+by(dane$`Stypendium naukowe`,dane$Płeć,mean)
+c)
+subset(dane,dane$Płeć=='kobieta' & dane$`Kierunek studiów`=='Agroturystyka')
+d)
+subset(dane,dane$`Kierunek studiów`=='Leśnictwo' & dane$Płeć=='mężczyzna' 
+       & dane$`Stypendium naukowe`=='0')
+```
+ 
+ \newpage
+ 
+ **Rozdział 4**
+ 
+Zad. 1
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+library(openxlsx)
+dane<-read.xlsx('studenci.xlsx')
+plot(dane$Wiek,dane$`Stypendium naukowe`, col=c('red','blue'))
+```
+
+Zad. 2
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+curve(x^2,from=-5,to=5,col='red')
+curve((x-2)^2,from=-5,to=5,col='orange',add=T)
+curve((x-2)^2+3,from=-5,to=5,col='green',add=T)
+curve(x^2+3,from=-5,to=5,col='blue',add=T)
+curve((x+1)^2-2,from=-5,to=5,col='violet',add=T)
+abline(v=0,col='black')
+title(main="Wykresy funkcji przesuniętych")
+```
+
+Zad. 3
+```{r eval=FALSE,tidy=TRUE, echo=TRUE,highlight=FALSE}
+hist(dane$`Stypendium naukowe`, main='Histogram wysokości stypendium
+     naukowego', xlab='Wysokość stypendium naukowego')
+```
+
+ \vspace{0.8cm}
+ **Rozdział 5**
+ 
+**Testy dwóch wartości średnich z rozkładów normalnych - próby zależne**
+
+
+Zad. 1
+```{r eval=FALSE,tidy=TRUE, echo=TRUE,highlight=FALSE}
+numer_odmiany=1:4
+dł_słomy_1948=c(68.9,52.6,59.5,60.3)
+dł_słomy_1949=c(64.5,54.8,57.9,57.2)
+dane_dł_słomy=data.frame(numer_odmiany,dł_słomy_1948,dł_słomy_1949)
+# testowanie zgodności z rozkładem normalnym
+shapiro.test(dł_słomy_1948)
+shapiro.test(dł_słomy_1949)
+dane<-data.frame(Wartości=c(dł_słomy_1948,dł_słomy_1949), 
+                 Rok=rep(1948:1949,c(4,4)))
+# sprawdzenie równosci wartości średnich
+t.test(Wartości~Rok,dane,var.equal = TRUE,paired= TRUE, conf.level = 0.95)
+```
+
+Zad. 2
+```{r eval=FALSE,tidy=TRUE, echo=TRUE,highlight=FALSE}
+krzyzowanie<-c(188,101,156,197,97,94,120,178)
+samopylnosc<- c(150,97,134,139,95,91,118,161)
+shapiro.test(krzyzowanie)
+shapiro.test(samopylnosc)
+t.test(krzyzowanie,samopylnosc, conf.level = 0.95, paired=TRUE)
+```
+
+ \vspace{0.8cm}
+ **Analiza wariancji - Anova**
+
+
+Zad. 1
+```{r eval=FALSE,tidy=TRUE, echo=TRUE,highlight=FALSE}
+Plon <- c(290,286,266,270,301,270,264,277,445,450,413,448,454,442,430,438,520,470,516,530,475,508,485,480,370,405,412,403,384,410,415,377)
+Terminy <- as.factor(rep(1:4, c(8,8,8,8)))
+levels(Terminy) <- c("I", "II","III", "IV")
+dane<-data.frame(Plon, Terminy)
+model<-lm(Plon~Terminy, data=dane)
+rozwiazanie=anova(model)
+rozwiazanie
+```
+
+Zad. 2
+```{r eval=FALSE,tidy=TRUE, echo=TRUE,highlight=FALSE}
+masa <- c(214.6, 193.1 , 189.1 , 177.7,262.3 , 235.9 , 216.5 , 219.1,221.4 , 236.8 , 227.9 , 234.1,248.0 , 255.0 , 229.6 , 242.8)
+odmiany <- as.factor( c('S','L','A','D'))
+dane<-data.frame(masa, odmiany)
+model<-lm(masa~odmiany, data=dane)
+rozwiazanie=anova(model)
+rozwiazanie
+```
+
+ \vspace{0.8cm}
+ **Testy wielokrotne**
+ 
+
+Zad. 1
+```{r eval=FALSE,tidy=TRUE, echo=TRUE,highlight=FALSE}
+L1=c(0.26 , 0.28 , 0.27 , 0.25 , 0.19)
+L2=c(0.30 , 0.27 , 0.26 , 0.22 , 0.19)
+L3=c(0.26 , 0.25 , 0.24 , 0.22 , 0.20)
+L4=c(0.25 , 0.23 , 0.21 , 0.22 , 0.21)
+L5=c(0.23 , 0.22 , 0.22 , 0.21 , 0.20)
+L6=c(0.21 , 0.21 , 0.20 , 0.20 , 0.20)
+L7=c(0.24 , 0.22 , 0.21 , 0.20 , 0.18)
+fenol=c(L1,L2,L3,L4,L5,L6,L7)
+jeziora=as.factor(rep(c('L1','L2','L3','L4','L5','L6','L7'),each=5))
+dane=data.frame(fenol,jeziora)
+model = aov(fenol~jeziora, dane)
+a=HSD.test(model,"jeziora") 
+a
+TukeyHSD(model,"jeziora", ordered = TRUE)
+plot(TukeyHSD(model,"jeziora"))
+```
+
+Zad. 2
+```{r eval=FALSE,tidy=TRUE, echo=TRUE,highlight=FALSE}
+
+plon=c(0.16 , 0.18 , 0.62 , 0.62 , 0.29 , 0.39 , 0.61,0.23 , 0.28 , 0.38 , 0.68 , 0.24 , 0.37 , 0.65, 0.39 , 0.39 , 0.63 , 0.63 , 0.20 , 0.49 , 0.57, 0.34 , 0.16 , 0.52 , 0.52 , 0.26 , 0.44 , 0.67, 0.23 , 0.48 , 0.61 , 0.61 , 0.18 , 0.47 , 0.69, 0.38 , 0.44 , 0.57 , 0.57 , 0.19 , 0.53 , 0.65)
+nawożenie=as.factor(rep(c('K', 'N1', 'N2', 'N3', 'N4', 'N5', 'N6'),6))
+dane<-data.frame(plon, nawożenie)
+model = aov(plon~nawożenie, dane)
+a=HSD.test(model,"nawożenie") 
+a
+TukeyHSD(model,"nawożenie", ordered = TRUE)
+plot(TukeyHSD(model,"nawożenie"))
+```
+
+ \vspace{0.8cm}
+ **Rozdział 6**
+ \vspace{0.8cm}
+ 
+**Korelacje**
+
+
+Zad. 1
+```{r eval=FALSE,tidy=TRUE, echo=TRUE,highlight=FALSE}
+wysokość=c(163, 170, 158, 156, 161, 159, 161, 168, 177)
+obwód=c(21, 24, 22, 19, 24, 26, 26, 27, 28)
+cor.test(wysokość, obwód)
+```
+
+Zad. 2
+```{r eval=FALSE,tidy=TRUE, echo=TRUE,highlight=FALSE}
+masa=c(44.1, 45.6, 45.2, 46.8, 43.3, 47.1, 46.8, 45.7)
+plon=c(4.68, 4.76, 4.71, 4.87, 4.31, 4.97, 4.82, 4.72)
+cor.test(masa, plon)
+```
+
+ \vspace{0.8cm}
+ **Tablice kontyngencji**
+ 
+
+Zad. 1
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+x = matrix(c(71, 19, 57, 63), ncol = 2)
+x
+chisq.test(x)
+```
+
+Zad. 2
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+x = matrix(c(18, 25, 31, 183), ncol = 2)
+x
+chisq.test(x)
+```
+
+ \newpage
+ 
+ **Rozdział 7**
+
+**Regresja liniowa**
+
+
+Zad. 1
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+x = c(200, 400, 600, 800, 1000, 1200)
+y = c(10, 15, 23, 26, 33, 37)
+model1=lm(y~x)
+summary(model1)
+```
+
+Zad. 2
+```{r eval=FALSE,echo=TRUE,highlight=FALSE}
+X1=c(1,0,1,2,1,2)
+X2=c(0,1,1,1,2,2)
+Y<-c(3,7,8,11,14,16)
+plon = data.frame(X1, X2, Y)
+plon
+modelw = lm(Y ~ X1 + X2, data = plon)
+summary(modelw)
+```
